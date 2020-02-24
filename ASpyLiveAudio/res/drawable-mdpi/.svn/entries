@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1241"
+   name=""
+   committed-date="2014-01-11T04:46:21.157112Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/res/drawable-mdpi"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1199"
+   name="ic_launcher.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b627720bde39c611e308368d97d33af5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1241"
+   name="Thumbs.db"
+   text-time="2014-01-10T09:45:58.000000Z"
+   committed-date="2014-01-11T04:46:21.157112Z"
+   checksum="e40aacc39f742dfb7ec1f3224be0aedd"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="menu_quit.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b627720bde39c611e308368d97d33af5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="logoerp.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="da68324a4df2dd668e2cc0289a31b455"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="icon.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b627720bde39c611e308368d97d33af5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+</wc-entries>

@@ -1,0 +1,416 @@
+package net.process.locator1.erp;
+
+
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Currency;
+
+import net.process.locator1.FileUtil;
+import net.process.locator1.GPSPosition;
+import net.process.locator1.UtilGame;
+import net.process.locator1.video.InformVideoLiveRTMP;
+
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.net.NetworkInfo.State;
+import android.net.wifi.WifiManager;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.util.Log;
+import android.widget.Toast;
+
+public class ContextManagerErp
+{	
+	private Context _currentContext;
+	private static ContextManagerErp _instance;
+	
+	/**
+	 * 
+	 */
+	public static ContextManagerErp getInstance()
+	{
+		//synchronized (_instance)
+		//{
+		//	Log.v("lamdaica1", "Check Instance ContextManager:"+(_instance));		
+		//	Log.v("lamdaica1", "Check Instance ContextManager:"+(_instance==null));	
+		
+			if(_instance==null) _instance=new ContextManagerErp();					
+		//}
+		return _instance;
+	}
+	public ContextManagerErp() 
+	{
+		 Log.v("lamdaica1", "Assign context...");
+		 //if(currentContext!=null) _currentContext=currentContext;		
+	}	
+	public void setCurrentContext(Context currentContext) 
+	{		
+		_currentContext=currentContext;
+	}
+	public Context getCurrentContext() 
+	{		
+		return _currentContext;
+	}
+	public void setMobileDataEnabled(boolean enabled) 
+	{
+		if(_currentContext==null) return;
+	    ConnectivityManager conman = (ConnectivityManager) _currentContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    Class conmanClass;
+		try 
+		{
+			conmanClass = Class.forName(conman.getClass().getName());
+		
+		    final Field iConnectivityManagerField = conmanClass.getDeclaredField("mService");
+		    iConnectivityManagerField.setAccessible(true);
+		    final Object iConnectivityManager = iConnectivityManagerField.get(conman);
+		    final Class iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
+		    final Method setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
+		    setMobileDataEnabledMethod.setAccessible(true);
+	
+		    setMobileDataEnabledMethod.invoke(iConnectivityManager, enabled);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void turnGPSOn(){
+		try
+		{
+			if(_currentContext==null) return;
+		    String provider = Settings.Secure.getString(_currentContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+	
+		  //if gps is disabled
+		    if(!provider.contains("gps"))
+		    { 
+		        final Intent poke = new Intent();
+		        poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider"); 
+		        poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+		        poke.setData(Uri.parse("3")); 
+		        _currentContext.sendBroadcast(poke);
+		    }
+		}catch(Exception ex)
+		{			
+			try 
+			{
+				  Settings.Secure.setLocationProviderEnabled(_currentContext.getContentResolver(), LocationManager.GPS_PROVIDER, true);
+			} catch (Exception e) {
+			 // logger.log(Log.ERROR, e, e.getMessage());
+			}
+		}
+		try
+		{
+			new GPSPosition(getCurrentContext());
+		}catch(Exception ex){}		
+	}
+	public void turnGPSOff(){
+		try
+		{
+			if(_currentContext==null) return;
+		    String provider = Settings.Secure.getString(_currentContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+	
+		    if(provider.contains("gps")){ //if gps is enabled
+		        final Intent poke = new Intent();
+		        poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+		        poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+		        poke.setData(Uri.parse("3")); 
+		        _currentContext.sendBroadcast(poke);
+		    }
+		}catch(Exception ex)
+		{
+			try 
+			{
+				  Settings.Secure.setLocationProviderEnabled(_currentContext.getContentResolver(), LocationManager.GPS_PROVIDER, false);
+			} catch (Exception e) {
+			 // logger.log(Log.ERROR, e, e.getMessage());
+			}			
+		}
+	}
+	private void turnWIFIOn()
+	{
+		try
+		{
+		if(_currentContext==null) return;
+		WifiManager	wifiManager = (WifiManager) _currentContext.getSystemService(Context.WIFI_SERVICE);
+		  if(wifiManager.isWifiEnabled()){
+		    //wifiManager.setWifiEnabled(false);
+		  }else{
+		    wifiManager.setWifiEnabled(true);
+		  }
+		}catch(Exception ex){}
+	}
+	private void turnWIFIOff()
+	{
+		try
+		{
+		if(_currentContext==null) return;
+		WifiManager	wifiManager = (WifiManager) _currentContext.getSystemService(Context.WIFI_SERVICE);
+		if(wifiManager.isWifiEnabled()){
+		    wifiManager.setWifiEnabled(false);
+		  }else{
+		    //wifiManager.setWifiEnabled(true);
+		}		
+	}catch(Exception ex){}
+	}	
+	public boolean isConnectedGPRS()
+	{
+		if(_currentContext==null) return false;
+		ConnectivityManager conMan = (ConnectivityManager) _currentContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		//mobile
+		State mobile = conMan.getNetworkInfo(0).getState();
+
+		return (mobile == android.net.NetworkInfo.State.CONNECTED);
+				//|| mobile ==android.net.NetworkInfo.State.CONNECTING);				
+				//NetworkInfo.State.CONNECTED || mobile == NetworkInfo.State.CONNECTING) ;			 
+		
+	}
+	public boolean isConnectedWIFI()
+	{
+		if(_currentContext==null) return false;
+		ConnectivityManager conMan = (ConnectivityManager) _currentContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		//wifi
+		State wifi = conMan.getNetworkInfo(1).getState();
+		
+		return (wifi == android.net.NetworkInfo.State.CONNECTED);	
+	}
+	public boolean isConnected() {
+		if(_currentContext==null) return false;
+		
+        ConnectivityManager connectivityManager = (ConnectivityManager) _currentContext
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = null;
+        if (connectivityManager != null) {
+
+            networkInfo = connectivityManager
+                    .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+           
+            if (!networkInfo.isAvailable()) {
+            	UtilGame.typeconnect="gprs";
+                networkInfo = connectivityManager
+                        .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            }
+            else UtilGame.typeconnect="wifi";
+        }
+        return networkInfo == null ? false : networkInfo.isConnected();
+    }
+	public void restartPhone() 
+	{
+		try {
+	        Process proc = Runtime.getRuntime().exec(new String[] { "su", "-c", "reboot" });
+	        proc.waitFor();
+	        
+	        //PowerManager pm = (PowerManager) _currentContext.getSystemService(Context.POWER_SERVICE);
+	        //pm.reboot("Ptracker reboot");
+	    	// _currentContext.getSystemService(Context.POWER_SERVICE);
+			
+	    } catch (Exception ex) {
+	        Log.i("lamdaica", "Could not reboot", ex);
+	    }
+	}	
+	public boolean isServiceRunning1() {
+	    ActivityManager manager = (ActivityManager) _currentContext.getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if ((UtilGame.packageSoft+".APTrackerService1").equals(service.service.getClassName())) {
+	            return true;
+	        }
+	        
+	    }
+	    return false;
+	}	
+	public boolean isServiceRunning2() {
+	    ActivityManager manager = (ActivityManager) _currentContext.getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if ((UtilGame.packageSoft+".APTrackerService2").equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	public boolean isServiceRunning() {
+	    ActivityManager manager = (ActivityManager) _currentContext.getSystemService(Context.ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if ((UtilGame.packageSoft+".APTrackerService1").equals(service.service.getClassName())) {
+	            return true;
+	        }
+	        if ((UtilGame.packageSoft+".APTrackerService2").equals(service.service.getClassName())) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	public void startServiceIfNeed() 
+	{
+		boolean isRunning=isServiceRunning();
+		if(!isRunning)
+		{			
+			Intent mServiceIntent = new Intent();
+			mServiceIntent.setAction(UtilGame.packageSoft+".APTrackerService1");
+			_currentContext.startService(mServiceIntent);
+		}
+	}
+	public void startService2() {
+		// TODO Auto-generated method stub
+		if(!isServiceRunning2())
+		{
+			Intent mServiceIntent = new Intent();
+			mServiceIntent.setAction(UtilGame.packageSoft+".APTrackerService2");
+			_currentContext.startService(mServiceIntent);
+		}
+	}	
+	public void startService1() {
+		// TODO Auto-generated method stub
+		if(!isServiceRunning1())
+		{
+			Intent mServiceIntent = new Intent();
+			mServiceIntent.setAction(UtilGame.packageSoft+".APTrackerService1");
+			_currentContext.startService(mServiceIntent);
+		}
+	}	
+	public void restartService() {
+		try
+		{
+			//UtilGame.isRestarting=true;
+			// TODO Auto-generated method stub
+			if(isServiceRunning1())
+			{
+				Intent mServiceIntent = new Intent();
+				mServiceIntent.setAction(UtilGame.packageSoft+".APTrackerService1");
+				_currentContext.stopService(mServiceIntent);			
+			}
+			else if(isServiceRunning2())
+			{
+				Intent mServiceIntent = new Intent();
+				mServiceIntent.setAction(UtilGame.packageSoft+".APTrackerService2");
+				_currentContext.stopService(mServiceIntent);			
+			}	
+		}catch(Exception ex)
+		{
+			UIManager.getInstance().showMsg("Expcetion when restart:"+ex.toString());
+		}
+	}	
+	public void saveToDB(String key,String value) {
+		SharedPreferences settings =_currentContext.getSharedPreferences(FileUtil.FILE_SAVE, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(key, value);		
+		//editor.putString("ptrackerkey", value);
+		// Commit the edits!
+		editor.commit();
+
+	}	
+	public String readFromDB(String key) {
+		SharedPreferences settings =_currentContext.getSharedPreferences(FileUtil.FILE_SAVE, 0);
+		String pKey = settings.getString(key, "");
+		return pKey;
+	}
+	public void deleteFromDB(String key) {
+		SharedPreferences settings =_currentContext.getSharedPreferences(FileUtil.FILE_SAVE, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.remove(key);		
+		editor.commit();
+	}
+	public String readLastPosition() {
+		String key=FileUtil.KEY_PTRACKER;
+		SharedPreferences settings =_currentContext.getSharedPreferences(FileUtil.FILE_SAVE, 0);
+		String pKey = settings.getString(key, "");
+		return pKey;
+	}
+	private void getActivityList()  {
+//	    Intent i = new Intent(Intent.ACTION_MAIN);
+//	    i.addCategory(Intent.CATEGORY_LAUNCHER);
+//	    PackageManager pm = this.getPackageManager();
+//
+//	    PackageInfo info = pm.getPackageInfo("net.process.locator1", PackageManager.GET_ACTIVITIES);
+//
+//	    ApplicationInfo test = info.applicationInfo;
+//	    ActivityInfo[] list = info.activities;
+
+	}
+	public void startLiveVideo() {
+		// TODO Auto-generated method stub
+		  try
+	  	  {
+			  //String s=android.os.Build.VERSION.RELEASE;
+			  if(!MemberUtil.audioSafe)
+			  {
+				  //NavigateScreen.getInstance().setDisplay(v.getContext(), InformVideoLiveRTMP.class);
+		      	  Intent mi = new Intent(getCurrentContext() , InformVideoLiveRTMP.class);
+		      	getCurrentContext().startActivity(mi);
+		          //finish();
+			  }
+			  else 
+			  {
+				  if(!isInstalledLiveSwf())
+				  {
+					    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(getCurrentContext());
+						dlgAlert.setMessage("Bạn đang dùng chế độ LiveVideo Smooth, nên phải cài plugin PtrackerLive, bạn có muốn cài đặt luôn ko ( nếu ko có thể vào cài đặt và bỏ chế độ này đi)? ");
+						dlgAlert.setTitle("Cài đặt plugin PtrackerLive");
+						//dlgAlert.setPositiveButton("OK", null);
+						dlgAlert.setCancelable(true);
+						
+						
+						dlgAlert.setPositiveButton("Cài đặt",
+							    new DialogInterface.OnClickListener() {
+							        public void onClick(DialogInterface dialog, int which) {
+							        	try
+							        	{
+							    			String sVI="http://p.vhc.vn/p/PtrackerErpPlugin.apk";
+							    			Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse(sVI));
+							    			getCurrentContext().startActivity(i);
+							    		}catch(Exception ex){}
+							        	dialog.dismiss();			        	
+							        }
+							    });
+						dlgAlert.setNegativeButton("Không",
+							    new DialogInterface.OnClickListener() {
+							        public void onClick(DialogInterface dialog, int which) 
+							        {
+							          dialog.dismiss();
+							        }
+							    });
+						dlgAlert.create().show();
+				  }
+				  else 
+				  {
+					  Intent LaunchIntent = getCurrentContext().getPackageManager().getLaunchIntentForPackage("air.rom.youtube.play.live");
+					  LaunchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					  getCurrentContext().startActivity(LaunchIntent);
+				  }
+			  }
+	  	  }catch(Exception ex)
+			 {
+				Toast.makeText(getCurrentContext().getApplicationContext(), ex.toString(), Toast.LENGTH_LONG).show();
+			 }
+	}
+	private boolean isInstalledLiveSwf()
+    {
+		String uri="air.rom.youtube.play.live";
+        PackageManager pm = getCurrentContext().getPackageManager();
+        boolean app_installed = false;
+        try
+        {
+               pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+               app_installed = true;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+               app_installed = false;
+        }
+        return app_installed ;
+    }
+	
+}

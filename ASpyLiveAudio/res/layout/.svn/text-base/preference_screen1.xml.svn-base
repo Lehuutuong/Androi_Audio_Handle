@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+	<PreferenceCategory android:title="Streaming Live">
+		<ListPreference android:title="Option Video"  
+			android:summary="Option Video Recorder" android:key="methodRef"
+			android:defaultValue="1" 
+			android:entries="@array/method_ref"
+			android:persistent="true"
+			android:entryValues="@array/methodval_ref" />			
+		<ListPreference android:title="Quality Picture"  
+			android:key="sizePictureRef"
+			android:defaultValue="320x240" 
+			android:entries="@array/streaming_quality"
+			android:persistent="true"
+			android:entryValues="@array/streaming_quality" />
+		<CheckBoxPreference android:title="Mode Offline"
+		    android:persistent="true"
+			android:defaultValue="false" android:summary="Lựa chọn này sẽ giúp bạn chạy phần mềm ở chề độ offline ngay cả không có mạng!"
+			android:key="modeOfflineRef" />	
+		<CheckBoxPreference android:title="Video Live Smooth"
+		    android:persistent="true"
+			android:defaultValue="false" android:summary="Lựa chọn này sẽ giúp bạn chạy LiveVideo rõ nét, tuy nhiên bạn sẽ phải cài thêm PtrackerLive-1 Plugin"
+			android:key="audioSafeRef" />	
+	</PreferenceCategory>		
+</PreferenceScreen>

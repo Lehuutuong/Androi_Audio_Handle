@@ -1,0 +1,99 @@
+package vn.vhc.live.erp;
+
+public class MemberUtil {
+
+	
+	
+	public static String memberid="0";
+	
+	
+	public static String companyid="26";
+	public static String fullNamex="";
+	public static String companyName="";
+	public static String placeid="0";
+	
+	
+	public static String resourceDirectory="/sdcard/tmpb/";
+	public static String resourceDirectoryLive="/sdcard/tmpb/live/";
+	
+	public static boolean audioSafe=false;
+	public static String resolutionPicture="0x0";
+	
+	
+	
+	public static int sizePictureWidth=0;
+	public static int sizePictureHeight=0;
+	
+	public static int methodx=1;
+	
+	public static boolean autoUpload=false;
+	public static boolean modeOffline=false;
+	
+	public static int partStreamingPref=5;
+	//config video
+	
+	public static String resolutionVideo="0x0";	
+	public static int sizeVideoWidth=0;
+	public static int sizeVideoHeight=0;
+	
+	public static int videoSource=1;
+	public static int audioSource=1;
+	
+	public static int outputFormat=2;
+	
+	public static int videoEncoder=2;
+	public static int audioEncoder=3;
+	
+	public static int videoBitRate=0;
+	
+	
+	public static String formatStreaming="mp4";	//extension file
+	public static int frameRate=0;
+	
+	
+	public static void parseSizeVideoFromConfig()
+	{
+		sizeVideoWidth=Integer.parseInt(resolutionVideo.split("x")[0]);
+		sizeVideoHeight=Integer.parseInt(resolutionVideo.split("x")[1]);
+	}
+	public static void parseSizePictureFromConfig()
+	{
+		sizePictureWidth=Integer.parseInt(resolutionPicture.split("x")[0]);
+		sizePictureHeight=Integer.parseInt(resolutionPicture.split("x")[1]);		
+	}
+	public static void setMethod() {
+		// TODO Auto-generated method stub
+		if(methodx==1)
+		{
+			resolutionVideo="320x240";
+			videoEncoder=2;
+			outputFormat=2;
+			formatStreaming="mp4";
+			parseSizeVideoFromConfig();
+		}
+		if(methodx==2)
+		{
+			resolutionVideo="0x0";
+			videoEncoder=2;
+			outputFormat=2;
+			formatStreaming="mp4";
+			parseSizeVideoFromConfig();
+		}
+		if(methodx==3)
+		{
+			resolutionVideo="320x240";
+			videoEncoder=1;
+			outputFormat=1;
+			formatStreaming="3gp";
+			parseSizeVideoFromConfig();
+		}
+		if(methodx==4)
+		{
+			resolutionVideo="0x0";
+			videoEncoder=2;
+			outputFormat=2;
+			formatStreaming="mp4";
+			parseSizeVideoFromConfig();
+		}
+	}
+}

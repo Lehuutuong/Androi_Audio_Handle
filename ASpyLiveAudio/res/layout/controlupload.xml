@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="top"
+    android:orientation="horizontal" >
+
+    <!-- 2 columns -->
+
+    <TableRow
+        android:id="@+id/tableRow212"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/txtStatusConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="3"
+            android:text=""
+            android:textColor="#ffffff" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow212"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/btnUploadVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/style_btn_common"
+            android:text="Upload"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnCancelVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/style_btn_common"
+            android:text="Hủy bỏ"
+            android:textColor="#ffffff" />
+    </TableRow>
+
+</TableLayout>

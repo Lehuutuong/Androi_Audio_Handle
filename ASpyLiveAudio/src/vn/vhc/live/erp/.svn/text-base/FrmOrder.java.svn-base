@@ -1,0 +1,831 @@
+package net.process.locator1.erp;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Vector;
+
+import org.json.me.JSONArray;
+import org.json.me.JSONObject;
+
+import net.process.locator1.R;
+import net.process.locator1.HttpData;
+import net.process.locator1.erp.LstAgency.DownloadDataFromURL;
+
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+
+public class FrmOrder extends Activity {
+	public String[] DATATEXT = new String[] {};
+	public String[] DATAVALUE = new String[] {};
+	public static int k = 0;
+	public static int kl = 0;
+	public String[] DATATEXT1 = new String[] {};
+	public String[] DATAVALUE1 = new String[] {};
+	public DataUI[] DATASOURCE1 = new DataUI[] {};
+	public EditText[] TEXTEDIT = new EditText[] {};
+	public static String strSearch = "";
+	public static ArrayList<Products> arrList = new ArrayList<Products>();
+	public static ArrayList<Products> arrListStore = new ArrayList<Products>();
+	public static ArrayList<Products> arrListActive = new ArrayList<Products>();
+	public static String[] DATAID = new String[] {};
+	OrderSearchAdapter orderArrayAdater;
+	OrderListAdapter orderListAdapter;
+	public static String typeid = "-1";
+	public static String placeid = "-1";
+	public static String agencyname = "";
+	public static String agencyaddress = "";
+	EditText editSearch;
+	Button btnUpdate;
+	Button btnGohome;
+	protected Spinner spinner;
+	LinearLayout m_vwJokeLayout;
+	ListView pListView;
+	
+	private Handler hx = new Handler() {
+		public void handleMessage(Message msg) {
+			try 
+			{
+				//bind data
+				if (msg.what == 100) 
+				{
+					UIManager.getInstance().dismissDialog();
+					bindDataToKhoHang();				
+				}				
+				super.handleMessage(msg);
+			} catch (Exception ex) {
+
+			}
+		}
+	};
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setTitle("Lập đơn hàng");
+
+		setContentView(R.layout.frmorder_main);
+		NavigateScreen.getInstance().setCurrentDisplay(this);
+		ContextManagerErp.getInstance().setCurrentContext(this);
+		loadTabs();
+		
+		//UIManager.getInstance().showDialogSpiner();
+		new Thread(new Runnable() 
+		{
+			
+			@Override
+			public void run() 
+			{
+				Looper.prepare();
+				// TODO Auto-generated method stub				
+				getKhoHangFromSeverT(false);
+				hx.sendEmptyMessage(100);
+			}
+		}).start();
+		
+		getProductFromServerT();
+		
+		// pListView.setItemsCanFocus(true);
+		editSearch = (EditText) findViewById(R.id.searchOder);
+		editSearch.addTextChangedListener(filterTextWatcher);
+		btnUpdate = (Button) findViewById(R.id.btnSearch);
+		
+		btnUpdate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				isFromServer = true;
+				getProductFromServerT();
+				if(orderArrayAdater.listprodctAdapter!=null){
+					orderArrayAdater.listprodctAdapter.clear();
+				}
+			}
+		});
+		
+
+		 // getProductsFromServer();
+		 Button photoButton1 = (Button) this.findViewById(R.id.button2);
+         photoButton1.setOnClickListener(new View.OnClickListener()
+		 {
+        	 @Override
+ 			public void onClick(View v) 
+        	 {	
+        		 new Thread(new Runnable() 
+        			{
+        				
+        				@Override
+        				public void run() 
+        				{
+        					// TODO Auto-generated method stub				
+        					getKhoHangFromSeverT(true);
+        					hx.sendEmptyMessage(100);
+        				}
+        			}).start();
+        	 }
+		 });
+
+		 Button photoButton = (Button) this.findViewById(R.id.button1);
+         photoButton.setOnClickListener(new View.OnClickListener()
+		 {
+			@Override
+			public void onClick(View v) {
+				TextView txtView = (TextView) findViewById(R.id.txtNote);
+				if (TextUtils.isEmpty(txtView.getText())) {
+					
+					UIManager.getInstance().showMsg(
+							"Bạn phải nhập mô tả công việc đã!");
+					return;
+				}
+				if(OrderListAdapter.original==null)
+				{
+					UIManager.getInstance().showMsg(
+							"Bạn phải chọn sản phẩm trước đã");
+					return;
+				}
+				
+				FrmOrderPreview.note = txtView.getText().toString();
+				FrmOrderPreview.placeid = placeid;
+				FrmOrderPreview.typeid = typeid;
+				FrmOrderPreview.agencyname = agencyname;
+				FrmOrderPreview.agencyaddress = agencyaddress;
+
+				Vector<String> lstProductID = new Vector<String>();
+				Vector<String> lstProductTitle = new Vector<String>();
+				Vector<String> lstUnitTitle = new Vector<String>();
+				for (int jx = 0; jx <= OrderListAdapter.original.size(); jx++) {
+					if (true) 
+					{
+						/*
+						 * indexproduct++;
+						 * encoder.addParam("productid"+(indexproduct
+						 * ),DATAVALUE[jx]);
+						 * encoder.addParam("unitid"+(indexproduct
+						 * ),TEXTEDIT[jx].getText().toString() );
+						 * isNeedProduct=false;
+						 */
+						try{
+							lstProductTitle.add(OrderListAdapter.original.get(jx).ProductName);
+							lstProductID.add(OrderListAdapter.original.get(jx).ID);
+							lstUnitTitle.add(OrderListAdapter.original.get(jx).ProductNumber);
+						}
+						catch(Exception e){
+							//Toast.makeText(getApplicationContext(),e.toString()+"error frmorder",Toast.LENGTH_SHORT).show();
+						}
+					}
+				}
+				FrmOrderPreview.listProductID = lstProductID;
+				FrmOrderPreview.listUnitTitle = lstUnitTitle;
+				FrmOrderPreview.listProductTitle = lstProductTitle;
+				FrmOrderPreview.selKhohang = (DataUI) spinner.getSelectedItem();
+				OrderListAdapter.original.clear();
+				OrderListAdapter.original=null;
+				NavigateScreen.getInstance().switchDisplay(
+						FrmOrderPreview.class);
+
+			}
+		 });
+         getExtraInfo();
+	}
+	public void getExtraInfo()
+	{
+	    	if(getIntent().getExtras()==null) return;
+	    	if(getIntent().getExtras().getString("typeid")!=null) typeid = (String) getIntent().getExtras().getString("typeid");
+	    	if(getIntent().getExtras().getString("placeid")!=null)  placeid = (String) getIntent().getExtras().getString("placeid");
+	    	
+	}
+	
+
+	// type=1
+	public void OnLickGoHome(View v)
+	{
+		backToHome();
+	}
+	public void OnLickGoAgency(View v){
+		Intent mi = new Intent(this, LstAgency.class);
+		startActivity(mi);
+		finish();
+	}
+	public void OnClickItemSearch(ListView listView) {
+		// listView.setClickable(true);
+		Toast.makeText(getApplicationContext(), "---", Toast.LENGTH_SHORT)
+				.show();
+
+	}
+
+	private TextWatcher filterTextWatcher = new TextWatcher() {
+
+		public void afterTextChanged(Editable s) {
+			orderArrayAdater.getFilter().filter(s);
+			strSearch = s.toString();
+		}
+
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			// adapter.getFilter().filter(s);
+
+		}
+
+	};
+
+	public void backToHome() 
+	{
+		if(typeid==UtilErp.PARENT_CHAMCONG)
+		{
+			Intent mi = new Intent(this , LstPlace.class);
+	  	  	startActivity(mi);
+	    	finish();
+		}
+		else if(typeid==UtilErp.PARENT_DSDAILY)
+		{
+			Intent mi = new Intent(this , LstPlace.class);
+	  	  	startActivity(mi);
+	    	finish();
+		}
+		else if(typeid==UtilErp.PARENT_KHLV)
+		{
+			Intent mi = new Intent(this , LstPlace.class);
+	  	  	startActivity(mi);
+	    	finish();
+		}
+		else 
+		{
+			// NavigateScreen.getInstance().setDisplay(v.getContext(),
+			// ListHomeScreen.class);
+			Intent mi = new Intent(this, ListHomeScreen.class);
+			startActivity(mi);
+			finish();
+		}
+	}
+	private static View createTabView(final Context context, final String text) {
+        View view = LayoutInflater.from(context).inflate(R.layout.frmorder_headertab, null);
+        TextView tv = (TextView) view.findViewById(R.id.tabsText);
+        tv.setText(text);
+        return view;
+}
+
+	public void loadTabs() {
+
+		final TabHost tab = (TabHost) findViewById(android.R.id.tabhost);
+		tab.setup();
+		TabHost.TabSpec spec;
+		spec = tab.newTabSpec("t3");
+		spec.setContent(R.id.tab3);
+		spec.setIndicator(createTabView(tab.getContext(),"Tìm Kiếm"));
+		tab.addTab(spec);
+		
+		spec = tab.newTabSpec("t2");
+		spec.setContent(R.id.tab2);
+		spec.setIndicator(createTabView(tab.getContext(),"Sản Phẩm"));
+		tab.addTab(spec);
+		
+		// create tab1
+		spec = tab.newTabSpec("t1");
+		spec.setContent(R.id.tab1);
+		spec.setIndicator(createTabView(tab.getContext(),"Đơn Hàng"));
+		tab.addTab(spec);
+
+		tab.setOnTabChangedListener(new OnTabChangeListener() {
+			
+			@Override
+			public void onTabChanged(String arg0) {
+				try
+				{
+				// TODO Auto-generated method stub
+				if(arg0=="t3"){
+					orderArrayAdater.getFilter().filter(editSearch.getText().toString());
+				}
+				}catch(Exception ex){}
+			}
+		});
+	}
+
+	public String ReadFromFile(String filename) {
+		// if(1==1) return "";
+		try {
+			File myFile = new File(filename);
+			if (!myFile.exists())
+				return "";
+			Reader myReader = new BufferedReader(new InputStreamReader(
+					new FileInputStream(myFile), "UTF-8"));
+
+			StringBuilder fileContent = new StringBuilder();
+			int c;
+			while ((c = myReader.read()) != -1) {
+				fileContent.append((char) c);
+
+			}
+			myReader.close();
+			/*
+			 * FileInputStream fis = new FileInputStream(myFile); int c;
+			 * StringBuilder fileContent = new StringBuilder();
+			 * 
+			 * while((c=fis.read())!=-1) { fileContent.append((char)c);
+			 * 
+			 * } fis.close();
+			 */
+			return fileContent.toString();
+		} catch (Exception e) {
+
+			Toast.makeText(getApplicationContext(),
+					"Exception when ReadFromFile:" + e.toString(),
+					Toast.LENGTH_LONG).show();
+			return "";
+		}
+	}
+
+	private static boolean isFromServer = false;
+	private static boolean isFromServerK=false;
+
+	public void SaveToFile(String filename, String string) {
+		try {
+			if (string.equals("")) return;
+			if(string.toLowerCase().startsWith("error:")) return;
+			File myFile = new File(filename);
+			// if( myFile.exists()) myFile.delete();
+			// myFile.createNewFile();
+			FileOutputStream fOut = new FileOutputStream(myFile, false);
+			Writer myWriter = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(myFile), "UTF-8"));
+
+			// Writer myWriter= new BufferedWriter(fOut,
+			// OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+			myWriter.append(string);
+			myWriter.close();
+			fOut.close();
+			// Toast.makeText(getBaseContext(),
+			// "Done writing SD 'mysdfile.txt'",Toast.LENGTH_SHORT).show();
+		} catch (Exception e) {
+			Toast.makeText(getApplicationContext(),
+					"Exception when SaveToFile:" + e.toString(),
+					Toast.LENGTH_LONG).show();
+			// e.printStackTrace();
+		}
+	}
+
+	private void getProductFromServerT() {
+
+		//if(DATASOURCE.length>0)return;
+		// sSearch=filterText.getText().toString();
+		if (isFromServer) {
+			// Toast.makeText(this, "memberid="+
+			// MemberUtil.memberid+"&s="+sSearch, Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "Loading From Server...",
+					Toast.LENGTH_LONG).show();
+			(new DownloadDataFromURL()).execute("products.aspx", "memberid="
+					+ MemberUtil.memberid+UtilErp.GetCompressUrl(), "1");
+		} else {
+			String sSaved = ReadFromFile("/sdcard/tmpb/product.txt");
+			if (sSaved.equalsIgnoreCase("")) {
+				isFromServer = true;
+				Toast.makeText(getApplicationContext(),
+						"Loading From Server...", Toast.LENGTH_LONG).show();
+
+				(new DownloadDataFromURL()).execute("products.aspx",
+						"memberid=" + MemberUtil.memberid+UtilErp.GetCompressUrl(), "1");
+			} else {
+				Toast.makeText(getApplicationContext(),
+						"Loading From Cache...", Toast.LENGTH_LONG).show();
+				processResultT(sSaved, 1);
+			}
+		}
+	}
+
+	private void getProductsFromServer()
+	{
+		if (DATATEXT.length > 0)
+			return;
+		new DownloadDataFromURL().execute("products.aspx", "memberid="
+				+ MemberUtil.memberid, "1");
+		/*
+		 * String sString=(new HttpData()).getData("products.aspx",
+		 * "memberid="+MemberUtil.memberid); System.err.print(sString); try {
+		 * JSONArray jSonArr; jSonArr = new JSONArray(sString); DATATEXT= new
+		 * String[jSonArr.length()]; DATAVALUE= new String[jSonArr.length()];
+		 * TEXTEDIT= new EditText[jSonArr.length()];
+		 * 
+		 * for(int jx=0;jx<=jSonArr.length()-1;jx++) { JSONObject jsonO=
+		 * jSonArr.getJSONObject(jx); String sID=(String) jsonO.get("id");
+		 * String sTitle=(String) jsonO.get("title"); DATATEXT[jx]=sTitle;
+		 * DATAVALUE[jx]=sID; } } catch (Exception e) { // TODO Auto-generated
+		 * catch block e.printStackTrace(); }
+		 */
+	}
+
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			event.startTracking();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	public boolean onKeyUp(int keyCode, KeyEvent event) 
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
+				&& !event.isCanceled()) {
+			// *** Your Code ***
+			//backToHome();
+			return true;
+		}
+		return super.onKeyUp(keyCode, event);
+	}
+
+	//type=2
+	
+	private void getKhoHangFromSeverT(boolean isFromServer)
+	{
+		getKhoHangFromServer(isFromServer);
+		/*
+		//if(DATASOURCE.length>0)return;
+		// sSearch=filterText.getText().toString();
+		if (isFromServerK) 
+		{
+			Toast.makeText(getApplicationContext(), "Loading From Server...",Toast.LENGTH_LONG).show();
+			(new DownloadDataFromURL()).execute("khohang.aspx", "memberid="
+					+ MemberUtil.memberid+""+UtilErp.GetCompressUrl(), "2");
+		} else {
+			String sSaved = ReadFromFile("/sdcard/tmpb/khohang.txt");
+			if (sSaved.equalsIgnoreCase("")) {
+				isFromServerK = true;
+				Toast.makeText(getApplicationContext(),
+						"Loading From Server...", Toast.LENGTH_LONG).show();
+
+				(new DownloadDataFromURL()).execute("khohang.aspx",
+						"memberid=" + MemberUtil.memberid+UtilErp.GetCompressUrl(), "");
+			} else {
+				Toast.makeText(getApplicationContext(),
+						"Loading From Cache...", Toast.LENGTH_LONG).show();
+				processResultT(sSaved, 2);
+			}
+		}
+		*/
+	}
+	// type=2
+	private void getKhoHangFromServer(boolean isFromServer) 
+	{
+		try 
+		{
+			JSONArray jSonArr;
+			String sString;
+			if(!isFromServer)//offline
+			{
+				//if (DATATEXT1.length > 0) return;
+				sString=ReadFromFile("/sdcard/tmpb/khohang.txt");
+				jSonArr = new JSONArray(sString);
+			}
+			else 
+			{
+				sString = (new HttpData()).getDataErp("khohang.aspx", "memberid="+ MemberUtil.memberid);
+				jSonArr = new JSONArray(sString);
+				SaveToFile("/sdcard/tmpb/khohang.txt", sString);				
+			}
+			
+			//bind to ui
+			DATATEXT1 = new String[jSonArr.length() + 1];
+			DATASOURCE1 = new DataUI[jSonArr.length() + 1];
+
+			DATASOURCE1[0] = new DataUI("-1", "==Chọn kho==");
+
+			for (int jx = 0; jx <= jSonArr.length() - 1; jx++) {
+				JSONObject jsonO = jSonArr.getJSONObject(jx);
+				String sID = (String) jsonO.get("id");
+				String sTitle = (String) jsonO.get("title");
+				DATATEXT1[jx + 1] = sTitle;
+				DATASOURCE1[jx + 1] = new DataUI(sID, sTitle);
+			}
+		} 
+		catch (Exception e) 
+		{
+			Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		}		
+	}
+	private void bindDataToKhoHang()
+	{
+		spinner = (Spinner) findViewById(R.id.lstKhoHang);
+		ArrayAdapter<DataUI> spinnerArrayAdapter = new ArrayAdapter<DataUI>(
+				this, android.R.layout.simple_spinner_dropdown_item,
+				DATASOURCE1);
+
+		spinner.setAdapter(spinnerArrayAdapter);	
+		spinner.invalidate();
+	}
+	private void processResultT(String sString, int typeid) {
+		// UIManager.getInstance().showMsg("Error1:"+sString);
+		// get list of agency
+		if (typeid == 1) {
+			if (isFromServer) {
+				SaveToFile("/sdcard/tmpb/product.txt", sString);
+				isFromServer = false;
+			}
+			// UIManager.getInstance().showMsg("Error1:"+sString);
+			try {
+				JSONArray jSonArr;
+				jSonArr = new JSONArray(sString);
+				arrList = new ArrayList<Products>();
+				arrListStore = new ArrayList<Products>();
+				arrListActive = new ArrayList<Products>();
+				// DATASOURCE = new ArrayList<DataUI>();
+				// DATAID = new String[jSonArr.length() + 1];
+				for (int jx = 0; jx <= jSonArr.length() - 1; jx++) {
+
+					JSONObject jsonO = jSonArr.getJSONObject(jx);
+					String sID = (String) jsonO.get("id");
+					String sTitle = (String) jsonO.get("title");
+					Products products = new Products();
+					products.ProductName = sTitle;
+					products.ID = sID;
+					products.ProductNameE = UtilErp.TrimVietnameseMark(sTitle);
+					products.ProductActive = true;
+					products.ProductNumber = "";
+					// DATAID[jx]= new String();
+					// DATAID[jx] = sID;
+					// products.ProductNameE=Unti
+					// DataUI oData= (new DataUI(sID, sTitle));
+					// oData.set_placeaddress((String) jsonO.get("address"));
+					// oData.set_titleToCompare(UtilErp.TrimVietnameseMark(sTitle));
+					// DATASOURCE[jx] = oData;
+
+					arrList.add(products);
+					arrListStore.add(products);
+					// DATATEXT[jx]=sTitle;
+					// DATAVALUE[jx]=sID;
+
+				}
+				// set datasource
+				pListView = (ListView) findViewById(R.id.gridSearch);
+				orderArrayAdater = new OrderSearchAdapter(this,
+						R.layout.frmorder_listitem, arrList);
+				pListView.setAdapter(orderArrayAdater);
+				// set khi chon item xong focus
+
+				UIManager.getInstance().stopShowProgress();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+
+				UIManager.getInstance().showMsg("Error:" + e.toString());
+			}
+
+		}
+		/*
+		if(typeid==2){
+			if (isFromServerK) {
+				SaveToFile("/sdcard/tmpb/khohang.txt", sString);
+				isFromServerK = false;
+			}
+			try {
+				JSONArray jSonArr;
+				jSonArr = new JSONArray(sString);
+				DATATEXT1 = new String[jSonArr.length() + 1];
+				DATASOURCE1 = new DataUI[jSonArr.length() + 1];
+
+				DATASOURCE1[0] = new DataUI("-1", "==Chọn kho==");
+
+				for (int jx = 0; jx <= jSonArr.length() - 1; jx++) {
+					JSONObject jsonO = jSonArr.getJSONObject(jx);
+					String sID = (String) jsonO.get("id");
+					String sTitle = (String) jsonO.get("title");
+					DATATEXT1[jx + 1] = sTitle;
+					DATASOURCE1[jx + 1] = new DataUI(sID, sTitle);
+				}
+				// isstop=true;
+
+			} catch (Exception e) {
+				// isstop=true;
+				// TODO Auto-generated catch block
+				Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			}
+
+			spinner = (Spinner) findViewById(R.id.lstKhoHang);
+			ArrayAdapter<DataUI> spinnerArrayAdapter = new ArrayAdapter<DataUI>(
+					this, android.R.layout.simple_spinner_dropdown_item,
+					DATASOURCE1);
+
+			spinner.setAdapter(spinnerArrayAdapter);
+		}
+		 */
+	}
+
+	private void processResult(String sString, int typeid) {
+		// get list of products
+		if (typeid == 1) {
+			try {
+				JSONArray jSonArr;
+				jSonArr = new JSONArray(sString);
+				DATATEXT = new String[jSonArr.length()];
+				DATAVALUE = new String[jSonArr.length()];
+				TEXTEDIT = new EditText[jSonArr.length()];
+
+				for (int jx = 0; jx <= jSonArr.length() - 1; jx++) {
+					JSONObject jsonO = jSonArr.getJSONObject(jx);
+					String sID = (String) jsonO.get("id");
+					String sTitle = (String) jsonO.get("title");
+					DATATEXT[jx] = sTitle;
+					DATAVALUE[jx] = sID;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			m_vwJokeLayout = (LinearLayout) this.findViewById(R.id.layout123);
+			// LayoutParams lparams = new
+			// LayoutParams(LayoutParams.WRAP_CONTENT,
+			// LayoutParams.WRAP_CONTENT);
+			for (int jx = 0; jx <= DATAVALUE.length - 1; jx++) {
+				Log.i("lamdaica", DATAVALUE[jx]);
+				// EditText te=TEXTEDIT[jx];
+				EditText te = new EditText(this);
+				TEXTEDIT[jx] = te;
+
+				TextView tv = new TextView(this);
+				tv.setTextColor(Color.WHITE);
+				tv.setText(DATATEXT[jx]);
+
+				m_vwJokeLayout.addView(tv);
+				m_vwJokeLayout.addView(te);
+			}
+		}
+		/*
+		 * //get list of khohang if(typeid==2) { try { JSONArray jSonArr;
+		 * jSonArr = new JSONArray(sString); DATATEXT1= new
+		 * String[jSonArr.length()+1]; DATASOURCE1= new
+		 * DataUI[jSonArr.length()+1];
+		 * 
+		 * DATASOURCE1[0]=new DataUI("-1","==Chọn kho==");
+		 * 
+		 * for(int jx=0;jx<=jSonArr.length()-1;jx++) { JSONObject jsonO=
+		 * jSonArr.getJSONObject(jx); String sID=(String) jsonO.get("id");
+		 * String sTitle=(String) jsonO.get("title"); DATATEXT1[jx+1]=sTitle;
+		 * DATASOURCE1[jx+1]=new DataUI(sID,sTitle); } //isstop=true;
+		 * 
+		 * } catch (Exception e) { //isstop=true; // TODO Auto-generated catch
+		 * block e.printStackTrace(); }
+		 * 
+		 * } UIManager.getInstance().dismissDialog();
+		 */
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		NavigateScreen.getInstance().setCurrentDisplay(this);
+	}
+
+	class DownloadDataFromURL extends AsyncTask<String, String, String> {
+		int typeidx = -1;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			UIManager.getInstance().showDialog(1);
+		}
+
+		@Override
+		protected String doInBackground(String... f_url) {
+			int count;
+			String sResult = "";
+			try {
+
+				// sResult = (new HttpData()).getData(f_url[0],f_url[1]);
+				sResult = "";
+				System.setProperty("http.keepAlive", "false");
+				String xurl = HttpData.prefixUrl + f_url[0] + "?" + f_url[1];
+				typeidx = Integer.parseInt(f_url[2]);
+
+				URL url = new URL(xurl);
+				URLConnection conn = url.openConnection();
+				conn.setConnectTimeout(10000);
+				int lenghtOfFile = conn.getContentLength();
+
+				// Get the response
+				DataInputStream rd = (new DataInputStream(conn.getInputStream()));
+				StringBuilder sb = new StringBuilder();
+				byte[] buffer = new byte[512];
+				int total = 0;
+				while ((count = rd.read(buffer)) != -1) {
+					total += count;
+					int progress_temp = (int) total * 100 / lenghtOfFile;
+					publishProgress("" + progress_temp);
+					
+					if(count< buffer.length)
+					{
+						byte[] bufferX = new byte[count];
+						for(int jx=0;jx<=bufferX.length-1;jx++)
+						{
+							bufferX[jx]=buffer[jx];
+						}
+						sb.append(new String(bufferX, "UTF-8"));
+					}
+					else
+					{
+						sb.append(new String(buffer, "UTF-8"));
+					}
+				}
+				sResult = sb.toString();
+
+				rd = null;
+				conn = null;
+				url = null;
+			} catch (Exception e) {
+				// Log.e("Error: ", e.getMessage());
+				sResult = "Error:" + e.toString();
+			}
+			return sResult;
+		}
+
+		@Override
+		protected void onCancelled() {
+		}
+
+		@Override
+		protected void onProgressUpdate(String... progress) {
+			// setting progress percentage
+			UIManager.getInstance().setProgress(Integer.parseInt(progress[0]));
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			result=UtilErp.decompress(result);
+			processResultT(result, typeidx);
+			UIManager.getInstance().dismissDialog();
+		}
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.menu_home, menu);		
+		return true;
+	}
+	@Override
+	 public boolean onOptionsItemSelected(MenuItem item) 
+	{
+	 // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.menu_settings:
+	    	gotoOrderManager();
+	        return true;
+	    case R.id.menu_exit:
+	    	backToHome();
+	    	return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }	
+	  }
+	private void gotoOrderManager() {
+		// TODO Auto-generated method stub
+		NavigateScreen.getInstance().setDisplay(this, OrderManager.class);
+	}
+}

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:layout_margin="3dp"
+        android:background="@drawable/bg"
+        android:paddingTop="10dp"
+        >
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            >
+             
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:weightSum="3"
+            >
+
+            <Button
+                android:id="@+id/btnTimeKeeping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpmcong"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+               
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                             
+                android:text="Chấm Công" />
+            
+             <Button
+                android:id="@+id/btnAgency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpdaily"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="Đại Lý/KH" />
+ 			<Button
+                android:id="@+id/btnReportPlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erplamviec"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1"  
+                android:text="KH Làm Việc" />
+ 			
+        </LinearLayout>  
+          <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+			<Button
+                android:id="@+id/btnTextInform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpt_inform"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+               android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="Text Inform" />
+  			 <Button
+                android:id="@+id/btnPictureInform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpture_inform"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="Picture Inform" />
+            <Button
+                android:id="@+id/btnAudioInform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpe_audio"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="Audio Inform" />
+ 			
+        </LinearLayout>  
+ 		<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+			
+  			
+            <Button
+                android:id="@+id/btnVideoInform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpevideo"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="Video Inform" />
+            
+             <Button
+                android:id="@+id/btnReportWorking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpe"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="File Offline" />
+             <Button
+                android:id="@+id/btnConfiguration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpcao_donhang"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="Đơn hàng" />
+ 			
+        </LinearLayout>        
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+			
+  			
+            <Button
+                android:id="@+id/btnLiveVideoInform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpio_inform"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1"   
+                android:text="Video Live" />
+            
+             <Button
+                android:id="@+id/btnLiveAudioInform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpio_inform"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+               android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="Audio Live" />
+             <Button
+                android:id="@+id/btnMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpsenger"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1" 
+                android:text="Message" />
+ 			
+        </LinearLayout>    
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+			
+  			
+            <Button
+                android:id="@+id/btnKiemHang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erplamviec"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+               android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1"  
+                android:text="Kiểm hàng" />
+            
+             <Button
+                android:id="@+id/btnConfiguration1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpmcong"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1"  
+                android:text="Cấu hình" />
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/erpout_icon"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#ffffff"
+                android:padding="3dp"
+                android:maxWidth="0dp"  
+                android:layout_weight="1"  
+                android:text="Thoát" />
+ 			
+        </LinearLayout>            
+         </LinearLayout>
+              
+    </ScrollView>

@@ -1,0 +1,78 @@
+#
+# An unexpected error has been detected by Java Runtime Environment:
+#
+#  Internal Error (classFileParser.cpp:2923), pid=4344, tid=4284
+#  Error: ShouldNotReachHere()
+#
+# Java VM: Java HotSpot(TM) Client VM (11.3-b02 mixed mode windows-x86)
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x003a7400):  JavaThread "Unknown thread" [_thread_in_vm, id=4284, stack(0x008d0000,0x00920000)]
+
+Stack: [0x008d0000,0x00920000]
+
+[error occurred during error reporting (printing native stack), id 0xc0000005]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x003a7400 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=4284, stack(0x008d0000,0x00920000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Dynamic libraries:
+0x00400000 - 0x00438000 	D:\Program Files\Java\jre6\bin\javaw.exe
+0x7c900000 - 0x7c9af000 	D:\WINXP\system32\ntdll.dll
+0x7c800000 - 0x7c8f6000 	D:\WINXP\system32\kernel32.dll
+0x77dd0000 - 0x77e6b000 	D:\WINXP\system32\ADVAPI32.dll
+0x77e70000 - 0x77f02000 	D:\WINXP\system32\RPCRT4.dll
+0x77fe0000 - 0x77ff1000 	D:\WINXP\system32\Secur32.dll
+0x7e410000 - 0x7e4a1000 	D:\WINXP\system32\USER32.dll
+0x77f10000 - 0x77f59000 	D:\WINXP\system32\GDI32.dll
+0x76390000 - 0x763ad000 	D:\WINXP\system32\IMM32.DLL
+0x7c340000 - 0x7c396000 	D:\Program Files\Java\jre6\bin\msvcr71.dll
+0x6d800000 - 0x6da56000 	D:\Program Files\Java\jre6\bin\client\jvm.dll
+0x76b40000 - 0x76b6d000 	D:\WINXP\system32\WINMM.dll
+0x6d290000 - 0x6d298000 	D:\Program Files\Java\jre6\bin\hpi.dll
+0x76bf0000 - 0x76bfb000 	D:\WINXP\system32\PSAPI.DLL
+0x6d7b0000 - 0x6d7bc000 	D:\Program Files\Java\jre6\bin\verify.dll
+0x6d330000 - 0x6d34f000 	D:\Program Files\Java\jre6\bin\java.dll
+0x6d7f0000 - 0x6d7ff000 	D:\Program Files\Java\jre6\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF-8 -Xbootclasspath:C:\Setup\AdobeCS5-Android\android-sdk_r21-install\platforms\android-10\android.jar 
+java_command: com.android.plocator.TestFile
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=D:\Program Files\Java\jdk1.7.0_25
+PATH=D:/Program Files/Java/jre7/bin/client;D:/Program Files/Java/jre7/bin;D:/Program Files/Java/jre7/lib/i386;D:\WINXP\system32;D:\WINXP;D:\WINXP\System32\Wbem;D:\Program Files\Microsoft SQL Server\80\Tools\Binn\;D:\Program Files\Microsoft SQL Server\90\DTS\Binn\;D:\Program Files\Microsoft SQL Server\90\Tools\binn\;D:\Program Files\Microsoft SQL Server\90\Tools\Binn\VSShell\Common7\IDE\;D:\Program Files\Microsoft Visual Studio 8\Common7\IDE\PrivateAssemblies\;E:\Projects\Athena\Server-Game\serverGames\apache-maven\bin;E:\Projects\Mocca\apache-ant-1.9.1\bin;D:\Program Files\Subversion\bin;D:\cygwin\bin;C:\Setup\AdobeCS5-Android\android-ndk-r8e\android-ndk-r8e;D:\Program Files\Java\jdk1.7.0_25\bin;D:\Program Files\Git\cmd;D:\Program Files\Git\bin;D:\Program Files\Java\jdk1.7.0_25\bin;E:\Projects\Athena\Server-Game\serverGames\apache-maven\bin;E:\Programming\eclipse-mobile-juno-SR1-win32\eclipse;
+USERNAME=lamsuphu
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 37 Stepping 2, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 3
+
+CPU:total 4 (8 cores per cpu, 2 threads per core) family 6 model 5 stepping 2, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, ht
+
+Memory: 4k page, physical 2097151k(528296k free), swap 4194303k(4194303k free)
+
+vm_info: Java HotSpot(TM) Client VM (11.3-b02) for windows-x86 JRE (1.6.0_13-b03), built on Mar  9 2009 01:15:24 by "java_re" with MS VC++ 7.1
+
+time: Mon Sep 09 16:38:42 2013
+elapsed time: 1 seconds
+

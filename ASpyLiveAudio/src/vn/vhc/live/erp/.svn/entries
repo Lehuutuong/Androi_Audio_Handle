@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1251"
+   name=""
+   committed-date="2014-01-11T08:27:01.118394Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/src/net/process/locator1/erp"
+   last-author="tuannew"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1199"
+   name="InformPictureNew.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e7eab01d9d768d5d32bd8681c584c900"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1240"
+   name="APTrackerERPActivity.java"
+   text-time="2014-01-10T10:48:00.000000Z"
+   committed-date="2014-01-11T04:46:11.037533Z"
+   checksum="3eb21e9b4359f08ba9929896322edde5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="DataObject.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="20ba2ee53c0c9ece6f24bc2e48bae111"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="LstReportOrderDone.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="fe47021fccae136612cc17d7f71e73a1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1201"
+   name="SpinerApdater.java"
+   text-time="2014-01-08T09:16:40.000000Z"
+   committed-date="2014-01-08T08:26:09.491049Z"
+   checksum="905cc154ddba49fc63ed9d7a4aefdbd0"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-08T09:16:40.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="InformVideoLive.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ccc223d74442f83a2fbe439de3bc06cb"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="UtilTaxi.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="87ea00919a4853159a010521c413fb99"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="FrmReportTab.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="5359b618839ba215f9917f0f4c8b03cc"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AgencyAdapter.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9e722df1f5bc4a20208daaf19218907c"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="DataUI.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="822942adede327f079d9895745737423"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1208"
+   name="LstPlace.java"
+   text-time="2014-01-09T10:19:00.000000Z"
+   committed-date="2014-01-09T08:47:23.530717Z"
+   checksum="b8e5aeeece693cbba3c9bb25dc66715a"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-09T10:19:00.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="OrderAdapterHand.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="79d6895d9a2aad0a0cd0e1769ffdf4a3"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1240"
+   name="UIManager.java"
+   text-time="2014-01-10T10:53:36.000000Z"
+   committed-date="2014-01-11T04:46:11.037533Z"
+   checksum="de32ef7b10213959acb96bae2cb402a1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ProcessingOrderAdapter.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="fad8ee38f29bf0a982c54ee417a729d7"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="DataMetaData.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="370f3b1ee3da885d8b2d2751de5a596b"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ListHomeScreenx.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ad82da3a5a07b038284e310dc0d5cae4"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1208"
+   name="LstPlan.java"
+   text-time="2014-01-09T10:19:00.000000Z"
+   committed-date="2014-01-09T08:47:23.530717Z"
+   checksum="0a97594a22da00df9dbc7e0131d69243"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-09T10:19:00.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="FrmOrder.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="90d5328bd5d5490813e5dc8db879b8c3"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="UrlParamEncoder.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9a9f41e9d418aded65c51f8c48905dce"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ContextManagerErp.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="8e0dc67793646d8cb66e62188f30efd3"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="DialogPicture.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="378a4b16cbe3976690da03c26d9f6df0"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="PreferencesActivity1.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="bb960f4da92cccd3428b82c2d1ed11b1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ConfigGame.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ddf0140c9cb7ff34ed79f7ac7cbfe2b6"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1251"
+   name="myDialogue.java"
+   text-time="2014-01-11T08:48:48.000000Z"
+   committed-date="2014-01-11T08:27:01.118394Z"
+   checksum="3d18983603b847384365bb663074e93b"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-11T08:48:46.000000Z"/>
+<entry
+   committed-rev="1208"
+   name="ProcessOrderSearchAdapter.java"
+   text-time="2014-01-09T10:19:00.000000Z"
+   committed-date="2014-01-09T08:47:23.530717Z"
+   checksum="72e202af69b03805c2e75e57a731d31e"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-09T10:19:00.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="OrderSearchAdapter.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3c30f12a8c5c4c6d9a5fd4682fb6c0e2"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ListVideo.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="0f633cab5af54c986d61e58d995e1dd7"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="InformAudioNew_bak.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="94b2c3db810e60c819736f915313a0f0"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1213"
+   name="OrderManager.java"
+   text-time="2014-01-09T10:55:54.000000Z"
+   committed-date="2014-01-09T11:00:51.877769Z"
+   checksum="97c657d51a66bde69f4aeca21fdb98cd"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ListViewTest.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="deb19e2316a71ce60ff3f8e2afbc8b27"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1225"
+   name="LstMessage.java"
+   text-time="2014-01-10T08:43:18.000000Z"
+   committed-date="2014-01-10T09:38:27.902787Z"
+   checksum="d218929a76bbd3c6a39da4b632c72767"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-10T02:07:12.000000Z"/>
+<entry
+   committed-rev="1201"
+   name="ProcessOrderListAdapter.java"
+   text-time="2014-01-08T09:16:40.000000Z"
+   committed-date="2014-01-08T08:26:09.491049Z"
+   checksum="5e267484cc664d1a449532de6e1eaff5"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-08T09:16:40.000000Z"/>
+<entry
+   committed-rev="1240"
+   name="LocationUtilErp.java"
+   text-time="2014-01-11T04:32:20.000000Z"
+   committed-date="2014-01-11T04:46:11.037533Z"
+   checksum="ee973cf54d49e0d8d1b912556b210374"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="MangaListAdapter.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9c91ea4f10cab35846c847ad383526e6"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1213"
+   name="UtilErp.java"
+   text-time="2014-01-09T04:39:18.000000Z"
+   committed-date="2014-01-09T11:00:51.877769Z"
+   checksum="8cd11103989c8ecf13764e03eeab1ad5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="FileUtilErp.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e0092925a50dc8f066d6816da07a1671"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="InformAudioNew.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="55811e97a6e0499a4c6f5fd78cc39011"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ProgressingDlg.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="548cec4bd04a9f7bcaabaa670fcbea5d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="LstReportOrder.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="5fc39ad25374e8611d3aae21d7ca5007"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="InformVideoNew.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="5360e2c61227d7468d9941187a8a7b7a"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="OrderProductsListAdapter.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="46f602a9528a9db4d2cc81c63a251c3b"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1225"
+   name="InformText.java"
+   text-time="2014-01-10T08:45:16.000000Z"
+   committed-date="2014-01-10T09:38:27.902787Z"
+   checksum="fed4f999f74b0147bed9d21ad58b8319"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="LstReportOther.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="d7760a8dbf096d36d1a5378e11ba3ee0"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1240"
+   name="Processes_Order.java"
+   text-time="2014-01-11T04:41:16.000000Z"
+   committed-date="2014-01-11T04:46:11.037533Z"
+   checksum="0b430425473be00809bc2400137167fc"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-09T10:19:00.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="OrderPageAdapter.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="2ec11fa90b3eed9572e415d2491c13f2"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="InformAudio.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="181f9e9c06988081fc1e6cf8c08fd277"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="DBManager.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="96784015af927dcc1ab88a52ba46e77e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ProgressActivity.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="a4e964fbc5edb652978132122c934bd3"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ListHome.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="d37e0447bf6a9ef8dec6e435d2310544"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="LstPlanKHT.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="590f43c474f5157985914f11d636f3f1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1202"
+   name="LstAgency.java"
+   text-time="2014-01-08T05:15:40.000000Z"
+   committed-date="2014-01-08T11:00:36.530093Z"
+   checksum="cd2d1d59b71f877ebbf100d1bf874b67"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ListVideoRow.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ad31b11ed9d74979d91e63bbca1106cc"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="OrderAdapterProductsHand.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9b6dfe7f66b093fc060af147b438ff48"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="TestActivity.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="c693d3b0cef55d891c1afa7fb0680b92"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="InformAudioLive.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="4dbdcabae25a1f613baf6ba87a10bc75"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AFinishActivity.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="80d619cec6eca28a9bd89ab568c73b04"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="NavigateScreen.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="148930c8b2c837b3964aaee5d2491400"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1247"
+   name="Products.java"
+   text-time="2014-01-11T08:48:48.000000Z"
+   committed-date="2014-01-11T08:14:39.563980Z"
+   checksum="bba5996b5cd4b84b9d793c14fa61f51c"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-11T08:48:48.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="DialogPushMessage.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="f322ae5dd3c048e7384c923c5b1daa5f"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="MemberUtil.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="14fde54d9d4ad882297517acbf5d057c"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1225"
+   name="OrderPendingTab.java"
+   text-time="2014-01-10T08:41:06.000000Z"
+   committed-date="2014-01-10T09:38:27.902787Z"
+   checksum="9acdcdc9f5b1e3b8a3b01437b766ae03"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-09T16:14:26.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="OrderListAdapter.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="5853d5764186e6d6b11590c3fc939312"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="LstCamera.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="17d9f30e423398ae2c37737fb5b2a6c1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1202"
+   name="APTrackerERPActivity4x.java"
+   text-time="2014-01-08T08:50:56.000000Z"
+   committed-date="2014-01-08T11:00:36.530093Z"
+   checksum="02979112d421d47d91295a1d16bd168e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="PreferencesActivity.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="78c8d923c34811fc72fcf3e068ce9c39"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="CustomLitView.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="a32fafef46d2f072071c5f1bd43b8909"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="MediaRecorderNew.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b07493b722c0a2ef68580abec8605aab"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1240"
+   name="FrmOrderPreview.java"
+   text-time="2014-01-11T04:34:56.000000Z"
+   committed-date="2014-01-11T04:46:11.037533Z"
+   checksum="2210faad478e7321e4693e5f2ea5792c"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="VideoPlayer.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="48b71b9815c0299873d9ccb31004d38e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1220"
+   name="ListHomeScreen.java"
+   text-time="2014-01-10T02:07:12.000000Z"
+   committed-date="2014-01-09T16:43:44.257441Z"
+   checksum="c8f2d599eed2fa96fbd1a31c85ad7acb"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-10T02:07:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AndroidCamera.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e75f7607e2c39ad198e65d466ae19835"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1225"
+   name="OrderHandTab.java"
+   text-time="2014-01-10T08:40:50.000000Z"
+   committed-date="2014-01-10T09:38:27.902787Z"
+   checksum="25846dfeaa2ae4d769603971c9be7950"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-09T16:14:26.000000Z"/>
+</wc-entries>

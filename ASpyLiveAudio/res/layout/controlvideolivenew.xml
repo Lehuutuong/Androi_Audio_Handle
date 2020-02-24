@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="bottom"
+    android:orientation="horizontal" >
+
+    <!-- 2 columns -->
+
+    <TableRow
+        android:id="@+id/tableRow21"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/txtStatusTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="3"
+            android:text=""
+            android:textColor="#ffffff" />
+    </TableRow>
+    <!-- 2 columns -->
+
+    <TableRow
+        android:id="@+id/tableRow21"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="3"
+            android:text=""
+            android:textColor="#ffffff" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow22"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="3dip" >
+
+        <Button
+            android:id="@+id/btnStartvideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/style_btn_common"
+            android:text="Streaming"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnStopVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/style_btn_common"
+            android:text="Stop"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/cancellivevideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/style_btn_common"
+            android:text="* Cancel "
+            android:textColor="#ffffff" />
+
+        <CheckBox
+            android:id="@+id/chkSafeAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SafeAudioMode" />
+    </TableRow>
+
+</TableLayout>

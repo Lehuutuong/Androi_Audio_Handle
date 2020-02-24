@@ -1,0 +1,41 @@
+package vn.vhc.live.erp;
+
+import vn.vhc.live.LocationUtil;
+
+public class LocationUtilErp {
+	/*
+	public static String IMEI="lamdaicaerp";
+	public static String getIMEI() {
+		// TODO Auto-generated method stub
+		if(IMEI.equals("lamdaicaerp"))
+		{
+			IMEI=ContextManagerErp.getInstance().readFromDB("iddeviceerp");
+		}
+		return IMEI;
+	}
+	*/
+	public static LocationUtilErp _instance;
+	public static LocationUtilErp getInstance()
+	{
+		//if(_instance==null)
+		_instance= new LocationUtilErp();
+		return _instance;
+	}
+	//private  String IMEI="";
+	public  String getIMEI() {
+		return LocationUtil.IMEI;
+		//return ContextManagerErp.getInstance().readFromDB("iddeviceerp");
+		/*
+		// TODO Auto-generated method stub
+		if(IMEI.equals(""))
+		{
+			IMEI=ContextManagerErp.getInstance().readFromDB("iddeviceerp");
+		}
+		return IMEI;
+		*/
+	}
+	public  void setIMEI(String imei) {
+		// TODO Auto-generated method stub
+		//IMEI=imei ;
+	}
+}

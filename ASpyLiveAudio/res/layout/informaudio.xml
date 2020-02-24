@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+ <TableRow
+         android:id="@+id/tableRow1"
+         android:layout_width="fill_parent"
+         android:gravity="center_horizontal" >
+        <Button
+            android:id="@+id/btnPlay"
+            android:text="Play"
+            android:drawableTop="@drawable/audio_play"
+             />
+        <Button
+            android:id="@+id/btnUpload"
+            android:text="Upload"
+            android:drawableTop="@drawable/upload"
+             />
+        <Button
+            android:id="@+id/btnRecord"
+            android:text="Record"
+            android:drawableTop="@drawable/audio_record"
+             />
+          <Button
+            android:id="@+id/btnStop"
+            android:text="Stop"
+            android:drawableTop="@drawable/audio_stop"
+             />
+            <Button
+            android:id="@+id/btnExit"
+            android:text="Exit"
+            android:drawableTop="@drawable/audio_exit"
+             />
+ </TableRow>
+  <TableRow
+         android:id="@+id/tableRow12"
+         android:layout_width="fill_parent"
+         android:gravity="center_horizontal" >
+         <TextView
+             android:id="@+id/txtStatusRecording"
+             android:layout_width="fill_parent"
+             android:layout_span="4"
+           
+              android:textColor="#ffffff"
+             android:singleLine="false"
+             android:text="" />
+   </TableRow>
+   <TableRow
+         android:id="@+id/tableRow13"
+         android:layout_width="fill_parent"
+         android:gravity="center_horizontal" >
+         <TextView
+             android:id="@+id/txtTimeRecording"
+             android:layout_width="fill_parent"
+             android:layout_span="4"
+            
+             android:textColor="#ffffff"
+             android:singleLine="false"
+             android:text="" />
+   </TableRow>
+    <TableRow
+         android:id="@+id/tableRow14"
+         android:layout_width="fill_parent" 
+         android:gravity="bottom">
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_span="4"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+    </ListView>        
+  </TableRow>
+</TableLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+	<PreferenceCategory android:title="Streaming Live">
+		<ListPreference android:title="Quality Video"  
+			android:summary="Size Of Video" android:key="sizeStreamingRef"
+			android:defaultValue="320x240" 
+			android:entries="@array/streaming_quality"
+			android:persistent="true"
+			android:entryValues="@array/streaming_quality" />
+		<EditTextPreference
+			android:summary="FrameRate" android:defaultValue="0"
+			android:title="FrameRate"
+			android:persistent="true"
+			android:key="frameRateRef" />		
+		<ListPreference android:title="Video Source"  
+			android:summary="Video Source" android:key="videoSourceRef"
+			android:defaultValue="1" 
+			android:entries="@array/videosource_ref"
+			android:persistent="true"
+			android:entryValues="@array/videosourceval_ref" />
+		<ListPreference android:title="Audio Source"  
+			android:summary="Audio Source" android:key="audioSourceRef"
+			android:defaultValue="1" 
+			android:entries="@array/audiosource_ref"
+			android:persistent="true"
+			android:entryValues="@array/audiosourceval_ref" />
+		<ListPreference android:title="Video Encoder"  
+			android:summary="Video Encoder" android:key="videoEncoderRef"
+			android:defaultValue="2" 
+			android:entries="@array/videoencoder_ref"
+			android:persistent="true"
+			android:entryValues="@array/videoencoderval_ref" />
+		<ListPreference android:title="Audio Encoder"  
+			android:summary="Audio Encoder" android:key="audioEncoderRef"
+			android:defaultValue="3" 
+			android:entries="@array/audioencoder_ref"
+			android:persistent="true"
+			android:entryValues="@array/audioencoderval_ref" />
+		<ListPreference android:title="Format Output Video"  
+			android:summary="Output Format Video" android:key="outputFormatRef"
+			android:defaultValue="2" 
+			android:entries="@array/outputformat_ref"
+			android:persistent="true"
+			android:entryValues="@array/outputformatval_ref" />
+		<EditTextPreference
+			android:summary="videoBitRateRef" android:defaultValue="0"
+			android:persistent="true"
+			android:title="Video BitRate (Kbps)"
+			android:key="videoBitRateRef" />	
+		<ListPreference android:title="Extension Video"  
+			android:summary="Extension Video File" android:key="formatStreamingRef"
+			android:persistent="true"
+			android:defaultValue="mp4" 
+			android:entries="@array/streaming_format"
+			android:entryValues="@array/streaming_format" />		
+		<CheckBoxPreference android:title="Safe Audio On Live Video"
+		    android:persistent="true"
+			android:defaultValue="false" android:summary="Streaming Seperatedly Audio Channel When To Inform Live Video"
+			android:key="audioSafeRef" />
+		<ListPreference android:title="Quality Picture"  
+			android:summary="320x240" android:key="sizePictureRef"
+			android:defaultValue="320x240" 
+			android:entries="@array/streaming_quality"
+			android:persistent="true"
+			android:entryValues="@array/streaming_quality" />
+		<CheckBoxPreference android:title="AutoUpload"
+		    android:persistent="true"
+			android:defaultValue="false" android:summary="This option will help you auto upload, when you inform data completely this no dialog to upload. System will upload auto"
+			android:key="autouploadRef" />
+		<EditTextPreference
+			android:summary="PartStreaming" android:defaultValue="5"
+			android:persistent="true"
+			android:title="PartStreaming"
+			android:key="partStreamingRef" />		
+	</PreferenceCategory>		
+</PreferenceScreen>

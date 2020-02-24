@@ -1,0 +1,432 @@
+package net.process.locator1.erp;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.red5.io.ITag;
+import org.red5.io.mp4.MP4;
+import org.red5.io.mp4.MP4Reader;
+import org.red5.server.net.rtmp.event.AudioData;
+import org.red5.server.net.rtmp.event.FlexStreamSend;
+import org.red5.server.net.rtmp.event.IRTMPEvent;
+import org.red5.server.net.rtmp.event.Invoke;
+import org.red5.server.net.rtmp.event.Notify;
+import org.red5.server.net.rtmp.event.Unknown;
+import org.red5.server.net.rtmp.event.VideoData;
+import org.red5.server.net.rtmp.message.Constants;
+import org.red5.server.stream.message.RTMPMessage;
+
+import net.process.locator1.APTrackerService;
+import net.process.locator1.R;
+import net.process.locator1.HttpData;
+import net.process.locator1.LocationUtil;
+import net.process.locator1.UtilGame;
+import net.process.locator1.video.InformAudioLiveRTMP;
+import net.process.locator1.video.InformVideoLiveRTMP;
+import net.process.locator1.video.PublishClient;
+///import net.process.locator1.livevideo.InformVideoStreaming;
+
+import android.R.integer;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.OperationApplicationException;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.os.RemoteException;
+import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredName;
+import android.provider.ContactsContract.Data;
+import android.provider.ContactsContract.RawContacts;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class ListHomeScreenx extends Activity {
+	public int totalTime=0;
+	public void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.homescreen2);
+		 
+		setTitle(MemberUtil.companyName);
+		UtilErp.totalScreen++;
+		UtilErp.totalScreenLive++;
+		
+		totalTime=UtilErp.totalScreen;
+		
+		NavigateScreen.getInstance().setCurrentDisplay(this);
+		ContextManagerErp.getInstance().setCurrentContext(this);
+		
+		setupButton();
+		poolingMessage(this);
+		//updateContact("[{id:\"1\",n:\"name1\",p:\"11111111\"},{id:\"2\",n:\"name2\",p:\"2222222\"}]");
+		 // SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		 // String ListPreference ="Testing:"+ prefs.getString("listPref", "nothing");
+		 // Toast.makeText(getBaseContext(),"ListPreference:"+ListPreference,Toast.LENGTH_LONG).show();
+			
+	}
+	public void setupButton()
+	{
+		  //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		  Button btnAgency =(Button) findViewById(R.id.btnAgency);
+		  btnAgency.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	 //NavigateScreen.getInstance().setDisplay(v.getContext(), LstAgency.class);
+		        	 Intent mi = new Intent(ListHomeScreenx.this , LstAgency.class);
+		       	  	 startActivity(mi);
+		         	 //finish();		 
+		        	 //Toast.makeText(ListHomeScreenx.this, "Bản dùng thử không có chức năng Danh sách đại lý!", Toast.LENGTH_LONG).show();
+		          }});
+		  
+		  Button btnReportPlan =(Button) findViewById(R.id.btnReportPlan);
+		  btnReportPlan.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	 // NavigateScreen.getInstance().setDisplay(v.getContext(), LstPlan.class);
+		        	 Intent mi = new Intent(ListHomeScreenx.this , LstPlan.class);
+		       	  	 startActivity(mi);
+		         	// finish();	
+		        	 //Toast.makeText(ListHomeScreenx.this, "Phiên bản này không có chức năng Kế Hoạch Làm Việc!", Toast.LENGTH_LONG).show();
+		        		 
+		          }});
+		  Button btnReportWorking =(Button) findViewById(R.id.btnReportWorking);
+		  btnReportWorking.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	 NavigateScreen.getInstance().setDisplay(v.getContext(), ListVideo.class);
+		        	 //Intent mi = new Intent(ListHomeScreenx.this , ListVideo.class);
+		       	  	 //startActivity(mi);
+		         	 //finish();
+		                
+		          }});
+		  
+		  Button btnTextInform =(Button) findViewById(R.id.btnTextInform);
+		  btnTextInform.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	  //NavigateScreen.getInstance().setDisplay(v.getContext(), InformText.class);
+		        	  Intent mi = new Intent(ListHomeScreenx.this , InformText.class);
+			       	  startActivity(mi);
+			          // finish();
+		          }});
+		  Button btnAudioInform =(Button) findViewById(R.id.btnAudioInform);
+		  btnAudioInform.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	  //NavigateScreen.getInstance().setDisplay(v.getContext(), InformAudio.class);
+		        	  Intent mi = new Intent(ListHomeScreenx.this , InformAudioNew.class);
+			       	  	 startActivity(mi);
+			         	 //finish();
+		          }});
+		  Button btnVideoInform =(Button) findViewById(R.id.btnVideoInform);
+		  btnVideoInform.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	   //NavigateScreen.getInstance().setDisplay(v.getContext(), InformVideoNew.class);
+		        	   Intent mi = new Intent(ListHomeScreenx.this , InformVideoNew.class);
+			       	   startActivity(mi);
+			           //finish();
+				     
+		          }});
+		  Button btnTimeKeeping =(Button) findViewById(R.id.btnTimeKeeping);
+		  btnTimeKeeping.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	  //Intent mi = new Intent(ListHomeScreenx.this , LstPlace.class);
+			       	  //startActivity(mi);
+			       	  
+			       	  Intent mi = new Intent(ListHomeScreenx.this , Processes_Order.class);
+			       	  startActivity(mi);
+			       	  
+			          //Toast.makeText(ListHomeScreenx.this, "Bản dùng thử không có chức năng chấm công!", Toast.LENGTH_LONG).show();
+						
+		          }});
+		  Button btnPictureInform =(Button) findViewById(R.id.btnPictureInform);
+		  btnPictureInform.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	  LstCamera.placeid="-1";
+		        	  //NavigateScreen.getInstance().setDisplay(v.getContext(), InformPictureNew.class);
+		        	  Intent mi = new Intent(ListHomeScreenx.this , InformPictureNew.class);
+			       	  startActivity(mi);
+			          //finish();
+		          }});
+		  
+		  Button btnLiveAudio =(Button) findViewById(R.id.btnLiveAudioInform);
+		  btnLiveAudio.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	  //Intent mi = new Intent(ListHomeScreenx.this , InformAudioLiveRTMP.class);
+		        	  Intent mi = new Intent(ListHomeScreenx.this , InformAudioLive.class);
+			       	  startActivity(mi);
+			      }});
+		  Button btnLiveVideo =(Button) findViewById(R.id.btnLiveVideoInform);
+		  btnLiveVideo.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	 ContextManagerErp.getInstance().startLiveVideo();
+		          }});
+		  Button btnConfig =(Button) findViewById(R.id.btnConfiguration);
+		  btnConfig.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	  //NavigateScreen.getInstance().setDisplay(v.getContext(), PreferencesActivity.class);
+		        	 goToOrder();
+			         // finish();
+		          }});
+		  Button btnLogout =(Button) findViewById(R.id.btnLogout);
+		  btnLogout.setOnClickListener(new OnClickListener(){
+		          public void onClick(View v) 
+		          {     
+		        	  logOut();
+		          }});
+	}
+	
+	protected void gotoConfig() {
+		// TODO Auto-generated method stub
+		Intent mi = new Intent(ListHomeScreenx.this , PreferencesActivity1.class);
+    	startActivity(mi);
+	}
+	public Handler hxProcessing = new Handler() 
+	{
+		public void handleMessage(Message msg) 
+		{
+			if(msg.what==100)
+			{
+				UIManager.getInstance().dismissDialog();
+			}
+			super.handleMessage(msg);
+		}
+	};
+	
+	
+	protected void synContact()
+	{
+		/*
+		UIManager.getInstance().showDialogSpinerWithTitle("Đang đồng bộ danh bạ...");
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() 
+			{
+				Looper.prepare();
+				// TODO Auto-generated method stub
+				final String sx=(new HttpData()).getDataErp("synContact.aspx", "cid="+MemberUtil.companyid+"&iddevice="+LocationUtil.IMEI);
+				updateContact(sx);
+				hxProcessing.sendEmptyMessage(100);
+			}
+		}).start();
+		*/
+		
+	}
+	protected void updateContact(String sString)
+	{
+		try
+        {
+			
+			JSONArray jSonArr;
+			jSonArr = new JSONArray(sString);
+			ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+		    
+			for (int jx = 0; jx <= jSonArr.length() - 1; jx++) 
+			{
+	
+				JSONObject jsonO = jSonArr.getJSONObject(jx);
+				String sID = (String) jsonO.get("id");
+				String sName = (String) jsonO.get("n");
+				String sPhone = (String) jsonO.get("p");
+			
+				
+			    int rawContactInsertIndex = ops.size();
+		
+		        ops.add(ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
+		                .withValue(RawContacts.ACCOUNT_TYPE, null)
+		                .withValue(RawContacts.ACCOUNT_NAME, null).build());
+		        
+		        ops.add(ContentProviderOperation
+		                .newInsert(Data.CONTENT_URI)
+		                .withValueBackReference(Data.RAW_CONTACT_ID,rawContactInsertIndex)
+		                .withValue(Data.MIMETYPE, StructuredName.CONTENT_ITEM_TYPE)
+		                .withValue(StructuredName.DISPLAY_NAME, sName) // Name of the person
+		                .build());
+		        
+		        ops.add(ContentProviderOperation
+		                .newInsert(Data.CONTENT_URI)
+		                .withValueBackReference(
+		                        ContactsContract.Data.RAW_CONTACT_ID,   rawContactInsertIndex)
+		                .withValue(Data.MIMETYPE, Phone.CONTENT_ITEM_TYPE)
+		                .withValue(Phone.NUMBER, sPhone) // Number of the person
+		                .withValue(Phone.TYPE, Phone.TYPE_MOBILE).build()); // Type of mobile number                    
+			}
+	        getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+	        DBManager.getInstance().savePTrackerKey("syncontact","1");
+        }
+        catch (Exception e) 
+        {
+        	e.printStackTrace();
+        	Toast.makeText(this, "Có lỗi khi đồng bộ:"+e.toString(), Toast.LENGTH_LONG).show();
+        	hxProcessing.sendEmptyMessage(100);
+            // error
+        }
+		//UIManager.getInstance().dismissDialog();
+	}
+	private void logOut()
+	{
+		Intent intent = new Intent(getApplicationContext(), AFinishActivity.class);
+ 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);		     		
+ 		startActivity(intent);
+ 		UtilErp.totalScreenLive--;
+ 		finish();
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	    
+	    // Checks the orientation of the screen
+	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+	    	setContentView(R.layout.homescreen1);
+	    	setupButton();
+	        //Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+	    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+	        //Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+	    	setContentView(R.layout.homescreen2);
+	    	setupButton();
+	    }
+	}
+	@Override
+	public void onResume() {
+        super.onResume();
+        /*
+        Toast.makeText(this, "TotalTime="+totalTime+",TotalScreen="+UtilErp.totalScreen
+    		  +",totalScreenLive="+UtilErp.totalScreenLive
+    		  , Toast.LENGTH_LONG).show();
+		*/
+        if ((totalTime == UtilErp.totalScreen) && (UtilErp.totalScreenLive>1)){
+			UtilErp.totalScreenLive--;
+			finish();
+		}
+        //finish();
+        //NavigateScreen.getInstance().setCurrentDisplay(this);
+    } 
+	@Override
+	public void onPause() {
+		super.onPause();
+		//totalTime++;
+		//Toast.makeText(this, "TotalTime="+totalTime+",TotalScreen="+UtilErp.totalScreen, Toast.LENGTH_LONG).show();
+		/*
+		if(totalTime == UtilErp.totalScreen && UtilErp.totalScreenDie>1){
+			finish();
+			UtilErp.totalScreenDie--;
+		}
+		*/
+	}
+	@Override
+	public void onDestroy() {
+		//android.os.Process.killProcess(android.os.Process.myPid());
+		super.onDestroy();
+    } 	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK
+	            && event.getRepeatCount() == 0) {
+	        event.startTracking();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
+	            && !event.isCanceled()) {
+	        // *** Your Code ***
+	        return true;
+	    }
+	    return super.onKeyUp(keyCode, event);
+	}
+	// end class gv
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			String s=DBManager.getInstance().readPTrackerKey("syncontact");
+			// Inflate the menu; this adds items to the action bar if it is present.
+			if(s.equalsIgnoreCase(""))
+			{
+				getMenuInflater().inflate(R.menu.menu_home, menu);
+			}
+			else getMenuInflater().inflate(R.menu.menu_home1, menu);
+			
+			return true;
+		}
+	@Override
+	 public boolean onOptionsItemSelected(MenuItem item) {
+		
+		 // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.menu_settings:
+	    	gotoConfig();
+	        return true;
+	    case R.id.menu_exit:
+	    	logOut();
+	    	return true;
+	    case R.id.menu_syn:
+	    	synContact();
+	    	return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+		//uploadAll();
+	    //return super.onOptionsItemSelected(item);
+	  }
+	private void goToOrder() {
+		// TODO Auto-generated method stub
+		FrmOrder.placeid = "-1";// String.valueOf(id);
+		FrmOrder.typeid = "-1";
+		FrmOrder.agencyname ="";
+		FrmOrder.agencyaddress ="";		
+		NavigateScreen.getInstance().setDisplay(this, FrmOrder.class);
+	}	
+	private void poolingMessage(Context context)
+	{
+		/*
+		    NotificationManager notificationManager = (NotificationManager) context
+		        .getSystemService(Context.NOTIFICATION_SERVICE);
+		    Notification notification = new Notification(R.drawable.icon,
+		        "Registration successful", System.currentTimeMillis());
+		    // hide the notification after its selected
+		    notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+		    
+		    Intent intent = new Intent(context, DialogPicture.class);
+		    //intent.putExtra("registration_id", 1);
+		    PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+		        intent, 0);
+		    notification.setLatestEventInfo(context, "Registration",
+		        "Successfully registered", pendingIntent);
+		   
+		    notificationManager.notify(0, notification);
+		 */		
+	}
+}

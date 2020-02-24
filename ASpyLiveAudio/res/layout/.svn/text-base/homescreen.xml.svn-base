@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="horizontal"    
+    >
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+         >
+           <Button
+               android:id="@+id/btnTimeKeeping"
+             
+               android:drawableTop="@drawable/timekeeping_1"
+               android:gravity="center_vertical|center_horizontal"
+               android:text="Chấm Công" />
+
+           <Button
+               android:id="@+id/btnAgency"
+               android:drawableTop="@drawable/textinform_1"
+               android:text="DS Đại lý" />
+
+           <Button
+            android:id="@+id/btnReportPlan"
+           
+            android:text="KH Làm Việc"
+            android:drawableTop="@drawable/textinform_1"
+             />
+    </TableRow>
+    <View  android:layout_height="2dip"
+        android:background="#FF0000" />
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+          android:gravity="center_vertical|center_horizontal"
+         >
+          <Button
+            android:id="@+id/btnTextInform"
+           
+            android:text="Text Inform"
+            android:drawableTop="@drawable/textinform_1"
+             />
+            <Button
+            android:id="@+id/btnAudioInform"
+           
+            android:text="AudioInform"
+            android:drawableTop="@drawable/audioinform_1"
+             />
+           <Button
+            android:id="@+id/btnVideoInform"
+           
+            android:text="Video Inform"
+            android:drawableTop="@drawable/videoinform_1"
+             />
+    </TableRow>
+    <View  android:layout_height="2dip"
+        android:background="#FF0000" />
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+          android:gravity="center_vertical|center_horizontal"
+        android:layout_height="wrap_content" >
+            
+           <Button
+            android:id="@+id/btnPictureInform"
+           
+            android:text="Picture Inform"
+            android:drawableTop="@drawable/pictueinform_1"
+             />
+          
+           <Button
+            android:id="@+id/btnLiveAudioInform"
+           
+            android:text="LiveAudio"
+            android:drawableTop="@drawable/liveaudioinform_1"
+             />
+           <Button
+            android:id="@+id/btnLiveVideoInform"
+           
+            android:text="LiveVideo"
+            android:drawableTop="@drawable/livevideoinform_1"
+             />
+    </TableRow>	
+    <View  android:layout_height="2dip"
+        android:background="#FF0000" />
+     <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+          android:gravity="center_vertical|center_horizontal"
+        android:layout_height="wrap_content" >
+
+           <Button
+               android:id="@+id/btnReportWorking"
+               android:drawableTop="@drawable/folder"
+               android:text="Files" />
+
+            <Button
+            android:id="@+id/btnConfiguration"
+           
+            android:text="Cài đặt"
+            android:drawableTop="@drawable/configuration_1"
+             />
+           <Button
+            android:id="@+id/btnLogout"
+           
+            android:text="Logout"
+            android:drawableTop="@drawable/logout"
+             />
+    </TableRow>	
+</TableLayout>

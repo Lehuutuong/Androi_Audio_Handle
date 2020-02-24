@@ -1,0 +1,510 @@
+package net.process.locator1.erp;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
+
+
+import net.process.locator1.R;
+import net.process.locator1.BgThread;
+import net.process.locator1.ContextManagerCore;
+import net.process.locator1.GPSPosition;
+import net.process.locator1.HttpData;
+import net.process.locator1.LocationUtil;
+import net.process.locator1.SecUtil;
+import net.process.locator1.SocketData;
+import net.process.locator1.UtilGame;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.NetworkInfo.State;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
+import android.telephony.CellLocation;
+import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class APTrackerERPActivity extends Activity {
+	protected static final String LOGTAG = "ptrackererp";
+	private TextView txtUserName;
+	private TextView txtPassword;
+	private CheckBox chkRemember;
+	private CheckBox chkOffline;
+	
+	private String iddevice;
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.login);		
+		poolingMessage(this);
+		//SecUtil.getInstance().signData("lamdaica");
+		// handler = new Handler();
+		// progress.setVisibility(View.INVISIBLE);
+		/*
+		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		CellLocation location = telephonyManager.getCellLocation();
+		GsmCellLocation gsmLocation = (GsmCellLocation) location;
+		int cellId = gsmLocation.getCid();
+		int lac = gsmLocation.getLac();
+		
+		Toast output = Toast.makeText(getApplicationContext(), "Base station LAC is "+lac+"\n" 
+				  +"Base station CID is " +cellId, Toast.LENGTH_SHORT);
+				  output.show();
+		if(1==1)return;
+		 */
+	
+		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		iddevice= tm.getDeviceId();
+		LocationUtil.IMEI = iddevice;
+		//LocationUtilErp.getInstance().setIMEI(iddevice);		
+		
+		NavigateScreen.getInstance().setCurrentDisplay(this);
+		ContextManagerErp.getInstance().setCurrentContext(getApplicationContext());
+		ContextManagerCore.getInstance().setCurrentContext(getApplicationContext());
+		ContextManagerErp.getInstance().saveToDB("iddeviceerp", iddevice);
+		
+		//Toast.makeText(this, "Iddevice:"+ContextManagerErp.getInstance().readFromDB("iddeviceerp"), Toast.LENGTH_LONG).show();
+		
+		UtilGame.typegame = getResources().getString(R.string.typegame)
+				+ getResources().getString(R.string.suffix);
+		UtilGame.liveaudio = getResources().getString(R.string.liveaudio);
+		UtilGame.isAutoLogin = getResources().getString(R.string.autologin)
+				.equals("true");
+		UtilGame.getInstance().loadConfigFromDB();
+		loadFromConfig();
+		
+//		new Thread(new Runnable() 
+//		{			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				new HttpData().postActionMember("act=autoaccount&type=erp&cid=26",0);
+//			}
+//		}).start();
+		
+		
+		Button loginScreen = (Button) findViewById(R.id.btnLogin);
+		chkRemember = (CheckBox) findViewById(R.id.chkRemember123);
+		txtUserName = (TextView) findViewById(R.id.txtUserName);
+		txtPassword = (TextView) findViewById(R.id.txtPassword);
+		chkOffline = (CheckBox) findViewById(R.id.chkOffline);
+
+		loadFromDB();
+		// Listening to Login Screen link
+		loginScreen.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View arg0) 
+			{
+				loginToServer(txtUserName.getText().toString(), txtPassword.getText().toString());
+			}
+		});
+		/*
+		 * PackageManager pm = getApplicationContext().getPackageManager();
+		 * pm.setComponentEnabledSetting(getComponentName(),
+		 * PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+		 * PackageManager.DONT_KILL_APP);
+		 */
+		/*
+		if (UtilGame.isPtrackerErpLite) {
+			// setupWhenStartUp();
+			NavigateScreen.getInstance().switchDisplay(AndroidCamera.class);
+			// finish();
+			return;
+		}
+		if (UtilGame.isAutoLogin) {
+			UIManager.getInstance().startShowProgress();
+			loginToServer(LocationUtil.IMEI, "vhc.vn123!");
+		} else {
+			// init ui
+			Button loginScreen = (Button) findViewById(R.id.btnLogin);
+			chkRemember = (CheckBox) findViewById(R.id.chkRemember123);
+			txtUserName = (TextView) findViewById(R.id.txtUserName);
+			txtPassword = (TextView) findViewById(R.id.txtPassword);
+
+			loadFromDB();
+			// Listening to Login Screen link
+			loginScreen.setOnClickListener(new OnClickListener() {
+
+				public void onClick(View arg0) {
+				loginToServer(txtUserName.getText().toString(), txtPassword.getText().toString());
+
+				}
+			});
+		}
+		*/
+		makeDirTemp();
+		makeDirTempB();
+		
+		ContextManagerErp.getInstance().startServiceIfNeed();
+		testSDCard();
+		//net.process.locator1.liveaudio.LiveAudioManager.getInstance().startCall();
+		
+		//Intent intent = new Intent(DevicePolicyManager.ACTION_SET_NEW_PASSWORD);
+		//startActivity(intent);
+	}
+	private void testSDCard()
+	{	
+		if(!ContextManagerCore.externalMemoryAvailable())
+		{
+			UIManager.getInstance().showMsg("Máy không có thẻ nhớ nên sẽ không dùng được một số chức năng. Vui lòng lắp thẻ nhớ!");
+			return;
+		}
+	}
+	private void makeDirTemp() 
+	{
+        String[] str ={"mkdir", "/sdcard/tmp/"};
+        try 
+        { 
+            Process ps = Runtime.getRuntime().exec(str);	    
+            try {
+                ps.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } 
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+   }
+	private void makeDirTempB() 
+	{
+        String[] str ={"mkdir", "/sdcard/tmpb/"};
+        try 
+        { 
+            Process ps = Runtime.getRuntime().exec(str);	    
+            try {
+                ps.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } 
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+   }
+	public void loadFromConfig()
+	{
+		//try{
+			  //load configuration
+			  SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+			  
+			
+			  String xPreference = prefs.getString("partStreamingRef", "5");
+			  MemberUtil.partStreamingPref=Integer.valueOf(xPreference);
+			 
+			MemberUtil.autoUpload = prefs.getBoolean("autoUploadRef", false);
+			MemberUtil.modeOffline = prefs.getBoolean("modeOfflineRef", false);
+			
+				
+			MemberUtil.resolutionPicture = prefs.getString("sizePictureRef", "320x240");
+			MemberUtil.parseSizePictureFromConfig();
+		
+		
+			String method=prefs.getString("methodRef", "1");
+			if(!method.equals("1") && !method.equals("2") && !method.equals("3") && !method.equals("4")) method="1";
+			
+			MemberUtil.audioSafe=prefs.getBoolean("audioSafeRef", false);
+			
+			MemberUtil.methodx = Integer.parseInt(method);		
+			MemberUtil.setMethod();
+					
+			  /*
+			  String xPreference = prefs.getString("partStreamingRef", "10");
+			  MemberUtil.partStreamingPref=Integer.valueOf(xPreference);
+			  MemberUtil.resolutionPicture = prefs.getString("sizePictureRef", "0x0");
+			  MemberUtil.autoUpload = prefs.getBoolean("autoUploadRef", false);
+			  MemberUtil.formatStreaming=prefs.getString("formatStreamingRef", "mp4");
+			  
+			  MemberUtil.resolutionVideo = prefs.getString("sizeStreamingRef", "0x0");
+			  MemberUtil.audioSafe=prefs.getBoolean("audioSafeRef", false);
+			  
+			 
+			  MemberUtil.frameRate = Integer.parseInt(prefs.getString("frameRateRef", "0"));		
+			  
+			  MemberUtil.videoSource =Integer.parseInt(prefs.getString("videoSourceRef", "1"));	
+			  MemberUtil.audioSource = Integer.parseInt(prefs.getString("audioSourceRef", "1"));	
+			  
+			  MemberUtil.outputFormat = Integer.parseInt(prefs.getString("outputFormatRef", "2"));	
+			  MemberUtil.videoEncoder = Integer.parseInt(prefs.getString("videoEncoderRef", "2"));	
+			  
+			  MemberUtil.audioEncoder = Integer.parseInt(prefs.getString("audioEncoderRef", "3"));
+			  MemberUtil.videoBitRate = Integer.parseInt(prefs.getString("videoBitRateRef", "0"));	
+				
+			  MemberUtil.placeid="0";
+			  
+			  MemberUtil.parseSizePictureFromConfig();
+			  MemberUtil.parseSizeVideoFromConfig();
+			  */
+			  
+			  
+			/*}catch(Exception ex)
+			{
+				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+				
+			}*/
+	}
+	@Override
+	public void onResume() {
+		super.onResume();
+		NavigateScreen.getInstance().setCurrentDisplay(this);
+	}
+	
+	private void loadFromDB() 
+	{
+		// TODO Auto-generated method stub
+		String username = DBManager.getInstance().readPTrackerKey("username");
+		String password = DBManager.getInstance().readPTrackerKey("password");
+
+		if(username.equals("")) username=iddevice;
+		if(password.equals("")) password="vhc.vn";
+		
+		txtUserName.setText(username);
+		txtPassword.setText(password);
+		if (!TextUtils.isEmpty(username)) { chkRemember.setChecked(true);}
+		
+		if(MemberUtil.modeOffline)
+		{
+			MemberUtil.memberid=DBManager.getInstance().readPTrackerKey("memberid");
+			MemberUtil.companyid=DBManager.getInstance().readPTrackerKey("companyid");
+			MemberUtil.fullNamex=DBManager.getInstance().readPTrackerKey("fullNamex");
+			MemberUtil.companyName=DBManager.getInstance().readPTrackerKey("companyName");
+		}
+	}
+
+	private void saveToDB() {
+		if (chkRemember.isChecked()) 
+		{
+			// TODO Auto-generated method stub
+			DBManager.getInstance().savePTrackerKey("username",txtUserName.getText().toString());
+			DBManager.getInstance().savePTrackerKey("password",txtPassword.getText().toString());
+			
+			DBManager.getInstance().savePTrackerKey("memberid",MemberUtil.memberid.toString());
+			DBManager.getInstance().savePTrackerKey("companyid",MemberUtil.companyid.toString());
+			
+			DBManager.getInstance().savePTrackerKey("fullNamex",MemberUtil.fullNamex.toString());
+			DBManager.getInstance().savePTrackerKey("companyName",MemberUtil.companyName.toString());
+			/*
+			MemberUtil.memberid = jsonO.get("id").toString();
+			MemberUtil.companyid = jsonO.get("companyid").toString();
+			MemberUtil.fullNamex = jsonO.get("title").toString() + "  " + jsonO.get("fullname").toString();
+			MemberUtil.companyName = jsonO.get("companyname").toString();
+			*/
+		}
+	}
+
+	private void loginToServer(String u, String p) 
+	{
+		if(chkOffline.isChecked()) MemberUtil.modeOffline=true;
+		else MemberUtil.modeOffline=false;
+		if(!MemberUtil.modeOffline)
+		{
+			if(!ContextManagerErp.getInstance().isConnected())
+			{
+				UIManager.getInstance().showMsg("Không có kết nối mạng để thực hiện. Xin vui lòng kiểm tra");
+				return;
+			}
+			new DownloadDataFromURL().execute("login.aspx", "u=" + u + "&p=" + p+"&type=erp");
+		}
+		else 
+		{
+			
+			loadFromDB();
+			String userOffline=DBManager.getInstance().readPTrackerKey("username");
+			String passOffline=DBManager.getInstance().readPTrackerKey("password");
+			if(userOffline.equals(u) && passOffline.equals(p))
+			{
+				backToHome();
+			}			
+			else UIManager.getInstance().showMsg("Đăng nhập thất bại: Bạn đang chạy ở chế độ offline, nhưng username và password bạn phải nhập đúng với khi đăng nhập thành công lần trước đó!");
+		}
+	}
+	private void processResult(String xlogin) {
+		
+		//UIManager.getInstance().showMsg("Result of login:"+xlogin+"===>"+xlogin.length());
+		if (xlogin.startsWith("Error:")) 
+		{
+			UIManager.getInstance().showMsg("Đăng nhập thất bại:Lỗi kết nối mạng, hãy thử lại!");
+			return;
+		}
+		if (xlogin.replace(" ", "").replace("\n", "").indexOf("[]")!=-1) {
+			UIManager.getInstance().showMsg("Đăng nhập thất bại:Sai username/password, hãy thử lại. Nếu là lần đầu tiên, bạn hãy đợi 2 đến 5 phút để hệ thống cập nhật");
+		} else {
+			try {
+				//Toast.makeText(this, "xlogin="+xlogin, Toast.LENGTH_LONG).show();
+				JSONArray jSonArr = new JSONArray(xlogin);
+			
+				JSONObject jsonO = jSonArr.getJSONObject(0);
+				
+				MemberUtil.memberid = jsonO.get("id").toString();
+				MemberUtil.companyid = jsonO.get("companyid").toString();
+				UtilGame.companyid=MemberUtil.companyid ;
+				MemberUtil.fullNamex = jsonO.get("title").toString() + "  " + jsonO.get("fullname").toString();
+				MemberUtil.companyName = jsonO.get("companyname").toString();
+
+				// setupWhenStartUp();
+				// UIManager.getInstance().stopShowProgress();
+				// stopShowProgress();
+				//NavigateScreen.getInstance().setDisplay(this, ListHomeScreen.class,Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				
+				if (!UtilGame.isAutoLogin) saveToDB();				
+				/*
+				NavigateScreen.getInstance().switchDisplay(ListHomeScreen.class,Intent.FLAG_ACTIVITY_NO_HISTORY);
+				finish();
+				*/
+				backToHome();
+			} catch (Exception ex) {
+				// UIManager.getInstance().stopShowProgress();
+				// stopShowProgress();
+				UIManager.getInstance().showMsg("Error:"+ex.toString());
+			}
+		}
+	}
+	public void backToHome() 
+	{
+		//NavigateScreen.getInstance().setDisplay(v.getContext(), ListHomeScreen.class);
+  	  	Intent mi = new Intent(this , ListHomeScreen.class);
+  	  	mi.putExtra("isfirst", true);
+  	  	startActivity(mi);
+    	finish();
+    }
+	private void poolingMessage(Context context)
+	{
+		/*
+		String string="5wAAAB+LCAAAAAAABADtvQdgHEmWJSYvbcp7f0r1StfgdKEIgGATJNiQQBDswYjN5pLsHWlHIymrKoHKZVZlXWYWQMztnbz33nvvvffee++997o7nU4n99//P1xmZAFs9s5K2smeIYCqyB8/fnwfPyK+94s/KmYfPfpo96PRRy39nOdlWeGPBf3Rzosmpf8t8qbJLvL0vK4WaZPXl3mdTq7TMlvMsmKajf5f3u6jX/L9/wcd4uau5wAAAA==";
+		
+		String sMessage=UtilErp.decompressData(string);
+		if(sMessage.equalsIgnoreCase("[]")) return;
+		if(sMessage.equalsIgnoreCase("")) return;
+		
+		Intent intent = new Intent("net.process.locator1.message");
+		intent.putExtra("iscompress", false);
+		intent.putExtra("message", sMessage);
+		this.sendBroadcast(intent);
+//		
+//		Intent intent = new Intent("net.process.locator1.message");
+//		intent.putExtra("iscompress", false);
+//		intent.putExtra("message", "[{'id':'10000','t':'title1','m':'hello1,click to goto http://maps.google.com'},{'id':'10001','t':'title2','m':'You ve signed out of all your accounts We ve remembered your accounts on this device to make your future sign-ins easier. Choose an account to sign back in. Learn more'}]");
+//		this.sendBroadcast(intent);
+		/*
+		    NotificationManager notificationManager = (NotificationManager) context
+		        .getSystemService(Context.NOTIFICATION_SERVICE);
+		    Notification notification = new Notification(R.drawable.icon,
+		        "Registration successful", System.currentTimeMillis());
+		    // hide the notification after its selected
+		    notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+		    
+		    Intent intent = new Intent(context, DialogPicture.class);
+		    //intent.putExtra("registration_id", 1);
+		    PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+		        intent, 0);
+		    notification.setLatestEventInfo(context, "Registration",
+		        "Successfully registered", pendingIntent);
+		   
+		    notificationManager.notify(0, notification);
+		*/
+		 
+	}
+	class DownloadDataFromURL extends AsyncTask<String, String, String> {
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			UIManager.getInstance().showDialog(1);
+		}
+		@Override
+		protected String doInBackground(String... f_url) {
+			int count;
+			String sResult = "";
+			try {
+
+				// sResult = (new HttpData()).getData(f_url[0],f_url[1]);
+				sResult = "";
+				System.setProperty("http.keepAlive", "false");			
+				String xurl = HttpData.prefixUrl + f_url[0] + "?" + f_url[1]+UtilErp.GetCompressUrl();
+				
+				URL url = new URL(xurl);
+				URLConnection conn = url.openConnection();
+				conn.setConnectTimeout(10000);
+				int lenghtOfFile = conn.getContentLength();
+
+				// Get the response
+				DataInputStream rd = (new DataInputStream(conn.getInputStream()));
+				StringBuilder sb = new StringBuilder();
+				byte[] buffer = new byte[512];
+				int total = 0;
+				while ((count = rd.read(buffer)) != -1) {
+					total += count;
+					int progress_temp = (int) total * 100 / lenghtOfFile;
+					publishProgress("" + progress_temp);
+					sb.append(new String(buffer, "UTF-8"));
+				}
+				sResult = sb.toString();
+				
+				rd = null;
+				conn = null;
+				url = null;
+			} catch (Exception e) {
+				//Log.e("Error: ", e.getMessage());
+				sResult= "Error:"+e.toString();
+			}
+			return sResult;
+		}
+		@Override
+		protected void onCancelled()
+        {
+        }
+		@Override
+		protected void onProgressUpdate(String... progress) {
+			// setting progress percentage
+			//pDialog.setProgress(Integer.parseInt(progress[0]));
+			UIManager.getInstance().setProgress(Integer.parseInt(progress[0]));
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			//UIManager.getInstance().showMsg("Decode0:"+result);
+			result=UtilErp.decompress(result);
+			processResult(result);	
+			UIManager.getInstance().dismissDialog();
+		}
+	}
+}

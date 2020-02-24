@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:gravity="center_vertical|center_horizontal"
+android:paddingLeft="2dp"
+android:paddingRight="2dp"
+    android:orientation="vertical"    
+    >
+
+    <LinearLayout
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:gravity="center_vertical|center_horizontal" >
+
+           <Button
+               android:id="@+id/btnTimeKeeping"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:drawableTop="@drawable/timekeeping_1"
+               android:gravity="center_vertical|center_horizontal"
+               android:text="Chấm Công"
+               android:width="0dp" />
+
+           <Button
+               android:id="@+id/btnAgency"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:drawableTop="@drawable/textinform_1"
+               android:text="DS Đại lý"
+               android:width="0dp" />
+
+           <Button
+               android:id="@+id/btnReportPlan"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:textSize="13sp"
+               android:drawableTop="@drawable/textinform_1"
+               android:text="KH Làm Việc"
+               android:width="0dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dip"
+        android:background="#FF0000" />
+
+    <LinearLayout
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:gravity="center_vertical|center_horizontal"
+         >
+
+          <Button
+              android:id="@+id/btnTextInform"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:drawableTop="@drawable/textinform_1"
+              android:text="Text Inform"
+              android:textSize="12dp"
+              android:width="0dp" />
+
+            <Button
+                android:id="@+id/btnAudioInform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/audioinform_1"
+                android:text="AudioInform"
+                 android:textSize="12dp"
+                android:width="0dp" />
+
+           <Button
+               android:id="@+id/btnVideoInform"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:drawableTop="@drawable/videoinform_1"
+               android:text="Video Inform"
+                android:textSize="12dp"
+               android:width="0dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dip"
+        android:background="#FF0000" />
+
+     <LinearLayout
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:gravity="center_vertical|center_horizontal"
+         >
+
+           <Button
+               android:id="@+id/btnPictureInform"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:drawableTop="@drawable/pictueinform_1"
+               android:text="Picture Inform"
+               android:textSize="12dp"
+               android:width="0dp" />
+          
+           <Button
+               android:id="@+id/btnLiveAudioInform"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:drawableTop="@drawable/liveaudioinform_1"
+               android:text="LiveAudio"
+               android:width="0dp" />
+
+           <Button
+               android:id="@+id/btnLiveVideoInform"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:drawableTop="@drawable/livevideoinform_1"
+               android:text="LiveVideo"
+               android:width="0dp" />
+
+    </LinearLayout>	
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dip"
+        android:background="#FF0000" />
+
+      <LinearLayout
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:gravity="center_vertical|center_horizontal"
+         >
+
+           <Button
+               android:id="@+id/btnReportWorking"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:drawableTop="@drawable/folder"
+               android:text="Files"
+               android:width="0dp" />
+
+            <Button
+                android:id="@+id/btnConfiguration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/order"
+                android:text="Đơn hàng"
+                android:width="0dp" />
+
+           <Button
+               android:id="@+id/btnLogout"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:drawableTop="@drawable/logout"
+               android:text="Logout"
+               android:width="0dp" />
+
+    </LinearLayout>	
+</LinearLayout>
+

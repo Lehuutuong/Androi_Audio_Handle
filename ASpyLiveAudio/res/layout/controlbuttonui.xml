@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="bottom"
+    android:orientation="horizontal" >
+    <LinearLayout
+        android:id="@+id/tableRow22"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/footer_bg"
+        android:padding="3dip" >
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:visibility="gone"
+            android:background="@drawable/footer_home"
+            android:hint=""          
+            android:textColor="#ffffff" />    
+               <Button
+            android:id="@+id/btnOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+             android:visibility="gone"
+            android:background="@drawable/footer_dongy"
+            android:text=""          
+            android:textColor="#ffffff" />
+                  <Button
+            android:id="@+id/btnRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+             android:visibility="gone"
+            android:background="@drawable/footer_update"
+            android:hint=""          
+            android:textColor="#ffffff" />
+                     <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+             android:visibility="visible"
+            android:background="@drawable/footer_back"
+            android:hint=""          
+            android:textColor="#ffffff" />  
+		            <Button
+		            android:id="@+id/btnExit"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="right"
+		             android:visibility="gone"
+		            android:background="@drawable/footer_exit"
+		            android:hint=""          
+		            android:textColor="#ffffff" />   
+    </LinearLayout>
+</RelativeLayout>

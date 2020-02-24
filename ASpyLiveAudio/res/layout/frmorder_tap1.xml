@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    		xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+    
+<ScrollView 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/layout123"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kho hàng:"
+            android:textColor="#FFFFFF" />
+
+         <RelativeLayout
+		        android:id="@+id/layout1234"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal" >
+		        <Spinner
+		            android:id="@+id/lstKhoHang"
+		            android:layout_width="fill_parent"
+		            android:layout_toLeftOf="@+id/button2"
+		            android:layout_height="40dp" />
+		        <Button
+		              android:id="@+id/button2"
+		              android:layout_width="40dp"
+		              android:layout_height="40dp"
+		              
+
+		              android:layout_alignParentRight="true"
+		              android:background="@drawable/footer_update"		             
+		              android:text=""
+		              android:textColor="#ffffff" >
+		          </Button>
+		 </RelativeLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Nội dung:"
+            android:textColor="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/txtNote"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:layout_marginTop="5dip"
+            android:singleLine="true"
+            android:text="" />        
+    </LinearLayout>
+</ScrollView>
+<!-- 
+ <LinearLayout
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:layout_alignParentBottom="true"
+          android:orientation="horizontal" >
+
+          <Button
+              android:id="@+id/button1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/style_btn_common"
+              android:gravity="center_horizontal|center_vertical"
+              android:text="Đồng ý"
+              android:textColor="#ffffff" >
+          </Button>
+          
+		<include layout="@layout/frmorder_gohome" >
+                  </include>
+      </LinearLayout>
+      -->
+      <LinearLayout
+        android:id="@+id/tableRow22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@drawable/footer_bg"
+        android:layout_alignParentBottom="true"
+        android:padding="3dip" >
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+             android:visibility="visible"
+            android:background="@drawable/footer_save"
+            android:hint=""          
+            android:textColor="#ffffff" />
+        <Button
+		        android:id="@+id/btnOrderManager"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="right"
+	            android:background="@drawable/footer_guidonhang"
+	            android:hint=""          
+	            android:textColor="#ffffff" /> 
+            <include layout="@layout/frmorder_gohome" >
+                  </include>
+		             
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:padding="5px"
+            android:radius="10px"
+            android:text="Publish and receive audio"
+            android:textColor="#ffffff"
+            android:textStyle="bold" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/rtmpServerUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"
+            android:text="" >
+        </EditText>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5px" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@layout/round_rect"
+                android:orientation="vertical"
+                android:padding="5px" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:padding="5px"
+                    android:radius="10px"
+                    android:text="You are"
+                    android:textColor="#000000"
+                    android:textStyle="bold" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/publishingTopic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="kaka" >
+                </EditText>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/switchTopicButton"
+                android:layout_width="45px"
+                android:layout_height="match_parent"
+                android:background="@drawable/style_btn_common"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="&lt; >"
+                android:textColor="#ffffff" >
+            </Button>
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@layout/round_rect"
+                android:orientation="vertical"
+                android:padding="5px" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:padding="5px"
+                    android:radius="10px"
+                    android:text="Other is"
+                    android:textColor="#000000"
+                    android:textStyle="bold" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/subscribingTopic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="pipi" >
+                </EditText>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="2px" >
+
+            <Button
+                android:id="@+id/startCaptureButton"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/style_btn_common"
+                android:text="START"
+                android:textColor="#ffffff" >
+            </Button>
+
+            <Button
+                android:id="@+id/stopCaptureButton"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/style_btn_common"
+                android:text="STOP"
+                android:textColor="#ffffff" >
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="2px" >
+
+            <TextView
+                android:id="@+id/receivedStatusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_horizontal"
+                android:padding="5px"
+                android:radius="10px"
+                android:text="0kb"
+                android:textColor="#ffffff"
+                android:textStyle="bold" >
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

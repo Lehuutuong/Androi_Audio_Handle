@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1199"
+   name=""
+   committed-date="2014-01-08T05:08:35.474038Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/src/net/process/locator1/lock"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1199"
+   name="LockMainActivity.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3bcc712cf1b2878ef8cee00309316d63"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="DeviceAdminDemo.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="af7178edee169b6a7f326d8eabc9689d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+</wc-entries>

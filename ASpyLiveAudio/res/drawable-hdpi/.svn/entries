@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1241"
+   name=""
+   committed-date="2014-01-11T04:46:21.157112Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/res/drawable-hdpi"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1199"
+   name="audio_record.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="275cec72ce1b0384e56f1db76b9ee8f0"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="menu_quit.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b627720bde39c611e308368d97d33af5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="logout.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9a2d67a6c6fc8b93581bac309ab980c2"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="btn_vaoban.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="a7149775035a1c4c62eb5eaac8327181"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpdaily.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="fcb982d77b0a56a74380fb4692519ddf"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpmcong.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="a5f724a162ca371bc8f107a20c6e8c69"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="folder.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="877c7a8e6b55e5f81a7c47e8e2de5395"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="report.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="f5a556c6f925608cd5eb59497e0d4a0a"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="liveaudioinform_1.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="540aeb939189d740aa536bbeb467688b"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpe_audio.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ffe1c2a9216f94962e98c6519e6a6331"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="textinform_1.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="39ca8bdb252137f0111f2d4d067e5766"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="livevideoinform_1.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="02701fd5724b9985c629f28da5b95663"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="timekeeping_1.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e6ddb15a22b8b1359fa6b059bf203cd0"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpevideo.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="a052b1251b95440ca74821c60474af35"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="pictueinform_1.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ffc3855cefd2893a9d80b13df1380055"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpeoinform.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="905d7be8c82cfe10d70ef73feca13043"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="logoerp_2.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="2572c1d1671bdb5a4ce98dad06b60d4a"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="icon.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b627720bde39c611e308368d97d33af5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpio_inform.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="205b7cba9ac07fe4e1a4cbbb913d288e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="btn_choingay_phongcho.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9ad74e848f45a28cdacce774856cf4ff"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="audio_exit.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9adc4286f9c105ffe0aaf232ee79ad51"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="audioinform_1.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e2525f819ea69ae17b34bb3b4966f0a8"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="btn_vaoban_disable.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="023779b9136a955f25afc1b85fd6284b"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpture_inform.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="c240bf895e6f09d29236151ee25c4a17"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="videoinform_1.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="d7818f56f30f75d65079d090ba09d60d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1241"
+   name="Thumbs.db"
+   text-time="2014-01-10T09:41:54.000000Z"
+   committed-date="2014-01-11T04:46:21.157112Z"
+   checksum="ba10276742d255b759892f66ed8be142"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="audio_stop.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="846f7e9b28a52d77902d01d8d4544947"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="logoerp.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="da68324a4df2dd668e2cc0289a31b455"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpcao_donhang.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="0ad756d01afb35588a9b87ac9a9c08db"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="order.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="c3cc9338efcd92ded119c62c4bbb2dd5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ic_launcher.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b627720bde39c611e308368d97d33af5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpt_inform.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="349a66e8eab33a399ca023ad23d0d734"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="upload.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="231bea3a283b15523b8bae8853b9ae7d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpout_icon.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3983c4521b4dd1ed508a358d663144cb"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="audio_play.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="bd31e0a8054404a4cd6d099d55b7fa49"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erplamviec.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="2fd088a1da0fcc71cfadc4c296bf5b9f"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="configuration_1.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="83dff0122f3b9e60b68d7528a6ded7af"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpsenger.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="fa5846ce9f74312530b5618c26b76c43"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="erpe.png"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e2c2118dc612631f2f8d1464a4813ed7"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+</wc-entries>

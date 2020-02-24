@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1256"
+   name=""
+   committed-date="2014-01-11T08:57:02.062402Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/res/drawable"
+   last-author="tuannew"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1199"
+   name="tab_bg_selected.xml"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="120889d4b806262014efe69e7214db63"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1256"
+   name="myshape.xml"
+   text-time="2014-01-11T08:58:30.000000Z"
+   committed-date="2014-01-11T08:57:02.062402Z"
+   checksum="96930be4080dc31aac9d6a365711846d"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-11T08:58:30.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="Thumbs.db"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="442769665ba6409aeac1285e0383eb18"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="bg.jpg"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b0e22ff910e2954e763fc0448e391157"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="close.png"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ad9ba69a30692af783dec42355a9d902"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="tab_bg_unselected.xml"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9b4837d2eb6898eac542a429eac358fb"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="tab_text_selector.xml"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="1e4529ed45887088372d7f884526bfee"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="style_btn_common.xml"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9c58eac6d67da630dbac401ea1adc086"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="tab_bg_selector.xml"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="fcdbb1dc016baf6015ed0a8f8023c329"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+</wc-entries>

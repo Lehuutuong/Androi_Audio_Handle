@@ -1,0 +1,10 @@
+package net.process.locator1.erp;
+
+public class ConfigGame {
+
+	public static void getInstance() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

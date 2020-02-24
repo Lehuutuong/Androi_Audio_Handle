@@ -1,0 +1,141 @@
+package net.process.locator1.erp;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+import android.hardware.Camera.Size;
+import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
+
+
+
+public class PreferencesActivity1 extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) 
+	{
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		addPreferencesFromResource(net.process.locator1.R.layout.preference_screen1);
+		
+		String[] listSuport= new String[]{"320x240"};
+		try{
+			Camera cam=Camera.open();
+			Parameters params = cam.getParameters();
+			List<Size> sizes = params.getSupportedPictureSizes();
+			//ArrayList<String> arr = new ArrayList<String>();
+			listSuport=new String[sizes.size()+2];
+			
+			for (int i=0;i<=sizes.size()-1;i++)
+			{
+				//arr.add(String.valueOf(sizes.get(i).width) +"x"+String.valueOf(sizes.get(i).height));
+			    //Log.i("PictureSize", "Supported Size: " +sizes.get(i).width + "height : " + sizes.get(i).height);
+				listSuport[i+2]=String.valueOf(sizes.get(i).width) +"x"+String.valueOf(sizes.get(i).height);
+			} 
+			cam.release();
+			cam=null;
+			listSuport[0]="0x0";
+			listSuport[1]="320x240";
+			
+			//if(!arr.contains("320x240")){arr.add(0, "320x240");}
+			//arr.add(0, "0x0");
+			//listSuport=(String[]) arr.toArray();
+		}catch(Exception ex){}
+		
+		ListPreference listPrefPicture = (ListPreference) findPreference("sizePictureRef");
+		listPrefPicture.setEntryValues(listSuport);
+		listPrefPicture.setEntries(listSuport);
+		listPrefPicture.setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("sizePictureRef", "320x240"));
+		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+	}
+	private void getPrefs() 
+	{
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		
+		
+		boolean CheckboxPreference = prefs.getBoolean("audioSafeRef", true);
+		boolean autoUploadPreference = prefs.getBoolean("audioUploadRef", true);
+		
+		String sizePreference = prefs.getString("sizeStreamingPref", "320x240");
+		String formatPreference = prefs.getString("formatStreamingPref", "mp4");		
+		String partStreamingPref = prefs.getString("partStreamingPref","10");
+		
+		
+		//String ringtonePreference = prefs.getString("ringtonePref","DEFAULT_RINGTONE_URI");
+		//String secondEditTextPreference = prefs.getString("SecondEditTextPref","Nada dentro");
+		SharedPreferences mySharedPreferences = getSharedPreferences("myCustomSharedPrefs", Activity.MODE_PRIVATE);
+		String customPref = mySharedPreferences.getString("myCusomPref", "");
+		prefs.edit().commit();
+	}
+	@Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        // handle the preference change here
+		try{
+			  //load configuration
+			  SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+			  
+			if(key.equalsIgnoreCase("partStreamingRef"))
+			{
+			  String xPreference = prefs.getString("partStreamingRef", "5");
+			  MemberUtil.partStreamingPref=Integer.valueOf(xPreference);
+			}  
+			if(key.equalsIgnoreCase("autoUploadRef"))  MemberUtil.autoUpload = prefs.getBoolean("autoUploadRef", false);
+			if(key.equalsIgnoreCase("modeofflineRef"))  MemberUtil.modeOffline = prefs.getBoolean("modeOfflineRef", false);
+			
+			if(key.equalsIgnoreCase("sizePictureRef"))
+			{
+				MemberUtil.resolutionPicture = prefs.getString("sizePictureRef", "320x240");
+				MemberUtil.parseSizePictureFromConfig();
+			}
+			if(key.equalsIgnoreCase("methodRef"))
+			{
+				MemberUtil.methodx = Integer.parseInt(prefs.getString("methodRef", "1"));		
+				MemberUtil.setMethod();
+			}		
+			if(key.equalsIgnoreCase("audioSafeRef")) MemberUtil.audioSafe = prefs.getBoolean("audioSafeRef", false);
+			
+			/*
+			if(key.equalsIgnoreCase("sizeStreamingRef"))
+			{
+			  MemberUtil.resolutionVideo = prefs.getString("sizeStreamingRef", "0x0");
+			  MemberUtil.parseSizeVideoFromConfig();
+			}
+			if(key.equalsIgnoreCase("audioSafeRef")) MemberUtil.audioSafe = prefs.getBoolean("audioSafeRef", false);
+			if(key.equalsIgnoreCase("frameRateRef"))  MemberUtil.frameRate = Integer.parseInt(prefs.getString("frameRateRef", "25"));		
+			if(key.equalsIgnoreCase("formatStreamingRef"))  MemberUtil.formatStreaming = prefs.getString("formatStreamingRef", "mp4");	
+			
+			if(key.equalsIgnoreCase("videoSourceRef"))  MemberUtil.videoSource =Integer.parseInt(prefs.getString("videoSourceRef", "1"));	
+			if(key.equalsIgnoreCase("audioSourceRef"))  MemberUtil.audioSource = Integer.parseInt(prefs.getString("audioSourceRef", "1"));	
+			if(key.equalsIgnoreCase("outputFormatRef"))  MemberUtil.outputFormat= Integer.parseInt(prefs.getString("outputFormatRef", "2"));	
+			if(key.equalsIgnoreCase("videoEncoderRef"))  MemberUtil.videoEncoder= Integer.parseInt(prefs.getString("videoEncoderRef", "2"));	
+			if(key.equalsIgnoreCase("audioEncoderRef"))  MemberUtil.audioEncoder = Integer.parseInt(prefs.getString("audioEncoderRef", "3"));	
+			if(key.equalsIgnoreCase("videoBitRateRef"))  MemberUtil.videoBitRate = Integer.parseInt(prefs.getString("videoBitRateRef", "0"));	
+		    */
+			}catch(Exception ex)
+			{
+				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+				
+			}
+    }
+	public void cach1()
+	{
+		
+	}
+	public void cach2()
+	{
+		
+	}
+	public void cach3()
+	{
+		
+	}
+}

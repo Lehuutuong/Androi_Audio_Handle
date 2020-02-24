@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1199"
+   name=""
+   committed-date="2014-01-08T05:08:35.474038Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/etc"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1201"/>
+<entry
+   committed-rev="1199"
+   name="adpcm.txt"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="6fef0c58eca774a00e6b5dcd47d98d02"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:38.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="nellymoser.txt"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ca25916fd39ce8bea9fd03b94a6ab9bd"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:38.000000Z"/>
+</wc-entries>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1199"
+   name=""
+   committed-date="2014-01-08T05:08:35.474038Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/assets"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1201"/>
+<entry
+   committed-rev="1199"
+   name="1"
+   text-time="2014-01-08T05:11:20.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="4fee062c4b7a9e2016893fe394c2fa0e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:18.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="2"
+   text-time="2014-01-08T05:11:20.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="f5dc0a0016e47bcb1ab0f6fa7c79eac8"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:20.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="3"
+   text-time="2014-01-08T05:11:20.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="81e96c9149fbcca04cf2b594779fd480"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:20.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="4"
+   text-time="2014-01-08T05:11:20.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="0843e5b0be134c1094c709a9cc8879de"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:20.000000Z"/>
+</wc-entries>

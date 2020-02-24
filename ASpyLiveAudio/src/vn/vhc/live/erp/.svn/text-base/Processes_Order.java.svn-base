@@ -1,0 +1,524 @@
+package net.process.locator1.erp;
+
+import java.io.DataInputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TextView;
+import android.widget.TabHost.OnTabChangeListener;
+import android.widget.Toast;
+import net.process.locator1.HttpData;
+import net.process.locator1.R;
+import net.process.locator1.erp.FrmOrderPreview.DownloadDataFromURL;
+
+public class Processes_Order extends Activity {
+	public static ArrayList<Products> arrList = new ArrayList<Products>();
+	public static ArrayList<Products> arrListActive = new ArrayList<Products>();
+	public static ArrayList<Products> arrListStore = new ArrayList<Products>();
+	public static ArrayList<Products> arrListStoreActive = new ArrayList<Products>();
+	public static String strSearch = "";
+	public static String typeid = "-1";
+	public static String placeid = "-1";
+	public static String agencyname = "";
+	public static String agencyaddress = "";
+	ProcessOrderSearchAdapter processSearchAdapter;
+	ProcessOrderListAdapter proProcessOrderListAdapter;
+	EditText editSearch;
+	Button btnUpdate;
+	Button btnGohome;
+	Button btnCapNhat;
+	
+	String agencyfullname = "";
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.processes_order_main);
+
+		getExtraInfo();
+		setTitle("Kiểm hàng " + agencyfullname);
+
+		loadTab();
+		loadJsonOrder();
+		setupUI();
+
+	}
+
+	public void getExtraInfo() {
+		if (getIntent().getExtras() == null)
+			return;
+		if (getIntent().getExtras().getString("agencyid") != null)
+			placeid = (String) getIntent().getExtras().getString("agencyid");
+		if (getIntent().getExtras().getString("agencyfullname") != null)
+			agencyfullname = (String) getIntent().getExtras().getString(
+					"agencyfullname");
+	}
+
+	public void setDataSource() {
+		if (arrList.size() < 0) {
+			UIManager.getInstance().showMsg("Không có dữ liệu...");
+
+			return;
+		}
+
+		processSearchAdapter = new ProcessOrderSearchAdapter(this,
+				R.layout.processes_order_listitem, arrList);
+		ListView plist = (ListView) findViewById(R.id.list_process_order);
+		plist.setAdapter(processSearchAdapter);
+
+	}
+
+	public void reloadTab() {
+		loadJsonOrder();
+		if (processSearchAdapter.orderListAdapter != null) {
+			processSearchAdapter.orderListAdapter.clear();
+
+		}
+	}
+
+	public void setupUI() {
+
+		btnUpdate = (Button) findViewById(R.id.btn_Search_Process);
+		editSearch = (EditText) findViewById(R.id.searchProcessesOrder);
+		editSearch.addTextChangedListener(filterTextWatcher);
+		btnUpdate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				// getProductFromServerT();
+				isFromServer = true;
+				reloadTab();
+
+			}
+		});
+		btnCapNhat = (Button) findViewById(R.id.btn_capNhatProducts);
+		btnCapNhat.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				postToServer();
+			}			
+		});
+	}
+	
+	public void clearStore() {
+		arrListStore.clear();
+		arrListActive.clear();
+		arrList.clear();
+	}
+
+	public void OnLickGoHome(View v) {
+		backToHome();
+	}
+
+	public void OnLickGoAgency(View v) {
+		Intent mi = new Intent(this, LstAgency.class);
+		startActivity(mi);
+		finish();
+	}
+
+	private TextWatcher filterTextWatcher = new TextWatcher() {
+
+		public void afterTextChanged(Editable s) {
+			processSearchAdapter.getFilter().filter(s);
+			strSearch = s.toString();
+		}
+
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			// adapter.getFilter().filter(s);
+
+		}
+
+	};
+
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			event.startTracking();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
+				&& !event.isCanceled()) {
+			// *** Your Code ***
+			// backToHome();
+			return true;
+		}
+		return super.onKeyUp(keyCode, event);
+	}
+
+	public void backToHome() {
+		if (typeid == UtilErp.PARENT_CHAMCONG) {
+			Intent mi = new Intent(this, LstPlace.class);
+			startActivity(mi);
+			finish();
+		} else if (typeid == UtilErp.PARENT_DSDAILY) {
+			Intent mi = new Intent(this, LstPlace.class);
+			startActivity(mi);
+			finish();
+		} else if (typeid == UtilErp.PARENT_KHLV) {
+			Intent mi = new Intent(this, LstPlace.class);
+			startActivity(mi);
+			finish();
+		} else {
+			// NavigateScreen.getInstance().setDisplay(v.getContext(),
+			// ListHomeScreen.class);
+			Intent mi = new Intent(this, ListHomeScreen.class);
+			startActivity(mi);
+			finish();
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.menu_home, menu);
+		return true;
+	}
+
+	public void loadListSanPham() {
+		processSearchAdapter.orderListAdapter = new ProcessOrderListAdapter(
+				this, R.layout.processes_order_listitem, arrListActive);
+		ListView pGridView = (ListView) this
+				.findViewById(R.id.list_processes_order_active);
+		pGridView.setAdapter(processSearchAdapter.orderListAdapter);
+		processSearchAdapter.createOrder = 1;
+	}
+
+	public void loadTab() {
+		final TabHost tab = (TabHost) findViewById(android.R.id.tabhost);
+		tab.setup();
+		TabHost.TabSpec spec;
+		spec = tab.newTabSpec("t2");
+		spec.setContent(R.id.tab2_processes);
+		spec.setIndicator(createTabView(tab.getContext(), "Tìm Kiếm"));
+		tab.addTab(spec);
+
+		spec = tab.newTabSpec("t1");
+		spec.setContent(R.id.tab1_processes);
+		spec.setIndicator(createTabView(tab.getContext(), "Sản Phẩm"));
+		tab.addTab(spec);
+		tab.setOnTabChangedListener(new OnTabChangeListener() {
+
+			@Override
+			public void onTabChanged(String tabId) {
+				// TODO Auto-generated method stub
+				if (tabId == "t2") {
+					if (processSearchAdapter != null)
+						processSearchAdapter.getFilter().filter(strSearch);
+					// Toast.makeText(getApplicationContext(),
+					// "--",Toast.LENGTH_SHORT).show();
+				}
+				if (tabId == "t1") {
+					if (processSearchAdapter.orderListAdapter != null) {
+						processSearchAdapter.orderListAdapter.getFilter()
+								.filter("");
+					} else {
+						loadListSanPham();
+
+					}
+				}
+			}
+		});
+		// spec = tab.newTabSpec("t3");
+		// spec.setContent(R.id.tab3_order);
+		// spec.setIndicator(createTabView(tab.getContext(),"Đơn Hàng"));
+		// tab.addTab(spec);
+	}
+
+	private static View createTabView(final Context context, final String text) {
+		View view = LayoutInflater.from(context).inflate(
+				R.layout.frmorder_headertab, null);
+		TextView tv = (TextView) view.findViewById(R.id.tabsText);
+		tv.setText(text);
+		return view;
+	}
+
+	public static boolean isFromServer = false;
+	public static String sData = "";
+
+	public void loadJsonOrder() {
+		if (isFromServer) {
+			UIManager.getInstance().showMsg("Loading From Server...");// tag 1
+
+			(new DownloadDataFromURL()).execute("xproducts.aspx", "memberid="
+					+ MemberUtil.memberid + "&s=1", "1");
+		} else {
+			if (arrListStore.size() > 0) {
+				// doan nay` la no back chua clear du lieu
+				setDataSource();
+				return;
+			}
+			if (sData.equalsIgnoreCase("")) {
+				String sSaved = UtilErp.ReadFromFile("kiemhang");
+				if (sSaved.equalsIgnoreCase("")) {
+					isFromServer = true;
+					
+					Toast.makeText(this, "Loading From Server...", Toast.LENGTH_LONG).show();
+					// tag 3
+
+					(new DownloadDataFromURL()).execute("xproducts.aspx",
+							"memberid=" + MemberUtil.memberid + "&s=1", "1");
+				} else {
+					// tag 4
+
+					
+					Toast.makeText(this, "Loading From Phone...", Toast.LENGTH_LONG).show();
+					processResult(sSaved, 1);
+				}
+			} else {
+				// tag 5
+
+				processResult(sData, 1);
+
+			}
+		}
+
+	}
+	 public String readLastPastPositionFromDB() 
+	 {
+	    	
+			return ContextManagerErp.getInstance().readLastPosition();
+	 }
+	private void postToServer() 
+	{
+		UrlParamEncoder encoder=(new UrlParamEncoder());
+		encoder.addParam("id", LocationUtilErp.getInstance().getIMEI());
+		encoder.addParam("agencyid",placeid);		    			
+		encoder.addParam("typeid",typeid);
+		encoder.addParam("memberid",MemberUtil.memberid);
+		encoder.addParam("data",readLastPastPositionFromDB());	
+		
+		String sList="";
+		for(int jx=0;jx<=arrListActive.size()-1;jx++)
+		{
+			Products p=arrListActive.get(jx);
+			if(sList.equals("")){sList=p.ID+"~"+p.UnitID;}
+			else {sList=sList+"~"+p.ID+"~"+p.UnitID;}
+		}
+		encoder.addParam("products",sList);
+		
+		final String params=encoder.toString();
+		new DownloadDataFromURL().execute("xkiemhang.aspx?",params,"2");		
+	}
+	private void processResult(String result, int typeidx2) {
+		
+		String str = result;
+		if(typeidx2==1)
+		{
+			if (isFromServer) {
+				// Toast.makeText(getApplicationContext(), "Save file",
+				// Toast.LENGTH_LONG).show();
+				UtilErp.SaveToFile("kiemhang", result);
+				isFromServer = false;
+			}
+			String sString = str;
+			JSONArray jSonArr;
+			clearStore();
+			try {
+				jSonArr = new JSONArray(sString);
+				for (int jx = 0; jx < jSonArr.length(); jx++) {
+					JSONObject jsonO = jSonArr.getJSONObject(jx);
+					String sId = (String) jsonO.get("id");
+					String sTitle = (String) jsonO.get("title");
+					String sStt = (String) jsonO.get("stt");
+					JSONArray jSonArrUnit = (JSONArray) jsonO.get("units");
+					// Products product = new Products();
+					int lenghtSource = jSonArrUnit.length();
+					String[] datasourceID = new String[lenghtSource];
+					String[] datasourceText = new String[lenghtSource];
+					for (int j = 0; j < jSonArrUnit.length(); j++) {
+						JSONObject jsonOu = jSonArrUnit.getJSONObject(j);
+						datasourceID[j] = (String) jsonOu.getString("id");
+						datasourceText[j] = (String) jsonOu.getString("title");
+					}
+					// Products products = new Products(sTitle, sStt, sId,
+					// datasourceID, datasourceText);
+					Products products = new Products(sTitle, sStt, sId,
+							datasourceID, datasourceText);
+					arrListStore.add(products);
+					arrList.add(products);
+					// Toast.makeText(getApplicationContext(),jSonArr.length()+"--",Toast.LENGTH_LONG).show();
+	
+				}
+				// Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG)
+				// .show();
+				setDataSource();// set data sourexe
+			
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+				e.printStackTrace();
+			}
+		}
+		//post to server
+		if(typeidx2==2)
+		{
+			AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(NavigateScreen.getInstance().currentActivity);
+			dlgAlert.setCancelable(false);	
+			String msg="Upload thành công?";
+			if(result.toLowerCase().startsWith("error:"))
+			{		
+				msg="Upload không thành công?";
+				dlgAlert.setPositiveButton("Thử upload lại",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) {
+					        	dialog.dismiss();		
+					        	postToServer();
+					        }
+					    });
+				dlgAlert.setNegativeButton("Cancel",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) 
+					        {			           
+					        	dialog.dismiss();				        	
+					        	processAfterUpload();
+					        }
+					    });
+			}	
+			else 
+			{	
+				dlgAlert.setPositiveButton("OK",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) {
+					        	processAfterUpload();
+					        	dialog.dismiss();	
+					        }
+					    });	
+			}		
+			
+			dlgAlert.setMessage(msg);
+			dlgAlert.setTitle("Kiểm  hàng...");
+			dlgAlert.create().show();
+		}
+	}
+	void processAfterUpload()
+	{
+		clearStore();
+		loadListSanPham();
+		reloadTab();
+	}
+	
+	static class ViewHolder {
+		EditText editext;
+		ListView listView;
+		Button button;
+	}
+
+	class DownloadDataFromURL extends AsyncTask<String, String, String> {
+		int typeidx = -1;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			UIManager.getInstance().showDialog(1);
+		}
+
+		@Override
+		protected String doInBackground(String... f_url) {
+			typeidx = Integer.parseInt(f_url[2]);
+			// if(!sResultXXX.equals("") && typeidx==1) return sResultXXX;
+
+			String sResult = "";
+			try {
+
+				// sResult = (new HttpData()).getData(f_url[0],f_url[1]);
+				sResult = "";
+				System.setProperty("http.keepAlive", "false");
+
+				String xurl = HttpData.prefixUrl + f_url[0] + "?" +
+				 f_url[1]+UtilErp.GetCompressUrl();
+				//String xurl = "http://erp.vhc.vn/m/products/getall.aspx?memberid=152721";
+				URL url = new URL(xurl);
+				URLConnection conn = url.openConnection();
+				int lenghtOfFile = conn.getContentLength();
+
+				DataInputStream rd = new DataInputStream(conn.getInputStream());
+				int count = 0;
+				StringBuilder sb = new StringBuilder();
+				byte[] buffer = new byte[512];
+				int total = 0;
+				while ((count = rd.read(buffer)) != -1) {
+					total += count;
+					int progress_temp = (int) total * 100 / lenghtOfFile;
+					publishProgress("" + progress_temp);
+
+					if (count < buffer.length) {
+						byte[] bufferX = new byte[count];
+						for (int jx = 0; jx <= bufferX.length - 1; jx++) {
+							bufferX[jx] = buffer[jx];
+						}
+						sb.append(new String(bufferX, "UTF-8"));
+					} else {
+						sb.append(new String(buffer, "UTF-8"));
+					}
+				}
+				sResult = sb.toString();
+
+				rd = null;
+				conn = null;
+				url = null;
+
+			} catch (Exception e) {
+				// Log.e("Error: ", e.getMessage());
+				sResult = "Error:" + e.toString();
+			}
+
+			return sResult;
+		}
+
+		@Override
+		protected void onCancelled() {
+		}
+
+		@Override
+		protected void onProgressUpdate(String... progress) {
+			// setting progress percentage
+			UIManager.getInstance().setProgress(Integer.parseInt(progress[0]));
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+
+			UIManager.getInstance().dismissDialog();
+			// result=UtilErp.decompress(result);
+			// Toast.makeText(getApplicationContext(),
+			// result+"Result",Toast.LENGTH_LONG).show();
+			processResult(result, typeidx);
+		}
+	}
+	//
+}

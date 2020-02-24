@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <Button
+            android:id="@+id/btnOrderGoHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/footer_home"
+            android:text=""
+            android:onClick="OnLickGoHome"            
+            android:textColor="#ffffff" />
+    <Button
+            android:id="@+id/btnOrderBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/footer_back"
+            android:text="Back"
+            android:onClick="OnLickGoAgency"            
+            android:textColor="#ffffff" />
+</LinearLayout>

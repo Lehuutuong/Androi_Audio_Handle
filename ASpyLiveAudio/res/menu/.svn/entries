@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1199"
+   name=""
+   committed-date="2014-01-08T05:08:35.474038Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/res/menu"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1199"
+   name="activity_list_video_row.xml"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="a4673a7beff4d548aea339204e82f2a5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="main_menu.xml"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="c5f68db9b670020c6db36a24c0162625"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="menu_home.xml"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3dfceb12f551ad98269eba6f3cd0a456"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="activity_list_video.xml"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="79f84d38ccff3c4f6af8e9f890f83558"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="menu_home1.xml"
+   text-time="2014-01-08T05:11:14.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="964d2117ab140c9a878c2891e47dc2d3"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:14.000000Z"/>
+</wc-entries>

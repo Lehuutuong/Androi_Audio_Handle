@@ -1,0 +1,120 @@
+package net.process.locator1.erp;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
+public class NavigateScreen {
+	
+	public  Context currentActivity;
+	public  Context preActivity;
+	public static NavigateScreen instance;
+	public static NavigateScreen getInstance()
+	{
+		if(instance==null) instance= new NavigateScreen();
+		return instance;		
+	}	
+	public void setDisplay(Context currentView,Class toView)
+	{
+		preActivity=currentActivity;
+		currentActivity=currentView;
+		stopCurrent();
+		Intent mi = new Intent(currentView , toView);
+		//mi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		//mi.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+		currentView.startActivity(mi);
+	    //startActivity(mi);
+	}
+	public void setDisplay(Context currentView,Class toView,int flag)
+	{
+		preActivity=currentActivity;
+		currentActivity=currentView;
+		stopCurrent();
+		Intent mi = new Intent(currentView , toView);
+		//mi.addFlags(flag);
+		//mi.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		currentView.startActivity(mi);
+	    //startActivity(mi);
+	}
+	public void switchDisplay(Class toView)
+	{
+		preActivity=currentActivity;		
+		stopCurrent();
+		Intent mi = new Intent(currentActivity , toView);
+		//mi.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		currentActivity.startActivity(mi);
+	    //startActivity(mi);
+	}
+	public void switchDisplay(Class toView,int flag)
+	{
+		preActivity=currentActivity;		
+		stopCurrent();
+		Intent mi = new Intent(currentActivity , toView);
+		//mi.addFlags(flag);
+		//mi.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		currentActivity.startActivity(mi);
+	    //startActivity(mi);
+	}
+	public void setCurrentDisplay(Context currentView)
+	{		
+		stopCurrent();
+		currentActivity=currentView;
+	}
+	public void stopCurrent()
+	{
+		
+	}
+	public void GotoInform(String placeid,String typeid,String typeText)
+	{
+		if(typeText.equalsIgnoreCase("text"))
+		{
+			//InformText.placeid = placeid;
+			//InformText.typeid = typeid;
+			//NavigateScreen.getInstance().switchDisplay(InformText.class);
+			preActivity=currentActivity;	
+			Intent mi = new Intent(currentActivity , InformText.class);
+		  	mi.putExtra("typeid", typeid);
+		  	mi.putExtra("placeid", placeid);
+		  	NavigateScreen.getInstance().currentActivity.startActivity(mi);
+		}
+		if(typeText.equalsIgnoreCase("audio"))
+		{
+			preActivity=currentActivity;	
+			Intent mi = new Intent(currentActivity , InformAudioNew.class);
+		  	mi.putExtra("typeid", typeid);
+		  	mi.putExtra("placeid", placeid);
+		  	NavigateScreen.getInstance().currentActivity.startActivity(mi);
+		}
+		if(typeText.equalsIgnoreCase("video"))
+		{
+			preActivity=currentActivity;	
+			Intent mi = new Intent(currentActivity , InformVideoNew.class);
+		  	mi.putExtra("typeid", typeid);
+		  	mi.putExtra("placeid", placeid);
+		  	NavigateScreen.getInstance().currentActivity.startActivity(mi);
+		}
+		
+		if(typeText.equalsIgnoreCase("audiolive"))
+		{
+			preActivity=currentActivity;	
+			Intent mi = new Intent(currentActivity , InformAudioLive.class);
+		  	mi.putExtra("typeid", typeid);
+		  	mi.putExtra("placeid", placeid);
+		  	NavigateScreen.getInstance().currentActivity.startActivity(mi);
+		}
+		if(typeText.equalsIgnoreCase("videolive"))
+		{
+			 ContextManagerErp.getInstance().startLiveVideo();
+		}
+		if(typeText.equalsIgnoreCase("order"))
+		{
+			preActivity=currentActivity;	
+			Intent mi = new Intent(currentActivity , FrmOrder.class);
+		  	mi.putExtra("typeid", typeid);
+		  	mi.putExtra("placeid", placeid);
+		  	NavigateScreen.getInstance().currentActivity.startActivity(mi);
+		}
+	}	
+}

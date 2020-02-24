@@ -1,0 +1,618 @@
+package net.process.locator1.erp;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+
+import org.apache.http.HttpResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import net.process.locator1.R;
+import net.process.locator1.HttpData;
+
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.app.UiModeManager;
+import android.content.Context;
+import android.content.Intent;
+import android.opengl.Visibility;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.KeyEvent;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+
+public class LstAgency extends ListActivity {
+	// public String[] DATATEXT = new String[] {"xxx"};
+	// public String[] DATAVALUE = new String[] {"xxx"};
+
+	//public DataUI[] DATASOURCE = new DataUI[] {};
+	public  ArrayList<DataUI> DATASOURCE = new ArrayList<DataUI>();
+	
+	private EditText filterText;
+	private Button btnSearch;
+	private Button btnUpdate;
+	//private ArrayAdapter<DataUI> adapter=null;
+	private AgencyAdapter adapter=null;
+	
+	public static String selectedId = "-1";
+	public static String sResultXXX = "";
+	private Handler hx = new Handler() {
+		public void handleMessage(Message msg) {
+			try 
+			{
+				//bind data
+				if (msg.what == 100) 
+				{
+					//UIManager.getInstance().dismissDialog();
+					bindToUIAgency();			
+				}				
+				super.handleMessage(msg);
+			} catch (Exception ex) {
+
+			}
+		}
+	};
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setTitle("Danh sách đại lý/KH");
+		
+		
+		setContentView(R.layout.agency_search);
+		filterText = (EditText) findViewById(R.id.search_agency1);
+		btnSearch=(Button)findViewById(R.id.btnSearch);
+		btnUpdate=(Button)findViewById(R.id.btnUpdate);
+		
+		btnUpdate.setVisibility(View.GONE);
+	    filterText.addTextChangedListener(filterTextWatcher);
+		//if(sSearch!="") filterText.setText(sSearch);
+		
+		NavigateScreen.getInstance().setCurrentDisplay(this);
+		ContextManagerErp.getInstance().setCurrentContext(this);
+		
+		setupUI();
+		
+		// get data from server
+		getAgencyFromServer();
+		
+	}
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK
+	            && event.getRepeatCount() == 0) {
+	        event.startTracking();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
+	            && !event.isCanceled()) {
+	        // *** Your Code ***
+	        return true;
+	    }
+	    return super.onKeyUp(keyCode, event);
+	}
+	private TextWatcher filterTextWatcher = new TextWatcher() {
+
+	    public void afterTextChanged(Editable s) {
+	    	 adapter.getFilter().filter(s);	        
+	    }
+
+	    public void beforeTextChanged(CharSequence s, int start, int count,
+	            int after) {
+	    }
+
+	    public void onTextChanged(CharSequence s, int start, int before,
+	            int count) {
+	    	 //adapter.getFilter().filter(s);	        
+	    }
+
+	};
+	// registerForContextMenu(lv);
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.setHeaderTitle("Lựa chọn");
+		menu.add(0, 1, 0, "Thông báo ảnh");
+		menu.add(0, 2, 0, "Lập đơn hàng");
+		
+		menu.add(0, 4, 0, "Thông báo Text");
+		menu.add(0, 5, 0, "Thông báo Audio");
+		menu.add(0, 6, 0, "Thông báo Video");
+		menu.add(0, 7, 0, "Thông báo AudioLive");
+		menu.add(0, 8, 0, "Thông báo VideoLive");
+	
+		menu.add(0, 3, 0, "Thông tin chi tiết");
+		menu.add(0, 9, 0, "Kiểm hàng");
+	}
+
+	public boolean onContextItemSelected(MenuItem item) 
+	{
+		if (!AdapterView.AdapterContextMenuInfo.class.isInstance(item
+				.getMenuInfo()))
+			return false;
+
+		AdapterView.AdapterContextMenuInfo cmi = (AdapterView.AdapterContextMenuInfo) item
+				.getMenuInfo();
+
+		Object o = getListView().getItemAtPosition(cmi.position);
+		String placeid=((DataUI) o).get_id();
+		String fullname=((DataUI) o).get_title();
+		
+		if (item.getItemId() == 1) {
+			function1(placeid);
+		} else if (item.getItemId() == 2) {
+			function2(((DataUI) o));
+		} else if (item.getItemId() == 3) {
+			function3(placeid);
+		} else if (item.getItemId() == 9) {
+			function9(placeid,fullname);
+		} else if (item.getItemId() == 4) {
+			NavigateScreen.getInstance().GotoInform(placeid, UtilErp.PARENT_DSDAILY, "text");
+		} else if (item.getItemId() == 5) {
+			NavigateScreen.getInstance().GotoInform(placeid, UtilErp.PARENT_DSDAILY, "audio");
+		} else if (item.getItemId() ==6) {
+			NavigateScreen.getInstance().GotoInform(placeid, UtilErp.PARENT_DSDAILY, "video");
+		} else if (item.getItemId() == 7) {
+			NavigateScreen.getInstance().GotoInform(placeid, UtilErp.PARENT_DSDAILY, "audiolive");
+		} else if (item.getItemId() == 8) {
+			NavigateScreen.getInstance().GotoInform(placeid, UtilErp.PARENT_DSDAILY, "videolive");
+		} else {
+			return false;
+		}
+		return true;
+	}
+
+	public void function1(String id)
+	{
+//		LstCamera.placeid = String.valueOf(id);
+//		LstCamera.typeid = UtilErp.PARENT_DSDAILY;
+//		AndroidCamera.typeid = UtilErp.PARENT_DSDAILY;
+//		NavigateScreen.getInstance().setDisplay(this, AndroidCamera.class);
+		
+		Intent mi = new Intent(this , InformPictureNew.class);
+	  	mi.putExtra("typeid", UtilErp.PARENT_DSDAILY);
+	  	mi.putExtra("placeid", id);
+     	startActivity(mi);
+	}
+	public void function9(String id,String fullname)
+	{
+		Intent mi = new Intent(this , Processes_Order.class);
+	  	mi.putExtra("typeid", UtilErp.PARENT_KIEMHANG_DAILY);
+	  	mi.putExtra("typename", fullname);
+     	startActivity(mi);
+	}
+	public void function2(DataUI o) 
+	{
+		//FrmOrder.placeid = o.get_id();// String.valueOf(id);
+		//FrmOrder.typeid = "2";
+		//FrmOrder.agencyname = o.get_title();
+		//FrmOrder.agencyaddress = o.get_placeaddress();		
+		//NavigateScreen.getInstance().setDisplay(this, FrmOrder.class);
+		
+		FrmOrder.agencyname = o.get_title();
+		FrmOrder.agencyaddress = o.get_placeaddress();		
+		//NavigateScreen.getInstance().GotoInform(o.get_id(), UtilErp.PARENT_DSDAILY, "order");		
+		NavigateScreen.getInstance().GotoInform(o.get_id(), UtilErp.PARENT_DSDAILY, "order");
+	}
+	public void function3(String id)
+	{
+		// Toast.makeText(this, "function 3called", Toast.LENGTH_SHORT).show();
+		FrmOrder.placeid = id;// String.valueOf(id);
+		//FrmOrder.typeid = "2";
+		// startShowProgress();
+		getAgencyDetailFromServer();
+	}
+	public  static String sData="";
+	private void getAgencyFromServer( ) 
+	{
+	
+		//sSearch=filterText.getText().toString();		
+		if(isFromServer)
+		{ 
+			 Toast.makeText(getApplicationContext(), "Loading From Server...", Toast.LENGTH_LONG).show();
+			(new DownloadDataFromURL()).execute("agency.aspx", "memberid="+ MemberUtil.memberid+"&s=","1");
+		}
+		else 
+		{
+			if(DATASOURCE.size()>0) return;
+			if(sData.equalsIgnoreCase(""))
+			{
+				String sSaved=ReadFromFile("");			
+				if(sSaved.equalsIgnoreCase(""))
+				{
+					isFromServer=true;
+				    Toast.makeText(getApplicationContext(), "Loading From Server...", Toast.LENGTH_LONG).show();
+				    (new DownloadDataFromURL()).execute("agency.aspx", "memberid="+ MemberUtil.memberid+"&s=","1");
+				}
+				else
+				{
+				    Toast.makeText(getApplicationContext(), "Loading From Cache...", Toast.LENGTH_LONG).show();
+					processResult(sSaved,1);
+				}
+			}
+			else processResult(sData,1);
+		}
+	}
+	public void SaveToFile(String filename, String string) 
+	{
+        try
+        {
+        	 if(string.equals("")) return;
+         	 if(string.toLowerCase().startsWith("error:")) return;
+        	 File myFile = new File("/sdcard/tmpb/agency.txt");
+             FileOutputStream fOut = new FileOutputStream(myFile,false);
+             Writer myWriter= new BufferedWriter(new OutputStreamWriter(new FileOutputStream(myFile), "UTF-8"));
+
+             myWriter.append(string);
+             myWriter.close();
+             fOut.close();
+            //Toast.makeText(getBaseContext(), "Done writing SD 'mysdfile.txt'",Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+        	Toast.makeText(getApplicationContext(), "Exception when SaveToFile:"+e.toString(), Toast.LENGTH_LONG).show();
+            //e.printStackTrace();
+        }
+	}
+	public String ReadFromFile(String filename) 
+	{
+		//if(1==1) return "";
+        try 
+        {
+        	File myFile = new File("/sdcard/tmpb/agency.txt");
+        	if(!myFile.exists()) return "";
+        	Reader myReader= new BufferedReader(new InputStreamReader(new FileInputStream(myFile), "UTF-8"));
+        
+        	StringBuilder fileContent = new StringBuilder();
+        	int c;
+            while((c=myReader.read())!=-1)
+                    {
+                fileContent.append((char)c);
+
+                    }
+            myReader.close();
+        	/*
+            FileInputStream fis = new FileInputStream(myFile);
+            int c;
+            StringBuilder fileContent = new StringBuilder();
+
+            while((c=fis.read())!=-1)
+                    {
+                fileContent.append((char)c);
+
+                    }
+            fis.close();
+            */
+            return fileContent.toString();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Exception when ReadFromFile:"+e.toString(), Toast.LENGTH_LONG).show();
+            return "";
+        }              
+	}
+	//private static String sSearch="";
+	private static boolean isFromServer=false;
+	public void backToHome() {
+		//NavigateScreen.getInstance().setDisplay(v.getContext(), ListHomeScreen.class);
+  	  	Intent mi = new Intent(this , ListHomeScreen.class);
+  	  	startActivity(mi);
+    	finish();
+    }
+	private void processResult(String sString,int typeid) 
+	{
+		//UIManager.getInstance().showMsg("Error1:"+sString);
+		//get list of agency
+		if(typeid==1)
+		{
+			if(isFromServer)
+			{
+				SaveToFile("", sString);
+				isFromServer=false;
+			}
+			//UIManager.getInstance().showMsg("Error1:"+sString);
+			try 
+			{
+				//UIManager.getInstance().showDialogSpiner();
+				sData=sString;
+				
+				JSONArray jSonArr;
+				jSonArr = new JSONArray(sString);
+				DATASOURCE = new ArrayList<DataUI>();
+				
+				for (int jx = 0; jx <= jSonArr.length() - 1; jx++) {
+	
+					JSONObject jsonO = jSonArr.getJSONObject(jx);
+					String sID = (String) jsonO.get("id");
+					String sTitle = (String) jsonO.get("title");
+					
+					DataUI oData= (new DataUI(sID, sTitle));
+					oData.set_placeaddress((String) jsonO.get("address"));
+					oData.set_titleToCompare(UtilErp.TrimVietnameseMark(sTitle));
+					DATASOURCE.add(oData);
+					
+				}				
+				UIManager.getInstance().dismissDialog();
+				UIManager.getInstance().stopShowProgress();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				UIManager.getInstance().showMsg("Error:"+e.toString());
+			}
+			bindToUIAgency();
+		}
+		//detail agency
+		if(typeid==2)
+		{
+			try {
+				JSONArray jSonArr = new JSONArray(sString);
+				JSONObject jsonO = jSonArr.getJSONObject(0);
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("Đại lý:"+jsonO.get("fullname").toString() + "\n");
+				sb.append("Người liên hệ:"+jsonO.get("contactname").toString() + "\n");
+				sb.append("Di Động:"+jsonO.get("contactnumber").toString() + "\n");
+				sb.append("Chức danh:"+jsonO.get("title").toString() + "\n");
+				sb.append("Địa chỉ:"+jsonO.get("address").toString() + "\n");
+
+				sb.append("Tel:"+jsonO.get("tel").toString() + "\n");
+				sb.append("Fax:"+jsonO.get("fax").toString() + "\n");
+				sb.append("Email:"+jsonO.get("mail").toString() + "\n");
+				sb.append("Mô tả:"+jsonO.get("desc").toString() + "\n");
+
+				//isstop = true;
+				UIManager.getInstance().stopShowProgress();
+				UIManager.getInstance().showMsgWithTitlte(
+						"Thông tin chi tiết", sb.toString());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				UIManager.getInstance().showMsg(e.toString());
+			}
+		}
+	}
+	private void bindToUIAgency()
+	{
+		//adapter=new ArrayAdapter<DataUI>(this,android.R.layout.simple_list_item_1, DATASOURCE);
+		adapter=new AgencyAdapter(this,android.R.layout.simple_list_item_1, DATASOURCE);
+		
+		setListAdapter(adapter);
+		getListView().invalidate();
+		getListView().refreshDrawableState();
+		
+		ListView lv = getListView();
+		lv.setTextFilterEnabled(true);
+		
+		registerForContextMenu(lv);
+		lv.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+		
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				function3((DATASOURCE.get(position).get_id()));
+			}
+		});
+	}
+	private void setupUI()
+	{
+		Button closeButton = (Button) findViewById(R.id.btnExit);
+		closeButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//NavigateScreen.getInstance().switchDisplay(ListHomeScreen.class,Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				backToHome();
+			}
+		});
+		btnSearch.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//getAgencyFromServer();
+				isFromServer=true;
+				getAgencyFromServer();
+			}
+		});
+		btnUpdate.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				isFromServer=true;
+				getAgencyFromServer();
+			}
+		});
+	}
+	private void getAgencyDetailFromServer() {
+		new DownloadDataFromURL().execute("agencydetail.aspx", "id="
+				+ FrmOrder.placeid,"2");
+		/*		
+		String sString = (new HttpData()).getData("agencydetail.aspx", "id="
+				+ FrmOrder.placeid);
+		processResult(sString, 2);
+		System.err.print(sString);
+		Log.v("Ptrackererp", "Agency Detail:" + sString);
+
+		try {
+			JSONArray jSonArr = new JSONArray(sString);
+			JSONObject jsonO = jSonArr.getJSONObject(0);
+
+			StringBuilder sb = new StringBuilder();
+			sb.append("Cá»­a hÃ ng:"+jsonO.get("fullname").toString() + "\n");
+			sb.append("NgÆ°á»�i liÃªn há»‡:"+jsonO.get("contactname").toString() + "\n");
+			sb.append("Di Ä‘á»™ng:"+jsonO.get("contactnumber").toString() + "\n");
+			sb.append("Chá»©c danh:"+jsonO.get("title").toString() + "\n");
+			sb.append("Ä�á»‹a chá»‰:"+jsonO.get("address").toString() + "\n");
+
+			sb.append("Tel:"+jsonO.get("tel").toString() + "\n");
+			sb.append("Fax:"+jsonO.get("fax").toString() + "\n");
+			sb.append("Email:"+jsonO.get("mail").toString() + "\n");
+			sb.append("MÃ´ táº£:"+jsonO.get("desc").toString() + "\n");
+
+			//isstop = true;
+			UIManager.getInstance().stopShowProgress();
+			UIManager.getInstance().showMsgWithTitlte(
+					"ThÃ´ng tin chi tiáº¿t Ä‘áº¡i lÃ½", sb.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			UIManager.getInstance().showMsg(e.toString());
+		}
+		*/
+	}
+	@Override
+	public void onResume() {
+        super.onResume();
+        NavigateScreen.getInstance().setCurrentDisplay(this);
+    } 
+	
+	class DownloadDataFromURL extends AsyncTask<String, String, String> {
+		int typeidx=-1;
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			UIManager.getInstance().showDialog(1);
+		}
+		@Override
+		protected String doInBackground(String... f_url)
+		{
+			typeidx=Integer.parseInt(f_url[2]);			
+			//if(!sResultXXX.equals("") && typeidx==1) return sResultXXX;
+			
+			String sResult = "";
+			try {
+				
+				
+				// sResult = (new HttpData()).getData(f_url[0],f_url[1]);
+				sResult = "";
+				System.setProperty("http.keepAlive", "false");			
+				
+				String xurl = HttpData.prefixUrl + f_url[0] + "?" + f_url[1]+UtilErp.GetCompressUrl();
+				//UIManager.getInstance().showMsg(xurl);
+				// Log.v("lamdaica123", "Call Url:"+xurl);
+				 URL url = new URL(xurl);
+				 URLConnection conn = url.openConnection();
+				 int lenghtOfFile = conn.getContentLength();
+				 /*
+	             // Get the response
+	             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	            
+	             String line = "";
+	             String result = "";
+	             while ((line = rd.readLine()) != null) 
+	             {
+	            	result += line;             
+	            	publishProgress("" + ((int) (result.getBytes().length / lenghtOfFile)));
+	             }             
+	             sResult=result.replace("\n", "");
+	             */
+				 DataInputStream rd = new DataInputStream(conn.getInputStream());
+	             int count=0;
+	             StringBuilder sb = new StringBuilder();
+				 byte[] buffer = new byte[512];
+				 int total = 0;
+				 while ((count = rd.read(buffer)) != -1) {
+					total += count;
+					int progress_temp = (int) total * 100 / lenghtOfFile;
+					publishProgress("" + progress_temp);
+					
+					if(count< buffer.length)
+					{
+						byte[] bufferX = new byte[count];
+						for(int jx=0;jx<=bufferX.length-1;jx++)
+						{
+							bufferX[jx]=buffer[jx];
+						}
+						sb.append(new String(bufferX, "UTF-8"));
+					}
+					else
+					{
+						sb.append(new String(buffer, "UTF-8"));
+					}
+				 }
+				 sResult = sb.toString();
+	             //sResult=sResult.replace("\n", "");
+	             
+	             rd=null;
+	             conn=null;
+	             url=null;
+				/*
+				int count;
+				URL url = new URL(xurl);
+				URLConnection conn = url.openConnection();
+				conn.setConnectTimeout(30000);
+				int lenghtOfFile = conn.getContentLength();
+
+				// Get the response
+				DataInputStream rd = (new DataInputStream(conn.getInputStream()));
+				String sb = "";
+				
+				byte[] buffer = new byte[2048];
+				int total = 0;
+				while ((count = rd.read(buffer)) != -1) {
+					total += count;
+					int progress_temp = (int) total * 100 / lenghtOfFile;
+					publishProgress("" + progress_temp);
+					//sb.append(new String(buffer, "UTF-8"));
+					sb=sb+new String(buffer, "UTF-8");					
+				}
+				sResult = sb.toString();
+			
+				rd = null;
+				conn = null;
+				url = null;
+				*/
+				
+			} catch (Exception e) {
+				//Log.e("Error: ", e.getMessage());
+				sResult= "Error:"+e.toString();
+			}
+			
+			//if(typeidx==1) sResultXXX=sResult;			
+			return sResult;
+		}
+		@Override
+		protected void onCancelled()
+        {
+        }
+		@Override
+		protected void onProgressUpdate(String... progress) {
+			// setting progress percentage
+			UIManager.getInstance().setProgress(Integer.parseInt(progress[0]));
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			
+			UIManager.getInstance().dismissDialog();
+			result=UtilErp.decompress(result);
+			processResult(result,typeidx);				
+		}		
+	}	
+}

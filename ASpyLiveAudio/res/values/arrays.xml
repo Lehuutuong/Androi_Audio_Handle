@@ -1,0 +1,102 @@
+<resources>
+	<string-array name="streaming_quality">
+		<item>320x240</item>
+		<item>320x480</item>
+		<item>480x640</item>
+		<item>640x960</item>	
+	</string-array>
+	<string-array name="streaming_format">
+		<item>3gp</item>
+		<item>mp4</item>		
+	</string-array>
+	<string-array name="videosource_ref">
+		<item>Camera</item>
+		<item>Default</item>		
+	</string-array>
+	<string-array name="videosourceval_ref">
+		<item>1</item>
+		<item>0</item>		
+	</string-array>
+	<string-array name="audiosource_ref">
+	    <item>None</item>
+		<item>Default</item>
+		<item>MIC</item>		
+		<item>VOICE_CALL</item>
+		<item>VOICE_COMMUNICATION</item>		
+		<item>VOICE_DOWNLINK</item>
+		<item>VOICE_RECOGNITION</item>		
+		<item>VOICE_UPLINK</item>	
+	</string-array>
+	<string-array name="audiosourceval_ref">
+	    <item>-1</item>
+		<item>0</item>
+		<item>1</item>		
+		<item>4</item>
+		<item>7</item>		
+		<item>3</item>
+		<item>6</item>		
+		<item>2</item>	
+	</string-array>
+	<string-array name="outputformat_ref">
+	    <item>DEFAULT</item>	
+		<item>AAC_ADTS</item>
+		<item>AMR_NB</item>	
+		<item>AMR_WB</item>	
+		<item>MPEG_4</item>	
+		<item>RAW_AMR</item>	
+		<item>THREE_GPP</item>			
+	</string-array>
+	<string-array name="outputformatval_ref">
+	    <item>0</item>	
+		<item>6</item>
+		<item>3</item>	
+		<item>4</item>		
+		<item>2</item>	
+		<item>3</item>	
+		<item>1</item>			
+	</string-array>
+	<string-array name="videoencoder_ref">
+		<item>Default</item>
+		<item>H263</item>	
+		<item>H264</item>		
+		<item>MPEG_4_SP</item>			
+	</string-array>
+	<string-array name="videoencoderval_ref">
+		<item>0</item>
+		<item>1</item>	
+		<item>2</item>		
+		<item>3</item>			
+	</string-array>
+	<string-array name="audioencoder_ref">
+	    <item>None</item>
+	    <item>DEFAULT</item>		
+		<item>AAC</item>
+		<item>AAC_ELD</item>		
+		<item>AMR_NB</item>		
+		<item>AMR_WB</item>		
+		<item>HE_AAC</item>
+	</string-array>
+	<string-array name="audioencoderval_ref">
+	    <item>-1</item>	
+	    <item>0</item>		
+		<item>3</item>
+		<item>5</item>		
+		<item>1</item>		
+		<item>2</item>		
+		<item>4</item>
+	</string-array>
+	<string-array name="method_ref">
+	    <item>Cách 1</item>
+	    <item>Cách 2</item>		
+		<item>Cách 3</item>
+		<item>Cách 4</item>	
+		<item>Cách 5</item>			
+	</string-array>
+	<string-array name="methodval_ref">
+	    <item>1</item>
+	    <item>2</item>		
+		<item>3</item>
+		<item>4</item>	
+		<item>5</item>	
+	</string-array>
+</resources>

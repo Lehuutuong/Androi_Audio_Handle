@@ -1,0 +1,522 @@
+package net.process.locator1.erp;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import net.process.locator1.R;
+import net.process.locator1.HttpData;
+
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.KeyEvent;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class LstPlan extends ListActivity {
+	public String[] DATATEXT = new String[] {};
+	public String[] DATAVALUE = new String[] {};
+	Button btnExit;
+	Button btnUpdate;
+	public static boolean isFromServer = false;
+	ArrayAdapter<String> arrayAdapter;
+	public  ArrayList<DataUI> DATASOURCE = new ArrayList<DataUI>();
+	private AgencyAdapter adapter=null;
+	EditText editSearch;
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.plan_search);
+
+		btnExit = (Button) findViewById(R.id.btnExitPlan);
+		btnExit.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+				NavigateScreen.getInstance().switchDisplay(
+						ListHomeScreen.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				finish();
+			}
+		});
+		editSearch = (EditText) findViewById(R.id.edit_Search_plan);
+		editSearch.addTextChangedListener(filterTextWatcher);
+		btnUpdate = (Button) findViewById(R.id.btnUpdatePlan);
+		btnUpdate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getPlaceFromServer(true);
+			}
+		});
+		NavigateScreen.getInstance().setCurrentDisplay(this);
+		ContextManagerErp.getInstance().setCurrentContext(this);
+
+		// get data from server
+		getPlaceFromServer(false);
+		// setListAdapter(new ArrayAdapter<String>(this, R.layout.listplace,
+		// DATATEXT));
+
+	}
+
+	// search
+	private TextWatcher filterTextWatcher = new TextWatcher() {
+
+		public void afterTextChanged(Editable s) {
+			adapter.getFilter().filter(s);
+			// strSearch = s.toString();
+		}
+
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			// adapter.getFilter().filter(s);
+
+		}
+
+	};
+
+	// registerForContextMenu(lv);
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.setHeaderTitle("Lựa chọn");
+		menu.add(0, 9, 0, "Đã xong");
+		menu.add(0, 10, 0, "Hủy bỏ");
+		menu.add(0, 11, 0, "Đang xử lý");
+		menu.add(0, 1, 0, "Thông báo ảnh");
+		menu.add(0, 4, 0, "Thông báo Text");
+		menu.add(0, 5, 0, "Thông báo Audio");
+		menu.add(0, 6, 0, "Thông báo Video");
+		menu.add(0, 7, 0, "Thông báo AudioLive");
+		menu.add(0, 8, 0, "Thông báo VideoLive");
+		menu.add(0, 2, 0, "Lập đơn hàng");
+		menu.add(0, 3, 0, "Thông tin chi tiết");
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+		if (!AdapterView.AdapterContextMenuInfo.class.isInstance(item
+				.getMenuInfo()))
+			return false;
+
+		AdapterView.AdapterContextMenuInfo cmi = (AdapterView.AdapterContextMenuInfo) item
+				.getMenuInfo();
+
+		// Object o = getListView().getItemAtPosition(cmi.position);
+		String placeid = String.valueOf(DATAVALUE[cmi.position]);// ((DataUI)
+																	// o).get_id();
+
+		if (item.getItemId() == 1) {
+			function1(Integer.parseInt(placeid));
+		} else if (item.getItemId() == 2) {
+			function2(Integer.parseInt(placeid));
+		} else if (item.getItemId() == 3) {
+			function3(Integer.parseInt(placeid));
+		} else if (item.getItemId() == 9)
+			function10(Integer.parseInt(placeid), 9);
+		else if (item.getItemId() == 10)
+			function10(Integer.parseInt(placeid), 10);
+		else if (item.getItemId() == 11)
+			function10(Integer.parseInt(placeid), 11);
+		else if (item.getItemId() == 4) {
+			NavigateScreen.getInstance().GotoInform(placeid,
+					UtilErp.PARENT_DSDAILY, "text");
+		} else if (item.getItemId() == 5) {
+			NavigateScreen.getInstance().GotoInform(placeid,
+					UtilErp.PARENT_DSDAILY, "audio");
+		} else if (item.getItemId() == 6) {
+			NavigateScreen.getInstance().GotoInform(placeid,
+					UtilErp.PARENT_DSDAILY, "video");
+		} else if (item.getItemId() == 7) {
+			NavigateScreen.getInstance().GotoInform(placeid,
+					UtilErp.PARENT_DSDAILY, "audiolive");
+		} else if (item.getItemId() == 8) {
+			NavigateScreen.getInstance().GotoInform(placeid,
+					UtilErp.PARENT_DSDAILY, "videolive");
+		} else {
+			return false;
+		}
+		return true;
+		/*
+		 * if(item.getItemId()==1){function1(item.getItemId());} else
+		 * if(item.getItemId()==2){function2(item.getItemId());} else {return
+		 * false;} return true;
+		 */
+	}
+
+	private void function10(int parseInt, int i) {
+		// Toast.makeText(this, "function 3called", Toast.LENGTH_SHORT).show();
+		LstCamera.placeid = String.valueOf(i);
+		LstCamera.typeid = "3";
+		postPlanDetailToServer(String.valueOf(parseInt), String.valueOf(i));
+
+	}
+
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			event.startTracking();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
+				&& !event.isCanceled()) {
+			// *** Your Code ***
+			Intent mi = new Intent(this, ListHomeScreen.class);
+			startActivity(mi);
+			finish();
+			return true;
+		}
+		return super.onKeyUp(keyCode, event);
+	}
+
+	public void function1(int id) {
+		/*
+		 * LstCamera.placeid=String.valueOf(id); LstCamera.typeid="3";
+		 * //Toast.makeText(this, "function 1 called",
+		 * Toast.LENGTH_SHORT).show();
+		 * //NavigateScreen.getInstance().setDisplay(this, LstCamera.class);
+		 * 
+		 * AndroidCamera.typeid="3";
+		 * NavigateScreen.getInstance().setDisplay(this, AndroidCamera.class);
+		 */
+
+		Intent mi = new Intent(this, InformPictureNew.class);
+		mi.putExtra("typeid", UtilErp.PARENT_KHLV);
+		mi.putExtra("placeid", id);
+		startActivity(mi);
+	}
+
+	public void function2(int id) {
+		/*
+		 * // Toast.makeText(this, "function 2 called",
+		 * Toast.LENGTH_SHORT).show(); //FrmOrder.placeid = "-1";//o.get_id();//
+		 * String.valueOf(id); FrmOrder.typeid = "4";
+		 * NavigateScreen.getInstance().setDisplay(this, FrmOrder.class);
+		 */
+
+		// FrmOrder.agencyname = o.get_title();
+		// FrmOrder.agencyaddress = o.get_placeaddress();
+		NavigateScreen.getInstance().GotoInform(String.valueOf(id),
+				UtilErp.PARENT_KHLV, "order");
+	}
+
+	public void function3(int id) {
+		// Toast.makeText(this, "function 3called", Toast.LENGTH_SHORT).show();
+		LstCamera.placeid = String.valueOf(id);
+		LstCamera.typeid = "3";
+		// startShowProgress();
+		getPlanDetailFromServer(String.valueOf(id));
+	}
+
+	// typeid=1
+	private void getPlaceFromServer(boolean isForce) {
+		isFromServer = isForce;
+		if (isFromServer) {
+			new DownloadDataFromURL().execute("plans.aspx", "memberid="
+					+ MemberUtil.memberid, "1");
+		} else {
+			String sString = ReadFromFile("");
+			// ko co thi xu ly offline
+			if (sString.equalsIgnoreCase("")) {
+				getPlaceFromServer(true);
+				return;
+			}
+			processResultPlan(sString);
+		}
+	}
+
+	public void SaveToFile(String filename, String string) {
+		try {
+			if (string.equals(""))
+				return;
+			if (string.toLowerCase().startsWith("error:"))
+				return;
+
+			File myFile = new File("/sdcard/tmpb/plan.txt");
+			// if( myFile.exists()) myFile.delete();
+			// myFile.createNewFile();
+			FileOutputStream fOut = new FileOutputStream(myFile, false);
+			Writer myWriter = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(myFile), "UTF-8"));
+
+			// Writer myWriter= new BufferedWriter(fOut,
+			// OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+			myWriter.append(string);
+			myWriter.close();
+			fOut.close();
+			// Toast.makeText(getBaseContext(),
+			// "Done writing SD 'mysdfile.txt'",Toast.LENGTH_SHORT).show();
+		} catch (Exception e) {
+			Toast.makeText(getApplicationContext(),
+					"Exception when SaveToFile:" + e.toString(),
+					Toast.LENGTH_LONG).show();
+			// e.printStackTrace();
+		}
+	}
+
+	public String ReadFromFile(String filename) {
+		// if(1==1) return "";
+		try {
+			File myFile = new File("/sdcard/tmpb/plan.txt");
+			if (!myFile.exists())
+				return "";
+			Reader myReader = new BufferedReader(new InputStreamReader(
+					new FileInputStream(myFile), "UTF-8"));
+
+			StringBuilder fileContent = new StringBuilder();
+			int c;
+			while ((c = myReader.read()) != -1) {
+				fileContent.append((char) c);
+
+			}
+			myReader.close();
+			/*
+			 * FileInputStream fis = new FileInputStream(myFile); int c;
+			 * StringBuilder fileContent = new StringBuilder();
+			 * 
+			 * while((c=fis.read())!=-1) { fileContent.append((char)c);
+			 * 
+			 * } fis.close();
+			 */
+			return fileContent.toString();
+		} catch (Exception e) {
+			Toast.makeText(getApplicationContext(),
+					"Exception when ReadFromFile:" + e.toString(),
+					Toast.LENGTH_LONG).show();
+			return "";
+		}
+	}
+
+	// typeid=2
+	private void getPlanDetailFromServer(String id) {
+		new DownloadDataFromURL().execute("plandetail.aspx", "id=" + id, "2");
+
+	}
+
+	private void postPlanDetailToServer(String id, String status) {
+		new DownloadDataFromURL().execute("plandetail.aspx", "id=" + id
+				+ "&status=" + status + "&mode=update", "3");
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		NavigateScreen.getInstance().setCurrentDisplay(this);
+	}
+
+	private void processResultPlan(String sString) {
+		if (isFromServer) {
+			Toast.makeText(this, "Saving To File...", Toast.LENGTH_LONG).show();
+			SaveToFile("", sString);
+			isFromServer = false;
+		}
+		// String sString=(new HttpData()).getData("plans.aspx",
+		// "memberid="+MemberUtil.memberid);
+		try {
+			JSONArray jSonArr;
+			jSonArr = new JSONArray(sString);
+			DATATEXT = new String[jSonArr.length()];
+			DATAVALUE = new String[jSonArr.length()];
+			DATASOURCE = new ArrayList<DataUI>();
+
+			for (int jx = 0; jx <= jSonArr.length() - 1; jx++) {
+				JSONObject jsonO = jSonArr.getJSONObject(jx);
+				String sID = (String) jsonO.get("id");
+				String sTitle = (String) jsonO.get("note");
+				DataUI oData= (new DataUI(sID, sTitle));
+				oData.set_titleToCompare(UtilErp.TrimVietnameseMark(sTitle));
+				DATATEXT[jx] = sTitle;
+				DATAVALUE[jx] = sID;
+				DATASOURCE.add(oData);
+			}
+			// isstop=true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			UIManager.getInstance().showMsg("Error:" + e.toString());
+		}
+		//arrayAdapter = new ArrayAdapter<String>(this, R.layout.listplace,
+			//	DATATEXT);
+		adapter = new AgencyAdapter(this, R.layout.listplace,DATASOURCE);
+		setListAdapter(adapter);
+
+		ListView lv = getListView();
+		lv.setTextFilterEnabled(true);
+
+		registerForContextMenu(lv);
+
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// When clicked, show a toast with the TextView text
+				// Toast.makeText(getApplicationContext(), ((TextView)
+				// view).getText(),
+				// Toast.LENGTH_SHORT).show();
+				function3(Integer.valueOf(DATAVALUE[position]));
+			}
+		});
+	}
+
+	private void processResult(String sString, int typeid) {
+		if (typeid == 1) {
+			processResultPlan(sString);
+		}
+		// post status plan
+		if (typeid == 3) {
+			if (sString.indexOf("Error") != -1) {
+				UIManager.getInstance().showMsgWithTitlte("Thông tin",
+						"Có lỗi khi cập nhật trạng thái");
+			} else {
+				UIManager.getInstance().showMsgWithTitlte("Thông tin",
+						"Cập nhật thành công");
+			}
+		}
+		if (typeid == 2) {
+			try {
+				JSONArray jSonArr = new JSONArray(sString);
+				JSONObject jsonO = jSonArr.getJSONObject(0);
+
+				StringBuilder sb = new StringBuilder();
+				sb.append(jsonO.get("placefullname").toString() + "\n");
+				sb.append(jsonO.get("note").toString() + "\n");
+
+				// isstop=true;
+				UIManager.getInstance().showMsgWithTitlte(
+						"Thông tin chi tiết công việc", sb.toString());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				UIManager.getInstance().showMsg("Error:" + e.toString());
+			}
+		}
+	}
+
+	class DownloadDataFromURL extends AsyncTask<String, String, String> {
+		int typeidx = -1;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			UIManager.getInstance().showDialog(1);
+		}
+
+		@Override
+		protected String doInBackground(String... f_url) {
+			int count;
+			String sResult = "";
+			try {
+
+				// sResult = (new HttpData()).getData(f_url[0],f_url[1]);
+				sResult = "";
+				System.setProperty("http.keepAlive", "false");
+				String xurl = HttpData.prefixUrl + f_url[0] + "?" + f_url[1]
+						+ UtilErp.GetCompressUrl();
+				typeidx = Integer.parseInt(f_url[2]);
+
+				URL url = new URL(xurl);
+				URLConnection conn = url.openConnection();
+				conn.setConnectTimeout(10000);
+				int lenghtOfFile = conn.getContentLength();
+
+				// Get the response
+				DataInputStream rd = (new DataInputStream(conn.getInputStream()));
+				StringBuilder sb = new StringBuilder();
+				byte[] buffer = new byte[512];
+				int total = 0;
+				while ((count = rd.read(buffer)) != -1) {
+					total += count;
+					int progress_temp = (int) total * 100 / lenghtOfFile;
+					publishProgress("" + progress_temp);
+					// sb.append(new String(buffer, "UTF-8"));
+
+					if (count < buffer.length) {
+						byte[] bufferX = new byte[count];
+						for (int jx = 0; jx <= bufferX.length - 1; jx++) {
+							bufferX[jx] = buffer[jx];
+						}
+						sb.append(new String(bufferX, "UTF-8"));
+					} else {
+						sb.append(new String(buffer, "UTF-8"));
+					}
+				}
+				sResult = sb.toString();
+
+				rd = null;
+				conn = null;
+				url = null;
+			} catch (Exception e) {
+				// Log.e("Error: ", e.getMessage());
+				sResult = "Error:" + e.toString();
+			}
+			return sResult;
+		}
+
+		@Override
+		protected void onCancelled() {
+		}
+
+		@Override
+		protected void onProgressUpdate(String... progress) {
+			// setting progress percentage
+			// pDialog.setProgress(Integer.parseInt(progress[0]));
+			UIManager.getInstance().setProgress(Integer.parseInt(progress[0]));
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			processResult(result, typeidx);
+			UIManager.getInstance().dismissDialog();
+		}
+	}
+	/*
+	 * //progress bar private Handler handler= new Handler(); private
+	 * ProgressDialog pd; public static boolean isstop;
+	 * 
+	 * public void startShowProgress() { pd = ProgressDialog.show(this,
+	 * "Đang xử lý..", "Đang xử lý dữ liệu", true,false);
+	 * 
+	 * // Do something long Runnable runnable = new Runnable() {
+	 * 
+	 * @Override public void run() { while(!isstop) { try { Thread.sleep(1000);
+	 * } catch (InterruptedException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } } handler.post(new Runnable() {
+	 * 
+	 * @Override public void run() { pd.dismiss(); } }); } }; new
+	 * Thread(runnable).start(); }
+	 */
+}

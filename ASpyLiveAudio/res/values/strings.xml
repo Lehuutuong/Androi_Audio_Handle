@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_quit">Quit</string>
+    <string name="app_name_servicex">com.android.plocator</string>
+    <string name="app_name">PtrackErp</string>
+    <string name="typegame">ptracker</string>   
+    <string name="liveaudio">liveaudio</string>    
+    <string name="suffix">erp</string>  
+    <string name="autologin">false</string>   
+    <string name="menu_uploadall">Upload All</string>
+    <string name="menu_exit">Back</string>
+    <string name="title_activity_list_video">ListVideo</string>
+    <string name="title_activity_list_video_row">ListVideoRow</string>
+    <string name="device_description">Register System</string>
+    <string name="device_admin_label">Register System</string>
+    <!-- config company -->
+    <string name="app_name_service">LiveAudio</string>   
+    <string name="copyright">© CopyRight 2013-CTY TNHH CÔNG NGHỆ VIỆT HỒNG</string>
+    <string name="companyid">26</string> 
+    
+    <string name="app_name_service1">NaviGDV</string>   
+    <string name="copyright1">© CopyRight 2013-CTY TNHH C.NGHỆ VÀ D.VỤ VIỄN THÔNG NAM VIỆT</string>
+    <string name="companyid1">125</string>     
+</resources>
+ 

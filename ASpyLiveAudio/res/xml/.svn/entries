@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1199"
+   name=""
+   committed-date="2014-01-08T05:08:35.474038Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/res/xml"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1199"
+   name="my_admin.xml"
+   text-time="2014-01-08T05:11:12.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="26ec3b2ed12c9f036452ba2c20c59b43"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+</wc-entries>

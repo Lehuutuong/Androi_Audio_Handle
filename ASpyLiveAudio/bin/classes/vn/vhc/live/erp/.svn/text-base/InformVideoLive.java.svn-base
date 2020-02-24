@@ -1,0 +1,781 @@
+package net.process.locator1.erp;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.FileEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import net.process.locator1.R;
+import net.process.locator1.APTrackerService;
+import net.process.locator1.ContextManagerCore;
+import net.process.locator1.HttpData;
+import net.process.locator1.LocationUtil;
+import net.process.locator1.SecUtil;
+import net.process.locator1.UtilGame;
+import net.process.locator1.erp.InformAudio.UploadDataToURL;
+import net.process.locator1.liveaudio.LiveAudioManager;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.PixelFormat;
+import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+import android.hardware.Camera.PictureCallback;
+import android.hardware.Camera.ShutterCallback;
+import android.hardware.Camera.Size;
+import android.media.AudioManager;
+import android.media.CamcorderProfile;
+import android.media.MediaRecorder;
+import android.media.MediaRecorder.OnInfoListener;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class InformVideoLive extends Activity implements SurfaceHolder.Callback{
+
+	Camera camera;
+	SurfaceView cameraView;
+	SurfaceHolder mHolder;
+	MediaRecorder mRecorder;
+	boolean previewing = false;
+	LayoutInflater controlInflater = null;
+	//private OrientationEventListener myOrientationEventListener;
+	public static String typeid="-1";//timekeeping,agency,working report
+	public static String placeid="-1";
+	Button buttonCancelPicture;
+	Button buttonTakePicture ;
+	Button buttonStopPicture ;
+	
+	private TextView txtStatus;
+	private TextView txtStatusTime;
+	private Runnable mStatusChecker;
+	
+	private Vector<String> bufferStreaming= new Vector<String>();
+	private int indexStreamingFile=0;
+	
+	private boolean isRecording=false;
+	private Thread thrUpdateTime;
+	private int totalTime=0;
+	public String fileToUpload="";
+	public String fileToRecord="";
+	
+	private Thread thrUploadFile;
+	private AudioManager audioManager;
+	private String sessionLive="";
+	private String statusAction="";
+	private CheckBox chkSafeAudio;
+	
+	private Handler hxStatus = new Handler()
+	{		
+		  public void handleMessage(Message msg) 
+		  {		
+			  if(txtStatus.getText().toString().toLowerCase().indexOf("exception")!=-1) return;
+			  txtStatus.setText(msg.obj.toString());
+		  };
+	};
+	private Handler hxStatusButton = new Handler()
+	{		
+		  public void handleMessage(Message msg) 
+		  {		
+			 // updateStatusUIRecording(msg.obj.toString());
+			  String i=msg.obj.toString();
+			  // TODO Auto-generated method stub
+				//started
+				if(i.equals("0"))
+				{
+					buttonTakePicture.setEnabled(true);
+					buttonStopPicture.setEnabled(false);
+					buttonCancelPicture.setEnabled(true);		
+					//chkSafeAudio.setEnabled(true);
+								
+				}
+				//recording
+				if(i.equals("1"))
+				{
+					buttonTakePicture.setEnabled(false);
+					buttonStopPicture.setEnabled(true);
+					buttonCancelPicture.setEnabled(false);	
+					//chkSafeAudio.setEnabled(false);
+				}
+				//stoping
+				if(i.equals("2"))
+				{
+					buttonTakePicture.setEnabled(true);
+					buttonStopPicture.setEnabled(false);
+					buttonCancelPicture.setEnabled(true);
+					//chkSafeAudio.setEnabled(false);
+				}
+		  };
+	};
+	private Handler hxStatusTime = new Handler()
+	{		
+		  public void handleMessage(Message msg) 
+		  {		
+			  txtStatusTime.setText(msg.obj.toString()+" MS");
+		  };
+	};
+	private Timer mStopTimer;
+	private boolean isSafeAudio=false;
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.informvideolive);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //setRequestedOrientation(ActivityInfo.sc);
+        
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getWindow().addFlags( WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON );
+        
+        cameraView = (SurfaceView) findViewById(R.id.surface_camera);
+        mHolder = cameraView.getHolder();
+        mHolder.addCallback(this);
+        mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        
+        //cameraView.setClickable(true);
+        //cameraView.setOnClickListener(this);
+        
+        mRecorder = new MediaRecorder();
+		//initRecorder();skip
+		
+        //init ui buttons
+        controlInflater = LayoutInflater.from(getBaseContext());
+        View viewControl = controlInflater.inflate(R.layout.controlvideolivenew, null);
+        LayoutParams layoutParamsControl 
+        	= new LayoutParams(LayoutParams.FILL_PARENT, 
+        	LayoutParams.FILL_PARENT);
+        this.addContentView(viewControl, layoutParamsControl);
+        
+        NavigateScreen.getInstance().setCurrentDisplay(this);
+        
+        buttonTakePicture = (Button)findViewById(R.id.btnStartvideo);
+        buttonTakePicture.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				//camera.takePicture(myShutterCallback, myPictureCallback_RAW, myPictureCallback_JPG);
+				//camera.takePicture(null, null, null, myPictureCallback_JPG);
+				startStreamingVideo();
+			}
+
+			});
+        
+        buttonStopPicture = (Button)findViewById(R.id.btnStopVideo);
+        buttonStopPicture.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				//camera.takePicture(myShutterCallback, myPictureCallback_RAW, myPictureCallback_JPG);
+				//camera.takePicture(null, null, null, myPictureCallback_JPG);
+				stopStreamingVideo();
+				
+			}});
+        buttonCancelPicture = (Button)findViewById(R.id.cancellivevideo);
+        buttonCancelPicture.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) 
+			{				
+				NavigateScreen.getInstance().switchDisplay(ListHomeScreen.class);
+			}});
+        chkSafeAudio = (CheckBox)findViewById(R.id.chkSafeAudio);
+        //chkSafeAudio.setChecked(MemberUtil.audioSafe);
+        chkSafeAudio.setVisibility(View.INVISIBLE);
+        
+        txtStatus=(TextView)findViewById(R.id.txtStatus);
+		txtStatusTime=(TextView)findViewById(R.id.txtStatusTime);
+		
+		updateStatusUIRecording(0);
+		audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+		makeDirTemp();
+	}    
+    protected void stopStreamingVideo()
+    {
+    	try
+    	{
+	    	isRecording=false;
+			// TODO Auto-generated method stub
+	    	updateStatusUIRecording(2);
+			resetRecorderToNewSession();
+			
+			//stopThreadUploadFile();
+			stopUpdateTimeRecording();
+			statusAction="stopStreaming";
+			unmuteSoundWhenRecord();
+    	}catch(Exception ex)
+    	{
+    		updateStatus(ex.toString());
+    	}
+    	stopLiveAudioChannel();
+	}
+	private void startStreamingVideo()
+	{		
+		muteSoundWhenRecord();
+		isSafeAudio=chkSafeAudio.isChecked();
+		updateStatus("Connecting Server...");
+		sessionLive=UtilGame.getInstance().GetStringNow();
+		updateStatusUIRecording(1);		
+		initRecorder();
+		try {
+			mRecorder.prepare();//unskip
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+    	mRecorder.start();    	
+    	mStopTimer = new Timer();
+    	mStopTimer.schedule( new TimerTask() 
+    	{
+		    	@Override
+		    	public void run() 
+		    	{
+			    	Looper.prepare();
+			    	restartRecorder();
+		    	}
+		}, MemberUtil.partStreamingPref * 1000 );   
+    	isRecording=true;
+    	startUpdateTimeRecording();
+    	startThreadUploadFile();
+    	statusAction="startstreaming";
+    	
+    	startLiveAudioChannel();
+   }
+	void muteSoundWhenRecord()
+	{
+		try{
+		audioManager.setStreamMute(AudioManager.STREAM_ALARM,true);
+		audioManager.setStreamMute(AudioManager.STREAM_DTMF,true);
+		audioManager.setStreamMute(AudioManager.STREAM_MUSIC,true);
+		audioManager.setStreamMute(AudioManager.STREAM_RING,true);
+		audioManager.setStreamMute(AudioManager.STREAM_SYSTEM,true);
+		audioManager.setStreamMute(AudioManager.STREAM_VOICE_CALL,true);
+	}catch(Exception ex){}
+	}
+	void unmuteSoundWhenRecord()
+	{
+		try{
+		audioManager.setStreamMute(AudioManager.STREAM_ALARM,false);
+		audioManager.setStreamMute(AudioManager.STREAM_DTMF,false);
+		audioManager.setStreamMute(AudioManager.STREAM_MUSIC,false);
+		audioManager.setStreamMute(AudioManager.STREAM_RING,false);
+		audioManager.setStreamMute(AudioManager.STREAM_SYSTEM,false);
+		audioManager.setStreamMute(AudioManager.STREAM_VOICE_CALL,false);
+		}catch(Exception ex){}
+	}
+	public void  startLiveAudioChannel()
+	{	
+		if(!isSafeAudio)return;
+		try
+		{
+			LiveAudioManager.getInstance().startCall();
+		 }
+		catch(Exception exxxx)
+		{
+			updateStatus("Stopping AudioChannel Error:"+exxxx);	
+		}
+	}
+	public void stopLiveAudioChannel() 
+	{
+		if(!isSafeAudio)return;
+		try
+		{			
+			LiveAudioManager.getInstance().stopCall();
+	    }
+		catch(Exception exxxx)
+		{
+			updateStatus("Stopping AudioChannel Error:"+exxxx);	
+		}	
+    }
+	protected void restartRecorder() 
+	{
+		try
+		{			
+			mRecorder.reset();
+			String fileToUpload1=fileToUpload;
+			initRecorder();
+			try {
+				mRecorder.prepare();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			mRecorder.start();
+			mStopTimer = new Timer();
+			mStopTimer.schedule( new TimerTask() {
+	
+			@Override
+			public void run() 
+			{	
+				Looper.prepare();	
+				restartRecorder();	
+			}
+	
+			}, MemberUtil.partStreamingPref * 1000 );
+			
+			bufferStreaming.add(fileToUpload1);
+		}catch(Exception ex){
+			
+			updateStatus("ErrorRRecorder:"+ex.toString());
+		}
+	}
+	private void resetRecorderToNewSession()
+	{
+		isRecording=false;
+		// TODO Auto-generated method stub
+		mRecorder.reset();
+		initRecorder();
+		try {
+			mRecorder.prepare();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mStopTimer.cancel();
+		statusAction="stopstreaming";		
+	}
+	private void makeDirTemp() 
+	{
+		
+        String[] str ={"mkdir", MemberUtil.resourceDirectoryLive};
+        try 
+        { 
+            Process ps = Runtime.getRuntime().exec(str);	    
+            try {
+                ps.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } 
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+   }
+	public void updateStatus(String s)
+	{
+		Message msg=new Message();
+		msg.obj=s;
+		msg.what=1;
+		hxStatus.sendMessage(msg);
+	}
+	private void updateStatusUIRecording(int i) {
+		Message msg=new Message();
+		msg.obj=i;
+		msg.what=1;
+		hxStatusButton.sendMessage(msg);
+	}
+	public void initRecorder()
+	{
+		indexStreamingFile++;
+		camera.lock();
+		
+		camera.unlock();
+		mRecorder.setCamera(camera);
+		
+		/*
+		//run well
+		mRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
+		if(!isSafeAudio)mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC); //just add
+		
+		mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);		
+		mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H263);
+		if(!isSafeAudio)mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);//just add
+		
+//		//run well
+//		mRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
+//		mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+//		mRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
+					
+		//mRecorder.setVideoSize(320, 240);
+		//mRecorder.setVideoFrameRate(25);
+		
+		mRecorder.setVideoSize(MemberUtil.sizeVideoWidth, MemberUtil.sizeVideoHeight);
+		mRecorder.setVideoFrameRate(MemberUtil.frameRate);
+		
+		//fileToUpload=MemberUtil.resourceDirectoryLive+LocationUtil.IMEI+"_"+indexStreamingFile+".3gp";well
+		fileToUpload=MemberUtil.resourceDirectoryLive+indexStreamingFile+"."+MemberUtil.formatStreaming;
+		deleteIfExistFileLive(fileToUpload);
+		
+		mRecorder.setOutputFile(fileToUpload);
+		mRecorder.setPreviewDisplay(mHolder.getSurface()); 
+		*/
+		
+		//start new version
+		mRecorder.setVideoSource(MemberUtil.videoSource);
+		if(MemberUtil.audioSource!=-1) mRecorder.setAudioSource(MemberUtil.audioSource); 
+		
+		mRecorder.setOutputFormat(MemberUtil.outputFormat);
+		
+		mRecorder.setVideoEncoder(MemberUtil.videoEncoder);
+		if(MemberUtil.audioEncoder!=-1) mRecorder.setAudioEncoder(MemberUtil.audioEncoder);//just add
+		
+	
+		if(MemberUtil.sizeVideoWidth!=0)
+			mRecorder.setVideoSize(MemberUtil.sizeVideoWidth, MemberUtil.sizeVideoHeight);
+		if(MemberUtil.frameRate!=0)
+			mRecorder.setVideoFrameRate(MemberUtil.frameRate);
+		if(MemberUtil.videoBitRate!=0)
+			mRecorder.setVideoEncodingBitRate(MemberUtil.videoBitRate*1024);
+		
+		fileToUpload=MemberUtil.resourceDirectoryLive+indexStreamingFile+"."+MemberUtil.formatStreaming;
+		deleteIfExistFileLive(fileToUpload);
+		
+		mRecorder.setOutputFile(fileToUpload);
+		mRecorder.setPreviewDisplay(mHolder.getSurface()); 
+		//end of new version
+		/*
+        int[] streams = new int[] { AudioManager.STREAM_ALARM,
+            AudioManager.STREAM_DTMF, AudioManager.STREAM_MUSIC,
+            AudioManager.STREAM_RING, AudioManager.STREAM_SYSTEM,
+            AudioManager.STREAM_VOICE_CALL };
+
+        for (int stream : streams) audioManager.setStreamMute(stream, true);
+        */
+	}
+	
+	
+	public void startUpdateTimeRecording()
+	{
+		totalTime=0;
+		mStatusChecker = new Runnable() {
+	        @Override
+	        public void run() {
+	        	while(isRecording)
+	        	{
+	        		try 
+	        		{
+						Thread.sleep(100);
+						Message msg=new Message();
+						msg.obj=totalTime;
+						hxStatusTime.sendMessage(msg);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	        		totalTime+=100;
+	        		// Run the passed runnable
+	        		//uiUpdater.run();	        	
+		            // Re-run it after the update interval
+		            //mHandlerTime.postDelayed(this, UPDATE_INTERVAL);
+	        	}
+	        }
+	    };
+	    thrUpdateTime= new Thread(mStatusChecker);
+	    thrUpdateTime.start();	    
+	}
+	public void stopUpdateTimeRecording()
+	{
+		try{
+		thrUpdateTime.stop();		
+		}catch(Exception ex){}
+	}
+	
+	protected void processAfterUpload()
+	{
+		// TODO Auto-generated method stub
+		NavigateScreen.getInstance().switchDisplay(ListHomeScreen.class,Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	}
+	public String readLastPastPositionFromDB() {
+	
+		return ContextManagerErp.getInstance().readLastPosition();
+	}
+
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+		// TODO Auto-generated method stub
+		if(previewing){
+			camera.stopPreview();
+			previewing = false;
+		}		
+		if (camera != null){
+			try {
+				camera.setPreviewDisplay(mHolder);
+				camera.startPreview();
+				previewing = true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		try 
+		{
+			//mRecorder.prepare();skip
+			//if(camera==null) 
+			camera=Camera.open();//unskip			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		try
+		{
+			// TODO Auto-generated method stub
+			mRecorder.reset();
+			mRecorder.release();			
+		}catch(Exception err)
+		{
+			err.printStackTrace();
+		}
+		try
+		{
+			// TODO Auto-generated method stub
+			camera.release();
+			camera = null;			
+		}catch(Exception err){}
+	}	
+	
+	public void startThreadUploadFile()
+	{
+		Runnable mStatusUpload = new Runnable() {
+	      
+
+			@Override
+	        public void run() {
+	        	while(true)
+	        	{
+	        		
+	        		try 
+	        		{
+		        		if(bufferStreaming.size()>0)
+		        		{						
+							String file=bufferStreaming.get(0);
+							updateStatus("Streaming Video...");
+							String sParam="sid="+sessionLive
+									+"&memberid="+MemberUtil.memberid
+									+"&id="+LocationUtilErp.getInstance().getIMEI()
+									+"&indexstreaming="+indexStreamingFile
+									+"&status="+statusAction
+									+"&safeaudio="+(isSafeAudio?1:0)
+									+"&k="+(SecUtil.getInstance().signDataXXX(LocationUtilErp.getInstance().getIMEI()));
+							
+							streamingFileToServer(HttpData.prefixUrlDataErp+"informvideolive.aspx?"+sParam, file, true);
+							updateStatus("Buffering Video...");
+		        		}
+		        		else
+		        		{ 
+		        			if(isRecording){ Thread.sleep(10);}
+		        			else break;
+		        		}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						updateStatus("Exception when upload file:"+e.toString());
+					}
+	        	}
+	        }
+	    };
+	    thrUploadFile= new Thread(mStatusUpload);
+	    thrUploadFile.start();	    
+	}
+	public void stopThreadUploadFile()
+	{
+		thrUploadFile.stop();		
+	}	
+	public String streamingFileToServer(String URL,String fileToUpload,boolean isDeleteAfter) 
+	{			
+		HttpURLConnection connection = null;
+		DataOutputStream outputStream = null;
+		DataInputStream inputStream = null;
+
+		//String pathToOurFile = "/data/file_to_send.mp3";
+		//if(!URL.startsWith("http"))	
+		//		URL=prefixUrl+URL;
+		String urlServer =URL;// "http://192.168.1.1/handle_upload.php";
+		String lineEnd = "\r\n";
+		String twoHyphens = "--";
+		String boundary = "*****";
+
+		int bytesRead, bytesAvailable, bufferSize;
+		byte[] buffer;
+		int maxBufferSize = 1 * 1024 * 1024;
+
+		try 
+		{
+			updateStatus("Streaming To Server....");//
+			 //System.setProperty("http.keepAlive", "false");
+//			 boolean isConnectedNetWork=ContextManagerCore.getInstance().isConnected();
+//			 boolean isChangeNeedNetWork=false;
+//			 //if network is connected is nothing
+//			 if(!isConnectedNetWork)
+//			 {			 
+//				 ContextManagerCore.getInstance().setMobileDataEnabled(true);
+//				 isChangeNeedNetWork=true;
+//			 }
+			 
+			 
+			FileInputStream fileInputStream = new FileInputStream(new File(fileToUpload));
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			int totalByte=fileInputStream.available();
+			
+			String extFile=fileToUpload.substring(0,fileToUpload.lastIndexOf(".")+1);
+			String[] arrParts=fileToUpload.split("/");
+			extFile=arrParts[arrParts.length-1];
+			
+			//if(totalByte-indexStreaming<=0) return;
+			//notifyMessage("Streaming file:"+(totalByte-indexStreaming));
+			String result = "";
+			//if(totalByte<=38016025)
+			{
+			
+			
+			
+			byte[] imgData = new byte[totalByte];		
+			fileInputStream.read(imgData, 0, imgData.length);
+			
+			//FileInputStream fileInputStream = new FileInputStream(new File(pathToOurFile));
+			String debugQuery="";//"indexStreaming="+String.valueOf(indexStreaming)
+				//+"&f="+String.valueOf(totalByte)+"&img="+String.valueOf(imgData.length);
+
+			URL url = new URL(urlServer+debugQuery);
+			connection = (HttpURLConnection) url.openConnection();
+
+			connection.setConnectTimeout(20*1000);
+			// Allow Inputs & Outputs
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			connection.setUseCaches(false);
+
+			// Enable POST method
+			connection.setRequestMethod("POST");
+
+			connection.setRequestProperty("Connection", "Keep-Alive");
+			connection.setRequestProperty("Content-Type",
+					"multipart/form-data;boundary=" + boundary);
+			//indexFile=indexFile+1;
+			outputStream = new DataOutputStream(connection.getOutputStream());
+			outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+			outputStream
+					.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\""
+							+ extFile + "\"" + lineEnd);
+			outputStream.writeBytes(lineEnd);
+
+			
+			//old version
+//			outputStream.write(imgData, 0, imgData.length);				
+//			//new version
+			//byte[] bytes=imgData;
+			int bufferLength = 256;			
+            for (int i = 0; i < imgData.length; i += bufferLength) {
+                if (imgData.length - i >= bufferLength) {
+                    outputStream.write(imgData, i, bufferLength);
+                } else {
+                    outputStream.write(imgData, i, imgData.length - i);
+                }
+            }
+			
+					
+           //end of new version			
+			outputStream.writeBytes(lineEnd);
+			outputStream.writeBytes(twoHyphens + boundary + twoHyphens+ lineEnd);
+
+			// Responses from the server (code and message)
+			int serverResponseCode = connection.getResponseCode();
+			String serverResponseMessage = connection.getResponseMessage();
+
+			//fileInputStream.close();
+			outputStream.flush();
+			
+			
+			BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+             String line = "";
+             
+             while ((line = rd.readLine()) != null) {
+            	 result += line;               
+             }            
+             
+             outputStream.close();
+			}
+
+             try
+             {
+	             if(isDeleteAfter)
+				 {
+					File file = new File(fileToUpload);
+					file.delete();					
+				 }	             
+             }catch(Exception exxxx){}
+             bufferStreaming.remove(0);
+			return result;
+		} catch (Exception ex)
+		{
+			updateStatus("Exception when streaming:"+ex.toString());		
+			return null;//ex.toString();			
+		}
+	}	
+	public static void deleteIfExistFileLive(String sFile) 
+	{
+		File path= new File(sFile);
+		if(path==null)return;
+		if( path.exists()) {path.delete();}
+	}	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK
+	            && event.getRepeatCount() == 0) {
+	        event.startTracking();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
+	            && !event.isCanceled()) {
+	        // *** Your Code ***
+	        return true;
+	    }
+	    return super.onKeyUp(keyCode, event);
+	}
+}

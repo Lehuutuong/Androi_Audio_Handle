@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1201"
+   name=""
+   committed-date="2014-01-08T08:26:09.491049Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last"
+   last-author="tuannew"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1201"/>
+<entry
+   committed-rev="1199"
+   name="proguard.cfg"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="bec1efcef0f2c9b790a863a8a7d4e668"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name=".project"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="d36cbc56068862258a77f022b42bc635"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AndroidManifest_2.xml"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="2e3cb7d0c35830370e5280dba5ff47e6"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:12.000000Z"/>
+<entry
+   name="src"
+   kind="dir"/>
+<entry
+   name="res"
+   kind="dir"/>
+<entry
+   committed-rev="1199"
+   name=".classpath"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="0f5d1ef1ce22dbdd905118ea987691ea"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="project.properties"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ff5bc1511bc4f6246400da47d3a322d4"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   name="assets"
+   kind="dir"/>
+<entry
+   committed-rev="1199"
+   name="lint.xml"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="af1700cdfa143f355704b987a8f49163"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:20.000000Z"/>
+<entry
+   committed-rev="1242"
+   name="AndroidManifest.xml"
+   text-time="2014-01-11T08:48:28.000000Z"
+   committed-date="2014-01-11T05:14:15.378872Z"
+   checksum="0c2831ea1890d4d71577d46901a58695"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-11T08:48:28.000000Z"
+   revision="1252"/>
+<entry
+   name="lib"
+   kind="dir"/>
+<entry
+   name="bin"
+   kind="dir"/>
+<entry
+   name="gen"
+   kind="dir"/>
+<entry
+   name="etc"
+   kind="dir"/>
+<entry
+   committed-rev="1199"
+   name="hs_err_pid4344.log"
+   text-time="2014-01-08T05:11:38.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="4962b0ce7c70aa115862e23a5f5b4743"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:38.000000Z"/>
+<entry
+   name=".settings"
+   kind="dir"/>
+</wc-entries>

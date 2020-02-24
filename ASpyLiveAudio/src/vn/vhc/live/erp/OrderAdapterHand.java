@@ -1,0 +1,218 @@
+package vn.vhc.live.erp;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import vn.vhc.live.R;
+import android.app.Dialog;
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Filter;
+import android.widget.ListView;
+import android.widget.TextView;
+public class OrderAdapterHand extends ArrayAdapter<Products> {
+	public ArrayList<Products> original;
+	private ArrayList<Products> fitems;
+	private Filter filter;
+	private Context mcontext;
+	private LayoutInflater inflater;
+	public static String NewNumber = "";
+	public static String OdlName = "";
+	public int createOrder = 0;
+	public  int viewisNull=0;
+	public OrderAdapterHand(Context context,
+			int textViewResourceId, List<Products> objects,LayoutInflater inflater) {
+		super(context, textViewResourceId, objects);
+		// TODO Auto-generated constructor stub
+		this.original = new ArrayList<Products>(objects);
+		this.fitems = new ArrayList<Products>(objects);
+		this.mcontext = context;
+		this.inflater=inflater;
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public Filter getFilter() {
+		// TODO Auto-generated method stub
+		if (filter == null)
+			filter = new PkmnNameFilter();
+
+		return filter;
+	}
+	
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		final ViewHolder holder;
+
+		if (convertView == null) {
+
+			holder = new ViewHolder();
+			//inflater = mcontext.getLayoutInflater();
+			convertView = inflater.inflate(R.layout.order_hand_item, parent,
+					false);
+
+			holder.txtName = (TextView) convertView
+					.findViewById(R.id.txt_title_order);
+			holder.txtCode = (TextView) convertView
+					.findViewById(R.id.txt_code);
+			holder.txtTime = (TextView) convertView
+					.findViewById(R.id.txt_time_order);
+			holder.txtID = (TextView) convertView
+					.findViewById(R.id.txt_id_order);
+			holder.txtStt=(TextView)convertView.findViewById(R.id.txt_stt);
+			
+			viewisNull=1;
+			convertView.setTag(holder);
+			
+		}
+		else {
+
+			holder = (ViewHolder) convertView.getTag();
+		}
+		if (fitems == null) {
+			fitems = new ArrayList<Products>(original);
+		}
+		final Products products = fitems.get(position);
+		holder.txtName.setText(products.ProductName);
+		holder.txtCode.setText(products.Code);
+		holder.txtID.setText(products.ID);
+		holder.txtTime.setText(products.TimeOrder);
+		holder.txtStt.setText(products.Stt);
+		if(viewisNull==1){
+			holder.txtName.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String srStt = holder.txtStt.getText().toString();
+					int oldPostion=MygetPostion(srStt);
+					if(oldPostion>-1){
+						MyclickItem(oldPostion,inflater);
+					}
+					
+				}
+			});
+			holder.txtTime.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String srStt = holder.txtStt.getText().toString();
+					int oldPostion=MygetPostion(srStt);
+					if(oldPostion>-1){
+						MyclickItem(oldPostion,inflater);
+					}
+					
+				}
+			});
+			holder.txtCode.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String srStt = holder.txtStt.getText().toString();
+					int oldPostion=MygetPostion(srStt);
+					if(oldPostion>-1){
+						MyclickItem(oldPostion,inflater);
+					}
+					
+				}
+			});
+		}
+		return convertView;
+	}
+	public int MygetPostion(String str){
+		int stt	=0;
+		try{
+			stt=Integer.parseInt(str);
+			return stt;
+		}
+		catch(Exception e){
+			return -1;
+		}
+	}
+	public void MyclickItem(int postion,LayoutInflater inflater){
+		final Dialog dialog = new Dialog(mcontext);
+		dialog.setContentView(R.layout.order_hand_product_main);
+		dialog.setTitle("Danh sách sản phẩm");
+		ListView listView=(ListView)dialog.findViewById(R.id.list_order_hand_product);
+		OrderAdapterProductsHand orAdapterProductsHand = new OrderAdapterProductsHand(inflater.getContext(),R.layout.order_hand_product_items,original.get(postion).prdoucts,inflater);
+		listView.setAdapter(orAdapterProductsHand);
+		Button btnBack=(Button)dialog.findViewById(R.id.btn_back_order);
+		btnBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
+	private class PkmnNameFilter extends Filter{
+
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			FilterResults filterResult = new FilterResults();
+			String prefix = constraint.toString().toLowerCase();
+
+			if (prefix == null || prefix.length() == 0) {
+				ArrayList<Products> list = new ArrayList<Products>(original);
+				filterResult.values = list;
+				filterResult.count = list.size();
+			} 
+			else 
+			{
+				prefix = UtilErp.TrimVietnameseMark(prefix);
+				final ArrayList<Products> list = new ArrayList<Products>(
+						original);
+				final ArrayList<Products> nlist = new ArrayList<Products>();
+				int count = list.size();
+				for (int i = 0; i < count; i++) {
+					final Products products = list.get(i);
+					final String value = products.ProductNameE.toLowerCase();
+					if (value.contains(prefix)) {
+						nlist.add(products);
+					}
+				}
+				filterResult.values = nlist;
+				filterResult.count = nlist.size();
+
+				Log.d("Size result1", nlist.size() + "");
+			}
+			
+			return filterResult;
+		}
+
+		@Override
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
+			// TODO Auto-generated method stub
+			fitems = (ArrayList<Products>) results.values;
+			clear();
+			int count = fitems.size();
+			for (int i = 0; i < count; i++) {
+				Products pkmn = (Products) fitems.get(i);
+				add(pkmn);
+				// notifyDataSetInvalidated();
+			}
+			// TODO Auto-generated method stub
+			Log.d("Size result", count + "");
+			
+		}
+		
+	}
+	static class ViewHolder {
+		TextView txtTime;
+		TextView txtName;
+		TextView txtID;
+		TextView txtCode;
+		TextView txtStt;
+	}
+}

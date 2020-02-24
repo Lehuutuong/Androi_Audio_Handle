@@ -1,0 +1,131 @@
+package net.process.locator1.liveaudio;
+
+import java.nio.ByteOrder;
+
+import net.process.locator1.LocationUtil;
+
+
+
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.PowerManager;
+import android.text.Editable;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class LiveAudioManager{
+
+	public static LiveAudioManager _instance;
+	public static LiveAudioManager getInstance()
+	{
+		if(_instance==null) _instance= new LiveAudioManager();
+		return _instance;
+		
+	}
+	public  LiveAudioManager()
+	{
+		client1=LocationUtil.IMEI;
+		
+	}
+	public static final String rtmpUrl = "rtmp://live.vhc.vn:1940/oflaDemo";
+	//public static final String rtmpUrl = "rtmp://live.vhc.vn:1945/live";
+	
+	//public static final String rtmpUrl = "rtmp://10.0.1.11:1935/oflaDemo";
+	
+	public static  String client1 = "lamdaica12345";
+	public static  String client2 = "client2.a";
+
+	//PowerManager.WakeLock wakeLock;
+
+	private boolean capturing = false;
+	private boolean receiving = false;
+	
+
+	//private TextView receivedStatusText;
+
+	private AudioCall audioCall;
+	
+	
+	private int bytesReceived;
+	private int bytesPerSecond;
+	private long bytesReceivedStart;
+	
+
+	public void startCall() {
+
+		String rtmp = rtmpUrl;
+		String pTopic = client1;
+		String sTopic = client2;
+
+		if (audioCall != null) {
+			audioCall.finish();
+		}
+		LiveAudioContext._debug+="0";
+		//net.process.locator1.UIManager.getInstance().showMsg("To here0...:"+client1);
+		audioCall = new AudioCall(LiveAudioContext.getContext(), rtmp, pTopic, sTopic);
+		//wakeLock.acquire();
+		audioCall.start();
+		//net.process.locator1.UIManager.getInstance().showMsg("To here1...");
+		
+//		//show status in ui
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				while (audioCall != null) 
+//				{
+//					if (audioCall.audioSubscriber != null && audioCall.audioSubscriber.overallBytesReceived != 0) {
+//						bytesReceived = audioCall.audioSubscriber.overallBytesReceived;
+//						if ( bytesReceivedStart == 0 ) {
+//							bytesReceivedStart = System.currentTimeMillis();
+//						}
+//						else {
+//							bytesPerSecond = bytesReceived / (((int)(System.currentTimeMillis() - bytesReceivedStart)) / 1000);
+//						}
+//						
+//					}
+//					try {
+//						Thread.sleep(3000);
+//					} catch (Exception e) {}
+//				}
+//			}
+//			/*
+//			Runnable done = new Runnable() {
+//				public void run() {
+//					if (audioCall != null && audioCall.audioSubscriber != null) {
+//						//receivedStatusText
+//						//		.setText("received "
+//						//				+ (audioCall.audioSubscriber.overallBytesReceived / 1024)
+//						//				+ "Kb ( " + (bytesPerSecond / 1025)  + "Kb/s )");
+//					}
+//				}
+//			};
+//			*/
+//		}).start();
+
+		//startCaptureButton.setEnabled(false);
+		//stopCaptureButton.setEnabled(true);
+
+	}
+	public void stopCall() {
+		//startCaptureButton.setEnabled(true);
+		//stopCaptureButton.setEnabled(false);
+		//wakeLock.release();
+		if (audioCall != null)
+		{
+			audioCall.finish();
+			audioCall = null;
+		}
+	}
+
+}

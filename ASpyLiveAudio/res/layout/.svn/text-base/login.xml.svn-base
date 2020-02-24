@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff" >
+
+        <!-- Header Starts -->
+        <!-- Logo Start -->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:src="@drawable/icon" />
+        <!-- Logo Ends -->
+        <!-- Header Ends -->
+
+
+        <!-- Footer Start -->
+        <!-- Place footer next to header to set z-index property to minus value -->
+        <!-- Footer Ends -->
+
+
+        <!-- Login Form -->
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+            <!-- Email Label -->
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="UserName"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/txtUserName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dip"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:text="" />
+
+            <!-- Password Label -->
+
+            <TextView
+                android:id="@+id/txtViewPassword"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:text="" />
+			<RelativeLayout 
+			    android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content">
+                <TextView
+	                android:id="@+id/txtViewPassword"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignParentLeft="true"
+	                android:text="Nhớ password?"
+	                android:textColor="#372c24" />
+               <TextView
+	                android:id="@+id/txtViewPassword1"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignParentRight="true"
+	                android:text="Mode Offline?"
+	                android:textColor="#372c24" />
+			</RelativeLayout>
+			<RelativeLayout 
+			    android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content">			
+            <CheckBox
+                android:id="@+id/chkRemember123"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CheckBox" />
+            <CheckBox
+                android:id="@+id/chkOffline"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+            </RelativeLayout>
+            <!-- Login button -->
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/style_btn_common"
+                android:text="Login"
+                android:textColor="#ffffff" />
+			
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/copyright"
+                android:textColor="#372c24" />
+
+            <!--
+          Link to Registration Screen 
+          <TextView android:id="@+id/link_to_register"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="40dip"
+                  android:layout_marginBottom="40dip"
+                  android:text="New to Twitter? Register here"
+                  android:gravity="center"
+                  android:textSize="20dip"
+                  android:textColor="#0b84aa"/>
+            -->
+
+        </LinearLayout>
+        <!-- Login Form Ends -->
+
+    </RelativeLayout>
+
+</ScrollView>

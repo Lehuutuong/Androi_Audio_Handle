@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1199"
+   name=""
+   committed-date="2014-01-08T05:08:35.474038Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/lib"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1201"/>
+<entry
+   committed-rev="1199"
+   name="slf4j-android-1.6.1-RC1.jar"
+   text-time="2014-01-08T05:11:22.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="05bc50620d01e78f343abbec79a19fa1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:20.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="mina-core-2.0.2.jar"
+   text-time="2014-01-08T05:11:22.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="7a19f5702243c3a1759397a456a4411f"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:22.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="commons-lang-2.6.jar"
+   text-time="2014-01-08T05:11:22.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="4d5c1693079575b362edf41500630bbd"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:22.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="org.springframework.core-3.0.5.RELEASE.jar"
+   text-time="2014-01-08T05:11:22.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="d05ff86057e3e4ec2040c9dccf732628"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:22.000000Z"/>
+</wc-entries>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1199"
+   name=""
+   committed-date="2014-01-08T05:08:35.474038Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/src/net/process/locator1/liveaudio"
+   last-author="lamlt"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1199"
+   name="AudioInputPipe.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="eb6c56a52ec3db53cd21e53ec203cc9a"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AudioCodec.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="bdf9fc8d14327d963de0852de59d879c"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="FileAudioOutputPipe.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="257e7ddc37d1290e96d2c462f2323357"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AudioOutputPipe.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="bce86366bf6c392ee610b8a5c2d079aa"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="FFMPEGBootstrap.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="7243f362bbaf58e47f5e63a961d74d0e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="FFMPEGWrapper.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e3614b7d48d4b4596707d00a570b238b"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="WavInfo.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="4ddc590d67cc2982961b7686e6e35b44"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="NetworkUtils.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="7d237f13e19229b0baf659920f7230f1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="LiveAudioManager.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="d4756b3b06d8fb54552829717a967019"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AudioPublisher.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="074161f2d1ecfc3b35be539718bf88cf"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="FFMPEGAudioInputPipe.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="d241513f0577ace983c92fdf75ac19a6"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="PipeFactory.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="df9dbc0625a61aa9affb444770f77485"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="FFMPEGAudioOutputPipe.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="1bd6def3e4b18c6d957f81e360bfac6e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AudioSubscriber.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="0d01506cc6e0eb09f0483cecacd13463"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="LiveAudioContext.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="12cfcda5089d81c8a27ae6666eba51f5"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="AudioCall.java"
+   text-time="2014-01-08T05:11:10.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="fa53873a1d3a2b46182a1fa94a7215db"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:10.000000Z"/>
+</wc-entries>

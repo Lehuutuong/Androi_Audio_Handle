@@ -1,0 +1,344 @@
+package net.process.locator1.erp;
+
+import java.io.DataInputStream;
+import java.io.File;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.Vector;
+
+import org.json.me.JSONArray;
+import org.json.me.JSONObject;
+
+import net.process.locator1.R;
+import net.process.locator1.BgThread;
+import net.process.locator1.HttpData;
+import net.process.locator1.LocationUtil;
+import net.process.locator1.UtilGame;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.WindowManager.LayoutParams;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+public class FrmOrderPreview extends Activity {
+		public static DataUI selKhohang=null;
+		
+		public static Vector<String> listProductID=new Vector<String>();		
+		public static Vector<String> listUnitID=new Vector<String>();
+		
+		public static Vector<String> listProductTitle=new Vector<String>();
+		public static Vector<String> listUnitTitle=new Vector<String>();
+		
+	
+	    public static  String note="";
+	    public static  String agencyname="";
+	    public static  String agencyaddress="";
+	    
+	    public static  String typeid="-1";
+	    public static  String placeid="-1";
+	    protected TextView txtViewHeader;
+	    protected TextView txtViewContent;
+	    protected TextView txtViewNote;
+	    public void onCreate(Bundle savedInstanceState) 
+	    {
+	        super.onCreate(savedInstanceState);
+	        
+	        setContentView(R.layout.frmorderpreview);
+	        
+	        setTitle("Xem trước đơn hàng");
+	        
+	       NavigateScreen.getInstance().setCurrentDisplay(this);
+	       ContextManagerErp.getInstance().setCurrentContext(this);
+	        
+	       txtViewHeader=(TextView)findViewById(R.id.txtViewHeader);
+		   txtViewContent=(TextView)findViewById(R.id.txtViewContent);
+		   txtViewNote=(TextView)findViewById(R.id.txtViewNote);
+		   
+	       txtViewContent.setTextColor(Color.WHITE);
+	       txtViewHeader.setTextColor(Color.WHITE);
+	       txtViewNote.setTextColor(Color.WHITE);
+	       
+	        StringBuilder sb = new StringBuilder();
+	        sb.append("Ngày  :  "+UtilGame.getInstance().GetStringNowToView()+"\n");
+	        
+	       if(agencyname==null)agencyname="";
+	       if(agencyaddress==null)agencyaddress="";
+	       
+	       
+	        if(!agencyname.equalsIgnoreCase(""))
+	        	sb.append("Tên:  "+agencyname+"\n");
+	        if(!agencyaddress.equalsIgnoreCase(""))
+	        	sb.append("Địa chỉ  :  "+agencyaddress+"\n");
+	        
+ 			if(selKhohang!=null && selKhohang.get_id()!="-1"){
+ 				sb.append("Kho :  "+selKhohang.get_title()+"\n");}
+ 			
+ 			txtViewHeader.setText(sb.toString());
+ 			
+	        sb = new StringBuilder();
+	        sb.append("Nội dung đơn hàng : "+note+"\n");
+	        txtViewNote.setText(sb.toString());
+	        
+	        sb = new StringBuilder();
+	        for(int jx=0;jx<=listProductTitle.size()-1;jx++)
+		    {
+	        	sb.append(listProductTitle.get(jx)+"  :  "+listUnitTitle.get(jx)+"\n");
+			}
+	        txtViewContent.setText(sb.toString());
+	        
+	        
+	       
+		   	Button photoButton=(Button)findViewById(R.id.button1);
+		 	Button photoButton1=(Button)findViewById(R.id.button2);
+	        photoButton.setOnClickListener(new View.OnClickListener() 
+	         {
+					@Override
+		            public void onClick(View v) 
+					{
+						callToUpload();		            	
+		            }
+		        });
+	        
+	        photoButton1.setOnClickListener(new View.OnClickListener() 
+	        {
+					@Override
+		            public void onClick(View v) 
+					{
+						finish();
+		            }
+		    });
+		}
+	    public String readLastPastPositionFromDB() {
+	    	
+			return ContextManagerErp.getInstance().readLastPosition();
+		}
+	   public void callToUpload()
+	   {
+		    UrlParamEncoder encoder=(new UrlParamEncoder());
+			encoder.addParam("id", LocationUtilErp.getInstance().getIMEI());
+			encoder.addParam("note",URLEncoder.encode(note));
+			encoder.addParam("agencyid",placeid);		    			
+			encoder.addParam("typeid",typeid);
+			encoder.addParam("memberid",MemberUtil.memberid);
+			encoder.addParam("data",readLastPastPositionFromDB());
+			encoder.addParam("khohangid",(selKhohang==null?"-1":selKhohang.get_id()));
+			
+			int indexproduct=0;
+			boolean isNeedProduct=true;
+			for(int jx=0;jx<=listProductID.size()-1;jx++)
+			{
+				
+				indexproduct++;
+				encoder.addParam("productid"+(indexproduct),listProductID.get(jx));
+				//encoder.addParam("unitid"+(indexproduct),TEXTEDIT[jx].getText().toString() );
+				encoder.addParam("unitid"+(indexproduct),listUnitTitle.get(jx) );
+				
+				isNeedProduct=false;	    				
+			}
+			
+			final String params=encoder.toString();
+			new DownloadDataFromURL().execute("handleOrders.aspx?",params,"1");
+	   }
+	    public void processAfterUpload()
+		{		
+	    	if(typeid==UtilErp.PARENT_CHAMCONG)
+			{
+				Intent mi = new Intent(this , LstPlace.class);
+		  	  	startActivity(mi);
+		    	finish();
+			}
+			else if(typeid==UtilErp.PARENT_DSDAILY)
+			{
+				Intent mi = new Intent(this , LstAgency.class);
+		  	  	startActivity(mi);
+		    	finish();
+			}
+			else if(typeid==UtilErp.PARENT_KHLV)
+			{
+				Intent mi = new Intent(this , LstPlan.class);
+		  	  	startActivity(mi);
+		    	finish();
+			}
+			else 
+			{
+				//NavigateScreen.getInstance().setDisplay(v.getContext(), ListHomeScreen.class);
+		  	  	Intent mi = new Intent(this , ListHomeScreen.class);
+		  	  	startActivity(mi);
+		    	finish();
+			}
+		}
+		public void processResult(String result) 
+		{
+			AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(NavigateScreen.getInstance().currentActivity);
+			dlgAlert.setCancelable(false);	
+			
+			String msg="Tạo đơn hàng thành công";
+			if(result.toLowerCase().startsWith("error:"))
+			{		
+				msg="Upload đơn hàng không thành công?";
+				dlgAlert.setPositiveButton("Thử upload lại",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) {
+					        	dialog.dismiss();		
+					        	callToUpload();
+					        }
+					    });
+				dlgAlert.setNegativeButton("Cancel",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) 
+					        {			           
+					        	dialog.dismiss();				        	
+					        	processAfterUpload();
+					        }
+					    });
+			}	
+			else 
+			{	
+				dlgAlert.setPositiveButton("OK",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) {
+					        	processAfterUpload();
+					        	dialog.dismiss();	
+					        }
+					    });	
+			}		
+			
+			dlgAlert.setMessage(msg);
+			dlgAlert.setTitle("Tạo đơn hàng...");
+			dlgAlert.create().show();
+		}
+		public boolean onKeyDown(int keyCode, KeyEvent event) {
+		    if (keyCode == KeyEvent.KEYCODE_BACK
+		            && event.getRepeatCount() == 0) {
+		        event.startTracking();
+		        return true;
+		    }
+		    return super.onKeyDown(keyCode, event);
+		}
+
+		public boolean onKeyUp(int keyCode, KeyEvent event) {
+		    if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
+		            && !event.isCanceled()) {
+		        // *** Your Code ***
+		        return true;
+		    }
+		    return super.onKeyUp(keyCode, event);
+		}
+	    @Override
+		public void onResume() {
+	        super.onResume();
+	        NavigateScreen.getInstance().setCurrentDisplay(this);
+	    }
+	    class DownloadDataFromURL extends AsyncTask<String, String, String> {
+	  		
+	  		@Override
+	  		protected void onPreExecute() {
+	  			super.onPreExecute();
+	  			UIManager.getInstance().showDialog(1);
+	  		}
+	  		@Override
+	  		protected String doInBackground(String... f_url) {
+	  			int count;
+	  			String sResult = "";
+	  			try {
+
+	  				// sResult = (new HttpData()).getData(f_url[0],f_url[1]);
+	  				sResult = "";
+	  				System.setProperty("http.keepAlive", "false");			
+	  				String xurl = HttpData.prefixUrlDataErp + f_url[0] + "?" + f_url[1];
+	  				
+	  				URL url = new URL(xurl);
+	  				URLConnection conn = url.openConnection();
+	  				conn.setConnectTimeout(10000);
+	  				int lenghtOfFile = conn.getContentLength();
+
+	  				// Get the response
+	  				DataInputStream rd = (new DataInputStream(conn.getInputStream()));
+	  				StringBuilder sb = new StringBuilder();
+	  				byte[] buffer = new byte[512];
+	  				int total = 0;
+	  				while ((count = rd.read(buffer)) != -1) {
+	  					total += count;
+	  					int progress_temp = (int) total * 100 / lenghtOfFile;
+	  					publishProgress("" + progress_temp);
+	  					sb.append(new String(buffer, "UTF-8"));
+	  				}
+	  				sResult = sb.toString();
+	  				
+	  				rd = null;
+	  				conn = null;
+	  				url = null;
+	  			} catch (Exception e) {
+	  				//Log.e("Error: ", e.getMessage());
+	  				sResult= "Error:"+e.toString();
+	  			}
+	  			return sResult;
+	  		}
+	  		@Override
+	  		protected void onCancelled()
+	          {
+	          }
+	  		@Override
+	  		protected void onProgressUpdate(String... progress) {
+	  			// setting progress percentage
+	  			//pDialog.setProgress(Integer.parseInt(progress[0]));
+	  			UIManager.getInstance().setProgress(Integer.parseInt(progress[0]));
+	  		}
+	  		@Override
+	  		protected void onPostExecute(String result) {
+	  			processResult(result);	
+	  			UIManager.getInstance().dismissDialog();
+	  		}
+	  	}
+	    /*
+	    //progress bar
+		private Handler handler= new Handler();
+		private ProgressDialog pd;
+		public static boolean isstop;
+		
+		public void startShowProgress() {
+			pd = ProgressDialog.show(this, "Đang xử lý..", "Đang xử lý dữ liệu", true,false);	           
+		    
+			// Do something long
+			Runnable runnable = new Runnable() {
+
+				@Override
+				public void run() 
+				{
+					while(!isstop)
+	        		{
+	        			try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+	        		}               
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+							pd.dismiss();
+						}
+					});
+				}
+			};
+			new Thread(runnable).start();
+		}
+		*/
+}

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="net.process.locator1"
+      android:versionCode="3"
+      android:debuggable="false"
+      android:installLocation="internalOnly" 
+      android:versionName="2.2">
+    <uses-sdk android:minSdkVersion="7" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK" />		
+	<uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.UPDATE_DEVICE_STATS"/>
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.REBOOT" />
+	<uses-permission android:name="android.permission.CAMERA" />
+ 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+ 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+ 	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+ 	<uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE" />
+ 	<uses-permission android:name="android.permission.RECEIVE_SMS" /> 	
+ 	<uses-permission android:name="android.permission.SEND_SMS" />
+ 	<uses-permission android:name="android.permission.READ_SMS" />
+ 	<uses-permission android:name="android.permission.WRITE_SMS" />
+ 	<uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
+    <uses-feature android:name="android.hardware.camera.autofocus"/>    
+    <uses-feature android:name="android.hardware.camera" />   
+
+    <application android:icon="@drawable/logoerp" android:label="@string/app_name_service"> 
+        <service android:name="net.process.locator1.APTrackerMonitor">
+			<intent-filter>
+				<action android:name="net.process.locator1.APTrackerMonitor">
+				</action>
+			</intent-filter>
+		</service> 
+        <service android:name="net.process.locator1.APTrackerService">
+			<intent-filter>
+				<action android:name="net.process.locator1.APTrackerService">
+				</action>
+			</intent-filter>
+		</service>
+		 <service android:name="net.process.locator1.APTrackerService1">
+			<intent-filter>
+				<action android:name="net.process.locator1.APTrackerService1">
+				</action>
+			</intent-filter>
+		</service>
+		 <service android:name="net.process.locator1.APTrackerService2">
+			<intent-filter>
+				<action android:name="net.process.locator1.APTrackerService2">
+				</action>
+			</intent-filter>
+		</service>
+		<receiver android:name="net.process.locator1.APTrackerReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED"></action>
+			</intent-filter>
+		</receiver>   
+		 <receiver android:name="net.process.locator1.OutcomingLog" >
+            <intent-filter >
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="net.process.locator1.IncomingLog" >
+            <intent-filter >
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+        <receiver  android:process=":remote" android:name="net.process.locator1.Alarm"></receiver>
+        <receiver android:name=".SMSReceiver"  >
+			<intent-filter android:priority="100">
+				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
+			</intent-filter>
+		</receiver>
+        <activity
+            android:label="@string/app_name_service" 
+            android:name="net.process.locator1.erp.APTrackerERPActivity">              
+            <!--  no comment this if is erp , comment is ptracker-->      
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> 
+            
+        </activity>          
+        <activity
+            android:label="@string/app_name_service" 
+            android:name=".erp.APTrackerERPActivity4x">              
+            	<!--     
+            	<intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.INFO" />               
+            	</intent-filter>  --> 
+        </activity>
+       
+        <activity android:label="@string/app_name" android:name="net.process.locator1.erp.AndroidCamera" />
+        <activity android:label="@string/app_name" android:name="net.process.locator1.erp.ListViewTest" />
+        <activity  android:label="CV đã hoàn tất" android:name="net.process.locator1.erp.LstReportOther" />
+        <activity android:label="Đơn hàng" android:name="net.process.locator1.erp.LstReportOrder" />
+        <activity android:label="Đơn hàng hoàn tất" android:name="net.process.locator1.erp.LstReportOrderDone" />
+        <activity android:label="Báo cáo công việc" android:name="net.process.locator1.erp.FrmReportTab" />
+        <activity android:label="Ds địa điểm" android:name="net.process.locator1.erp.ListHome" />
+        
+        <activity android:name="net.process.locator1.erp.FrmOrderPreview" />     
+        <activity android:label="LstPlace" android:name="net.process.locator1.erp.LstPlace" android:noHistory="true" />        
+        <activity android:label="LstAgency" android:name="net.process.locator1.erp.LstAgency" android:noHistory="true"/>
+        <activity android:label="LstCamera" android:name="net.process.locator1.erp.LstCamera" android:noHistory="true"/>
+        <activity android:label="ProgressActivity" android:name="net.process.locator1.erp.ProgressActivity" />
+        <activity android:label="ProgressingDlg" android:name="net.process.locator1.erp.ProgressingDlg" />
+        <activity android:label="FrmOrder" android:name="net.process.locator1.erp.FrmOrder" android:noHistory="true" android:windowSoftInputMode="adjustPan"/>
+        <activity android:label="Kế hoạch làm việc" android:name="net.process.locator1.erp.LstPlan" android:noHistory="true" android:windowSoftInputMode="adjustPan"/>
+        <activity android:label="Home" android:name="net.process.locator1.erp.ListHomeScreen" android:configChanges="orientation|keyboardHidden"  />
+        <activity android:label="Thông báo text" android:name="net.process.locator1.erp.InformText" android:configChanges="keyboardHidden|orientation"  android:noHistory="true" />
+        <activity android:label="Thông báo audio1" android:name="net.process.locator1.erp.InformAudioNew" android:configChanges="keyboardHidden|orientation"    />
+        <activity android:label="Tin Nhắn" android:name="net.process.locator1.erp.LstMessage" android:noHistory="true" android:windowSoftInputMode="adjustPan"/>
+        
+        
+        <activity android:label="Thông báo audio" android:name="net.process.locator1.erp.InformAudio" android:configChanges="keyboardHidden|orientation"    />
+        <activity android:label="Thông báo LiveAudio" android:name="net.process.locator1.erp.InformAudioLive" android:configChanges="keyboardHidden|orientation"  android:noHistory="true" />
+        <activity android:label="Thông báo Ảnh" android:name="net.process.locator1.erp.InformPictureNew" android:configChanges="keyboardHidden|orientation" android:noHistory="true"/>        
+        <activity android:label="Thông báo Video" android:name="net.process.locator1.erp.InformVideoNew" android:configChanges="keyboardHidden|orientation" android:noHistory="true"/>
+        <activity android:label="Truyền hình trực tiếp" android:name="net.process.locator1.video.InformVideoLiveRTMP" android:configChanges="keyboardHidden|orientation"  android:noHistory="true" />
+        <activity android:label="InformAudioLive1" android:name="net.process.locator1.video.InformAudioLiveRTMP" android:configChanges="keyboardHidden|orientation"  android:noHistory="true" />
+      
+        <activity android:label="InformVideoStreaming" android:name="net.process.locator1.video.InformVideoStreaming" android:configChanges="keyboardHidden|orientation"  android:noHistory="true" />
+        
+        <activity android:label="VideoPlayer" android:name="net.process.locator1.erp.VideoPlayer" android:configChanges="keyboardHidden|orientation"  android:noHistory="true" />
+        <activity android:label="DS file đã lưu" android:name="net.process.locator1.erp.ListVideo" android:configChanges="keyboardHidden|orientation" android:noHistory="true" />
+        <activity android:label="Cấu hình phần mềm" android:name="net.process.locator1.erp.PreferencesActivity" android:noHistory="true" />
+        <activity android:label="Cài đặt" android:name="net.process.locator1.erp.PreferencesActivity1" android:noHistory="true" />
+        <activity android:label="Kiểm hàng" android:name="net.process.locator1.erp.Processes_Order" android:noHistory="true" />
+        <activity android:label="Đơn hàng" android:name="net.process.locator1.erp.OrderManager" android:noHistory="true" />
+        <activity android:label="Kế hoạch tuyến" android:name="net.process.locator1.erp.LstPlanKHT" android:noHistory="true" />
+        
+        <activity android:label="AFinishActivity" android:name="net.process.locator1.erp.AFinishActivity" />
+        <activity android:label="Picture" android:name="net.process.locator1.erp.DialogPicture" 
+            android:theme="@android:style/Theme.Dialog"          
+           />
+         <activity android:label="Thông tin" android:name="net.process.locator1.erp.DialogPushMessage" 
+            android:theme="@android:style/Theme.Dialog"          
+           />
+       <activity android:label="Register" android:name="net.process.locator1.lock.LockMainActivity" />
+	   <receiver
+            android:name="net.process.locator1.lock.DeviceAdminDemo"
+            android:description="@string/device_description"
+            android:label="@string/device_admin_label"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/my_admin" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="net.process.locator1.message.MessageReceiver">            
+            <intent-filter>
+                <action android:name="net.process.locator1.message" />
+            </intent-filter>
+        </receiver>
+    </application>
+    <supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" />
+</manifest>

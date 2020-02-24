@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
+<LinearLayout android:id="@+id/layout123"  
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <Button android:id="@+id/button1" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:gravity="center_horizontal"
+        android:text="Đồng ý"></Button>	
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="#FFFFFF"
+              android:text="Kho hàng:"/>
+    <Spinner
+        android:id="@+id/lstKhoHang"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:textColor="#FFFFFF"
+              android:text="Nội dung:"/>
+    <EditText
+          android:id="@+id/txtNote"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="20dip"
+          android:layout_marginTop="5dip"
+          android:singleLine="true" 
+          android:text=""
+          />
+</LinearLayout>
+</ScrollView>

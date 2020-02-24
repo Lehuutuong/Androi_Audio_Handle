@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="1255"
+   name=""
+   committed-date="2014-01-11T08:56:42.575288Z"
+   url="svn://123.30.208.123/erpcurrent/Erp-Last/res/layout"
+   last-author="tuannew"
+   kind="dir"
+   uuid="7d42c808-9042-4c47-82c4-3ba6b308e874"
+   repos="svn://123.30.208.123"
+   revision="1256"/>
+<entry
+   committed-rev="1241"
+   name="frmorder.xml"
+   text-time="2014-01-11T03:45:36.000000Z"
+   committed-date="2014-01-11T04:46:21.157112Z"
+   checksum="6228fd4e1f01aa15859acd5c2b28bdfe"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="videoplayer.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="4326879d0c87df5c2ba1cd2b643a33f6"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="homescreennew1.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="2c2fbb3577bbfd7b0e8307bcb1d564cb"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmorder_listitem.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="2da99a8e5c452881d07c445ccd6c72af"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="custom_spiner.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e2821719fbd252e7242ca47157fb8ab1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="agency_search.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3c9f044067c8b0ebcab041b70f2acbc9"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="round_rect.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="c52e17985aaef08ccbcc807615c94318"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="progress.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="8904534d2614ab93d6dea35057c7dfc4"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="main1.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="524c235e62b9ac69e7ad61f2bb39d05d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1200"
+   name="processes_order_main.xml"
+   text-time="2014-01-08T09:16:40.000000Z"
+   committed-date="2014-01-08T08:24:24.483043Z"
+   checksum="29c08ba9eb2f3a11b5f6e1fa183dd8b4"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-08T09:16:40.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="controlvideo.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="0a539693e12a0edb29608a011b005222"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="order_products_item.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="fe7e25d6a28a4d5d9fb473b57d1792ed"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="activity_list_video.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3031a12b5e8a279dbfcadd2e0bff814d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="imageviewtest.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="7b09e03349c0955b78b28c33d43fe385"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmorder_headertab.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3ecce052b810b15129f7cfedb6e7dd4d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="order_hand_item.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b5614a6b03ad705f18afb243e680f089"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="controlupload.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="223b58a41af6ae99a3624dca83c03b68"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="homescreen.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="51d2ea1c9f4409d77903b58425766ef8"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="menubar.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="dfb936f054a1e245a8a379a3e578ae3b"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1200"
+   name="order_hand_tab.xml"
+   text-time="2014-01-08T09:16:40.000000Z"
+   committed-date="2014-01-08T08:24:24.483043Z"
+   checksum="8a4b19dacadde0a1649141912fd01751"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-08T09:16:40.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="takephoto.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b23d10fb2aaa9fbd02024206b919b7d6"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="controlvideolivenew.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3e53b462fd0e4cc5ab34c61cdc23b476"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmorder_tap1.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="21d2ed336ba84396267b0bcc4cfbc21b"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmorder_tap2.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="670469b603e0408750f66666773eca0c"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1219"
+   name="controlqudl.xml"
+   text-time="2014-01-09T06:42:22.000000Z"
+   committed-date="2014-01-09T16:30:46.700968Z"
+   checksum="fdea9a4449db560349f452504fbf4249"
+   last-author="lamlt"
+   kind="file"/>
+<entry
+   committed-rev="1199"
+   name="processing_order.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="8bb7541af7cb5f55aac4170ecf7cd301"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmorder_tap3.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="f24d9de8ada4fced2dc62b807cfd521e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmordertab.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="f10f53b5404e06c03f4bc49d0f08ced9"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1204"
+   name="order_hand_product_main.xml"
+   text-time="2014-01-09T04:12:56.000000Z"
+   committed-date="2014-01-09T02:24:25.436446Z"
+   checksum="897fc12e4d0298753aba8821e568939b"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-09T04:12:56.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="processes_order_listitem.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="cfbd568491c8be22ae8df7f285311396"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="informaudio.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="29aad7a050a1b05238abc0ecd1eda623"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="imageview.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="4017b1a31dd0eed7313ab79deb50646d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmorder_gohome.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="2c098b2249e0a2040ecb05711534e0a8"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="dialog_listproducts.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="525d22fd8a9663e3ebda21b942e9261c"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ipcam_main1.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="9bea4c0a2cc7c183652f3207c3e1b785"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1249"
+   name="dialogue_agency.xml"
+   text-time="2014-01-11T08:48:38.000000Z"
+   committed-date="2014-01-11T08:15:09.231676Z"
+   checksum="c9170da7d27553f046a15d111cd23d9c"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-11T08:48:38.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmorder_tap_list.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="eba872204d9a15c1cac0fca1938491a1"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="frmorderpreview.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="63dec63ef9a3e321b979377eb4273f39"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="listhome.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="eadd742ddc99bcff11c0c022a0671d11"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="main.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="c7d35598f9438716b103745fe00b02cc"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="controlvideolive.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3f9cc08ffd45a4286dfa463eb1635967"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="progressbar.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="e5e690c7ee8f4dc5c634e5326622ac52"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1204"
+   name="custom_dialog.xml"
+   text-time="2014-01-09T04:12:56.000000Z"
+   committed-date="2014-01-09T02:24:25.436446Z"
+   checksum="836eb565347d6a4bcdf7eb1b0e42da04"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-09T04:12:56.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="ipcam_main.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="923c79dd7bd324adec0adf3f71b19ccf"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="dialog_chat.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="cd71bc0a9f39d191a4bbee60d62bcd95"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="message_toast.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="7b7e29bdb769225f768f0e26ecc02031"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1219"
+   name="informtext.xml"
+   text-time="2014-01-09T07:11:44.000000Z"
+   committed-date="2014-01-09T16:30:46.700968Z"
+   checksum="cbd109d37fc5c7b53679e15f5625a239"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="activity_main.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="762e5db6fb52259ec6178bf1fea9f56d"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="activity_list_video_row.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="1896ca48d31ce621db80c2ef8dc53644"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1200"
+   name="order_manager.xml"
+   text-time="2014-01-08T09:16:40.000000Z"
+   committed-date="2014-01-08T08:24:24.483043Z"
+   checksum="6b757d814d22374e5f08c0857d6f76a8"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-08T09:16:40.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="order_hand_main.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="a75f454950995e78730e12d5e092fa4e"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="homescreenen.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="28194d381d7b95b73c673638e43692ba"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1226"
+   name="control.xml"
+   text-time="2014-01-10T02:23:26.000000Z"
+   committed-date="2014-01-10T09:38:38.125371Z"
+   checksum="4ad1d9da7108a59f92b45452a65b1374"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="listplace.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="eadd742ddc99bcff11c0c022a0671d11"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1241"
+   name="frmorder_main.xml"
+   text-time="2014-01-11T03:41:50.000000Z"
+   committed-date="2014-01-11T04:46:21.157112Z"
+   checksum="00c3fd527ff6fa4fa1fc500cf59e136c"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1200"
+   name="processes_order_tap1.xml"
+   text-time="2014-01-08T09:16:40.000000Z"
+   committed-date="2014-01-08T08:24:24.483043Z"
+   checksum="bab2a02d6dd106b60e9720fa99a0ddfd"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-08T09:16:40.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="processes_order_tap2.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="6ea909dc3f14be0b397f7cb1c1fedd63"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="informaudiolive.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="67ae87008acd2c953e617c8d40487959"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="preference_screen1.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="0466ebee6bb77746ccb912546f65cffc"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="audio.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="d2de8ed732c086dcc03593f4d4d6d534"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="informvideolive.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="f1d7c95da9b9348de4bb1e2232b7c706"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="dialog_pushmessage.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="1342223fdbe224446a5f7e86844cd204"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="order_hand_product_items.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="3cd58eb46058d090bd1e8803e3d79c04"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1255"
+   name="listviewtest.xml"
+   text-time="2014-01-09T10:19:14.000000Z"
+   committed-date="2014-01-11T08:56:42.575288Z"
+   conflict-wrk="listviewtest.xml.mine"
+   checksum="974e5ee97c31ee0e581cea2921874551"
+   last-author="tuannew"
+   kind="file"
+   conflict-new="listviewtest.xml.r1256"
+   prop-time="2014-01-11T08:58:30.000000Z"
+   conflict-old="listviewtest.xml.r1252"/>
+<entry
+   committed-rev="1199"
+   name="login.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="ad93322787f559c75b280531964c935a"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1222"
+   name="message_search.xml"
+   text-time="2014-01-10T02:27:04.000000Z"
+   committed-date="2014-01-10T02:25:52.742237Z"
+   checksum="fb0d794150efe709c0469e139d6c9f7c"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-10T02:27:04.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="homescreen1.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="eec4afe43c8e601829dddc740f7f5930"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="homescreen2.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="b4c8ae681b2be7a7bf7452dbc22b7327"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1199"
+   name="preference_screen.xml"
+   text-time="2014-01-08T05:11:16.000000Z"
+   committed-date="2014-01-08T05:08:35.474038Z"
+   checksum="19a34137e94290bf7c01fd9182948ccb"
+   last-author="lamlt"
+   kind="file"
+   prop-time="2014-01-08T05:11:16.000000Z"/>
+<entry
+   committed-rev="1208"
+   name="plan_search.xml"
+   text-time="2014-01-09T10:19:14.000000Z"
+   committed-date="2014-01-09T08:47:23.530717Z"
+   checksum="fb0d794150efe709c0469e139d6c9f7c"
+   last-author="tuannew"
+   kind="file"
+   prop-time="2014-01-09T10:19:14.000000Z"/>
+</wc-entries>

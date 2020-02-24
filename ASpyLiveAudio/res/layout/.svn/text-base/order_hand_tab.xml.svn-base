@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/edit_search_order_hand"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:hint="type to filter"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_order_hand"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/btn_search_order_hand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/style_btn_common"
+            android:text="Update"
+            android:textColor="#ffffff" />
+
+        <include layout="@layout/frmorder_gohome" >
+        </include>
+    </LinearLayout>
+
+</LinearLayout>

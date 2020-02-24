@@ -1,0 +1,270 @@
+package net.process.locator1.erp;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.process.locator1.R;
+
+import android.app.Activity;
+import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnKeyListener;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.ListView;
+import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class OrderSearchAdapter extends ArrayAdapter<Products> {
+
+	public static ArrayList<Products> original;
+	private ArrayList<Products> fitems;
+	private Filter filter;
+	private Activity mcontext;
+	private LayoutInflater inflater;
+	public static String NewNumber = "";
+	public static String OdlName = "";
+	public int createOrder = 0;
+	public static int viewisNull=0;
+	ListView pGridView = null;
+    public OrderListAdapter listprodctAdapter;
+
+	public OrderSearchAdapter(Activity context, int textViewResourceId,
+			ArrayList<Products> objects) {
+		super(context, textViewResourceId, objects);
+		// TODO Auto-generated constructor stub
+		this.original = new ArrayList<Products>(objects);
+		this.fitems = new ArrayList<Products>(objects);
+		this.mcontext = context;
+
+	}
+
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent) {
+
+		final ViewHolder holder;
+
+		if (convertView == null) {
+
+			holder = new ViewHolder();
+			inflater = mcontext.getLayoutInflater();
+			convertView = inflater.inflate(R.layout.frmorder_listitem, parent,
+					false);
+
+			holder.txtName = (TextView) convertView
+					.findViewById(R.id.txt_nameproduct);
+			holder.editNumber = (EditText) convertView
+					.findViewById(R.id.edit_product);
+			holder.ckcBox = (CheckBox) convertView
+					.findViewById(R.id.ckc_prdouct);
+			holder.txtID = (TextView) convertView
+					.findViewById(R.id.txt_productid);
+			viewisNull=1;
+			convertView.setTag(holder);
+			
+		}
+
+		else {
+
+			holder = (ViewHolder) convertView.getTag();
+		}
+
+		if (fitems == null) {
+			fitems = new ArrayList<Products>(original);
+		}
+
+		// Log.d("Size",fitems.size()+"");
+		// ham` getItem da duoc override lai
+		final Products prudcts = fitems.get(position);// getItem(position);
+		holder.txtName.setText(prudcts.ProductName);
+		holder.editNumber.setText(prudcts.ProductNumber);
+		holder.txtID.setText(prudcts.ID);
+		holder.ckcBox.setSelected(false);
+		//chi set event khi converview la` null
+		if(viewisNull==1)
+		{
+			holder.editNumber.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+
+					if (!hasFocus) {
+						// final int position = v.getId();
+						final EditText Caption = (EditText) v;
+						// EditText
+						// editSearch=(EditText)mcontext.findViewById(R.id.searchOder);
+
+						{
+							int postionOrder = LoadDataGrid(holder.txtID.getText()
+									.toString());
+							if (postionOrder == -1) {
+								// // Toast.makeText(mcontext,
+								// "Error foucs",Toast.LENGTH_SHORT).show();
+							} else {
+								original.get(postionOrder).ProductNumber = Caption
+										.getText().toString();
+							}
+
+						}
+						// neu tim kiem thi vi tri bi thay doi
+
+					}
+
+				}
+			});
+
+			holder.ckcBox.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					int postionOld = -1;
+					Products prouctList;// = new Products();
+					String id = holder.txtID.getText().toString();
+					// Toast.makeText(mcontext, ""+id,Toast.LENGTH_SHORT).show();
+					// / EditText
+					// editSearch=(EditText)mcontext.findViewById(R.id.searchOder);
+					// neu khong tim kiem xoa kieu nay la chinh xac
+					if (FrmOrder.strSearch.length() < 1) {
+						postionOld = position;
+						// Toast.makeText(mcontext,
+						// "a-a",Toast.LENGTH_SHORT).show();
+					} else {
+						postionOld = LoadDataGrid(id);
+
+					}
+					if (postionOld == -1) {
+						//Toast.makeText(mcontext, "Error ckc", Toast.LENGTH_SHORT)
+							//	.show();
+					} else {
+						holder.ckcBox.setChecked(false);
+						original.get(postionOld).ProductNumber = holder.editNumber
+								.getText().toString();
+						prouctList = original.get(postionOld);
+						//kiem tra xem co sll hay chua
+						//Toast.makeText(mcontext, prouctList.ProductNumber,Toast.LENGTH_SHORT).show();
+						if(prouctList.ProductNumber.isEmpty()){
+							UIManager.getInstance().showMsg("Bạn vui lòng nhập số lượng");
+						}
+						else{
+							original.remove(postionOld);
+							FrmOrder.arrListStore.remove(postionOld);
+							getFilter().filter(FrmOrder.strSearch);
+							FrmOrder.arrListActive.add(prouctList);	
+							if (createOrder == 0) {
+								
+								listprodctAdapter = new OrderListAdapter(mcontext,
+										R.layout.frmorder_listitem,
+										FrmOrder.arrListActive);
+								pGridView = (ListView) mcontext
+										.findViewById(R.id.gridProductList);
+								pGridView.setAdapter(listprodctAdapter);
+								createOrder = 1;
+
+							} else {
+								OrderListAdapter.original.add(prouctList);
+								listprodctAdapter.getFilter().filter("");
+							}
+						}
+
+
+					}
+
+				}
+			});
+			//
+		}
+
+		return convertView;
+	}
+
+	@Override
+	public Filter getFilter() {
+		if (filter == null)
+			filter = new PkmnNameFilter();
+
+		return filter;
+	}
+
+	public int LoadDataGrid(String Id) {
+
+		for (int i = 0; i < FrmOrder.arrListStore.size(); i++) {
+			if (FrmOrder.arrListStore.get(i).ID == Id) {
+				return i;
+			}
+		}
+		return -1;
+
+	}
+
+	private class PkmnNameFilter extends Filter {
+
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			// TODO Auto-generated method stub
+			FilterResults filterResult = new FilterResults();
+			String prefix = constraint.toString().toLowerCase();
+
+			if (prefix == null || prefix.length() == 0) {
+				ArrayList<Products> list = new ArrayList<Products>(original);
+				filterResult.values = list;
+				filterResult.count = list.size();
+			} else {
+				prefix = UtilErp.TrimVietnameseMark(prefix);
+				final ArrayList<Products> list = new ArrayList<Products>(
+						original);
+				final ArrayList<Products> nlist = new ArrayList<Products>();
+				int count = list.size();
+				for (int i = 0; i < count; i++) {
+					final Products products = list.get(i);
+					final String value = products.ProductNameE.toLowerCase();
+					if (value.contains(prefix)) {
+						nlist.add(products);
+					}
+				}
+				filterResult.values = nlist;
+				filterResult.count = nlist.size();
+
+				Log.d("Size result1", nlist.size() + "");
+			}
+			return filterResult;
+		}
+
+		@Override
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
+			fitems = (ArrayList<Products>) results.values;
+			clear();
+			int count = fitems.size();
+			for (int i = 0; i < count; i++) {
+				Products pkmn = (Products) fitems.get(i);
+				add(pkmn);
+				// notifyDataSetInvalidated();
+			}
+			// TODO Auto-generated method stub
+			Log.d("Size result", count + "");
+
+		}
+
+	}
+
+	static class ViewHolder {
+		EditText editNumber;
+		TextView txtName;
+		TextView txtID;
+		CheckBox ckcBox;
+	}
+
+}

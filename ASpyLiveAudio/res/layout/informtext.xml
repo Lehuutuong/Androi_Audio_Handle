@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           
+            android:text="Nhập nội dung" />
+
+        <View
+            android:layout_height="2dip"
+            android:background="#FF0000" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal" >
+
+            <EditText
+                android:id="@+id/txtEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_span="3"
+                 android:gravity="top"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <View
+            android:layout_height="2dip"
+            android:background="#FF0000" />
+
+        <TableRow
+            android:id="@+id/tableRow12"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:visibility="gone"
+            android:gravity="center_horizontal|center_vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/style_btn_common"
+                    android:text="Cập nhật"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/style_btn_common"
+                    android:text="Hủy bỏ"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/btnSaveOffline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/style_btn_common"
+                    android:text="Save Offline"
+                    android:textColor="#ffffff"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutQUDL"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/tableLayout1"
+        android:layout_height="wrap_content"        
+        android:gravity="center"
+        android:orientation="horizontal" >
+    </LinearLayout>   
+	<include layout="@layout/controlbuttonui"/>
+</RelativeLayout>
